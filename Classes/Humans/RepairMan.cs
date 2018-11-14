@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoRepairShop.Classes;
 
-namespace AutoRepairShop.Classes
+namespace AutoRepairShop.Classes.Humans
 {
     abstract class RepairMan : Human
     {

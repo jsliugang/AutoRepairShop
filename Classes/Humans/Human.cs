@@ -6,11 +6,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AutoRepairShop.Classes
+
+namespace AutoRepairShop.Classes.Humans
 {
     abstract class Human
     {
-        public string Name => "Human";
+        public string Name { get; set; }
 
         public void Greet()
         {
@@ -19,7 +20,7 @@ namespace AutoRepairShop.Classes
 
         public void Say(string message)
         {
-            
+            Console.WriteLine(message);
         }
 
 

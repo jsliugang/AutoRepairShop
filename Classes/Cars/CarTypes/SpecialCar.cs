@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoRepairShop.Classes
+namespace AutoRepairShop.Classes.Cars.CarTypes
 {
-    class RM_Vano:RepairMan
+    class SpecialCar:Car
     {
-        public string Name => "Vano";
-
-        public void ReplacePart()
+        public SpecialCar():base()
         {
-            
+                
         }
     }
 }

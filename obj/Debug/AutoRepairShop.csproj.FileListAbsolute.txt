@@ -1,0 +1,6 @@
+C:\Users\Yuri.Pustovoy\documents\visual studio 2017\Projects\AutoRepairShop\AutoRepairShop\bin\Debug\AutoRepairShop.exe.config
+C:\Users\Yuri.Pustovoy\documents\visual studio 2017\Projects\AutoRepairShop\AutoRepairShop\bin\Debug\AutoRepairShop.exe
+C:\Users\Yuri.Pustovoy\documents\visual studio 2017\Projects\AutoRepairShop\AutoRepairShop\bin\Debug\AutoRepairShop.pdb
+C:\Users\Yuri.Pustovoy\documents\visual studio 2017\Projects\AutoRepairShop\AutoRepairShop\obj\Debug\AutoRepairShop.csprojResolveAssemblyReference.cache
+C:\Users\Yuri.Pustovoy\documents\visual studio 2017\Projects\AutoRepairShop\AutoRepairShop\obj\Debug\AutoRepairShop.exe
+C:\Users\Yuri.Pustovoy\documents\visual studio 2017\Projects\AutoRepairShop\AutoRepairShop\obj\Debug\AutoRepairShop.pdb

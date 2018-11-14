@@ -42,13 +42,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Customer.cs" />
-    <Compile Include="Classes\Human.cs" />
-    <Compile Include="Classes\RepairMan.cs" />
-    <Compile Include="Classes\RM_Kirill.cs" />
-    <Compile Include="Classes\RM_Petrovich.cs" />
-    <Compile Include="Classes\RM_Vano.cs" />
-    <Compile Include="Classes\ShopManager.cs" />
+    <Compile Include="Classes\Cars\CarParts\BodyPart.cs" />
+    <Compile Include="Classes\Cars\Car.cs" />
+    <Compile Include="Classes\Cars\CarParts\CarburetorPart.cs" />
+    <Compile Include="Classes\Cars\CarParts\CarPart.cs" />
+    <Compile Include="Classes\Cars\CarParts\EnginePart.cs" />
+    <Compile Include="Classes\Cars\CarParts\GearboxPart.cs" />
+    <Compile Include="Classes\Cars\CarParts\HeatRegulatorPart.cs" />
+    <Compile Include="Classes\Cars\CarParts\HornPart.cs" />
+    <Compile Include="Classes\Cars\CarParts\Liquids.cs" />
+    <Compile Include="Classes\Cars\CarParts\MufflerPart.cs" />
+    <Compile Include="Classes\Cars\CarParts\RadiatorPart.cs" />
+    <Compile Include="Classes\Cars\CarParts\WheelsPart.cs" />
+    <Compile Include="Classes\Cars\CarTypes\PassengerCar.cs" />
+    <Compile Include="Classes\Cars\CarTypes\SpecialCar.cs" />
+    <Compile Include="Classes\Cars\CarTypes\TruckCar.cs" />
+    <Compile Include="Classes\Managers\FileManager.cs" />
+    <Compile Include="Classes\Managers\GarageStockManager.cs" />
+    <Compile Include="Classes\Humans\Customer.cs" />
+    <Compile Include="Classes\Humans\Human.cs" />
+    <Compile Include="Classes\Humans\RepairMan.cs" />
+    <Compile Include="Classes\Humans\RM_Kirill.cs" />
+    <Compile Include="Classes\Humans\RM_Petrovich.cs" />
+    <Compile Include="Classes\Humans\RM_Vano.cs" />
+    <Compile Include="Classes\Humans\ShopManager.cs" />
+    <Compile Include="Classes\Managers\LogManager.cs" />
+    <Compile Include="Classes\Managers\Menu.cs" />
+    <Compile Include="Classes\Managers\StockManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

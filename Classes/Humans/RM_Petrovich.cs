@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoRepairShop.Classes
+namespace AutoRepairShop.Classes.Humans
 {
-    class RM_Kirill:RepairMan
+    class RM_Petrovich:RepairMan
     {
-        public string Name => "Kirill Artemovich";
+        public new string Name => "Petrovich";
 
-        public void Modify()
+        public void ReplaceFluid()
         {
             
         }
