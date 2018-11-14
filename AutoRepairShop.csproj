@@ -42,11 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Customer.cs" />
+    <Compile Include="Classes\Human.cs" />
+    <Compile Include="Classes\RepairMan.cs" />
+    <Compile Include="Classes\RM_Kirill.cs" />
+    <Compile Include="Classes\RM_Petrovich.cs" />
+    <Compile Include="Classes\RM_Vano.cs" />
+    <Compile Include="Classes\ShopManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
