@@ -8,11 +8,11 @@ namespace AutoRepairShop.Classes.Cars.CarParts
 {
     class Liquids
     {
-        byte? Fuel { get; set; }
-        byte? EngineOil { get; set; }
-        byte? BrakeFluid { get; set; }
-        byte? CoolingLiquid { get; set; }
-        byte? WindshieldWasherLiquid { get; set; }
+        public byte Fuel { get; set; }
+        public byte EngineOil { get; set; }
+        public byte BrakeFluid { get; set; }
+        public byte CoolingLiquid { get; set; }
+        public byte WindshieldWasherLiquid { get; set; }
 
         public Liquids()
         {

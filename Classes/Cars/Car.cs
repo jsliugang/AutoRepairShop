@@ -11,6 +11,18 @@ namespace AutoRepairShop.Classes.Cars
     {
         public string Name { get; set; }
         protected List<string> CarNames = new List<string>();
+        protected BodyPart body = new BodyPart();
+        protected CarburetorPart carburetor = new CarburetorPart();
+        protected EnginePart engine = new EnginePart();
+        protected GearboxPart gearbox = new GearboxPart();
+        protected HeatRegulatorPart heatregularor = new HeatRegulatorPart();
+        protected MufflerPart muffler = new MufflerPart();
+        protected RadiatorPart radiator = new RadiatorPart();
+        protected WheelsPart wheels = new WheelsPart();
+        protected HornPart horn = new HornPart();
+
+        Liquids carLiquids = new Liquids();
+
 
         protected Car()
         {
@@ -22,22 +34,16 @@ namespace AutoRepairShop.Classes.Cars
             Name = name;
             Console.WriteLine("Please specify what parts are broken:");
 
-            BodyPart body = new BodyPart();
-            CarburetorPart carburetor = new CarburetorPart();
-            EnginePart engine = new EnginePart();
-            GearboxPart gearbox = new GearboxPart();
-            HeatRegulatorPart heatregularor = new HeatRegulatorPart();
-            MufflerPart muffler = new MufflerPart();
-            RadiatorPart radiator = new RadiatorPart();
-            WheelsPart wheels = new WheelsPart();
-
-            Liquids carLiquids = new Liquids();
+            
         }
 
         public void Drive()
         {
             //Check if all parts are working before driving
-            Console.WriteLine("Wroom-wroom,what is the destination?");
+            if (engine.CheckFuel(carLiquids))
+            {
+                Console.WriteLine("Wroom-wroom,what is the destination?");
+            }
         }
 
         public void Stop()
@@ -49,5 +55,11 @@ namespace AutoRepairShop.Classes.Cars
         {
             Console.WriteLine($"Let's park at {place}");
         }
+
+        public virtual void Honk()
+        {
+            Console.WriteLine("Honk honk! What is taking so long?!");
+        }
+
     }
 }

@@ -12,5 +12,17 @@ namespace AutoRepairShop.Classes.Cars.CarParts
         {
 
         }
+
+        public bool CheckFuel(Liquids carLiquids)
+        {
+            if (carLiquids.Fuel < 1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

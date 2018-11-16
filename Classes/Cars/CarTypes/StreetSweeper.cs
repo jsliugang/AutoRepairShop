@@ -8,5 +8,9 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
 {
     class StreetSweeper:CleaningVehicle
     {
+        public void CleanStreet()
+        {
+            Console.WriteLine($"{Name} is cleaning the street!");
+        }
     }
 }

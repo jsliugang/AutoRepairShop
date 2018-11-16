@@ -13,6 +13,11 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
         {
             CarNames.Add("Snowplug ZLST551Q");
             CarNames.Add("Petrol 11 HP snowplug STG1101QE-02");
-        }    
+        }
+
+        public void CleanSnow()
+        {
+            Console.WriteLine($"{Name} is cleaning the snow!");
+        }
     }
 }
