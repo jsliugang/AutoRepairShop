@@ -10,6 +10,7 @@ namespace AutoRepairShop.Classes.Cars
     abstract class Car
     {
         public string Name { get; set; }
+        protected List<string> CarNames = new List<string>();
 
         protected Car()
         {

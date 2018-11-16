@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace AutoRepairShop.Classes.Enum
 {
-    class CarParts
+    public enum CarParts
     {
+        BodyPart,
+        BrokenBodyPart,
+        Carburetor,
+        BrokenCarburetor,
+        Engine,
+        BrokenEngine,
+        GearBox,
+        BrokenGearBox,
+        HeatRegulator,
+        BrokenHeatRegulator,
+        Horn,
+        BrokenHorn,
+        Muffler,
+        BrokenMuffler,
+        Radiator,
+        BrokenRadiator,
+        Wheels,
+        BrokenWheels,
     }
 }

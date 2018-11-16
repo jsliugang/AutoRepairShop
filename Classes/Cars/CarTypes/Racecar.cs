@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoRepairShop.Classes.Cars.Modifications
+namespace AutoRepairShop.Classes.Cars.CarTypes
 {
-    abstract class Modification
+    class Racecar:SpecialCar
     {
-        protected Modification()
+        protected Racecar()
         {
-            
+           CarNames.Add("Buggy");     
         }
     }
 }

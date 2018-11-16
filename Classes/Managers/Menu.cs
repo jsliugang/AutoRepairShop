@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoRepairShop.Classes.Humans;
 using AutoRepairShop;
+using AutoRepairShop.Classes.Enum;
+using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Classes.Managers
 {
@@ -16,6 +18,7 @@ namespace AutoRepairShop.Classes.Managers
         private List<RepairMan> repairMen = new List<RepairMan>();
         private ShopManager sm = new ShopManager();
         private Time time;
+        private GarageStockManager GSM = new GarageStockManager();
 
         public Menu()
         {
@@ -23,6 +26,7 @@ namespace AutoRepairShop.Classes.Managers
             time = new Time();
             GreetUser();
             DisplayMenu();
+
         }
 
         public void GreetUser()
@@ -36,6 +40,7 @@ namespace AutoRepairShop.Classes.Managers
             Console.WriteLine("1. Create new customer.");
             Console.WriteLine("2. Check current orders.");
             Console.WriteLine("3. Check game time.");
+            //GSM.RetrieveNewCarPart(typeof(BodyPart));  // testing of Stock and GarageStock
             ProcessInput();
         }
 

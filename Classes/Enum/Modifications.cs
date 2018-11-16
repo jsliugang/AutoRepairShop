@@ -15,6 +15,6 @@ namespace AutoRepairShop.Classes.Enum
         Spinners,
         CustomBonnet,
         Decals,
-        ExhaustPipes,
+        ExhaustPipe,
     }
 }

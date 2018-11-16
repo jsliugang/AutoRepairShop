@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoRepairShop.Classes.Cars.Modifications
 {
-    class Spoiler
+    class Spoiler:Modification
     {
     }
 }
