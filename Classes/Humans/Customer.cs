@@ -10,12 +10,15 @@ namespace AutoRepairShop.Classes.Humans
 {
     class Customer:Human
     {
+        public Car MyCar { get; set; }
+
         public Customer()
         {
             Console.WriteLine("Please set new customer's name:");
             Name = Console.ReadLine();
             Console.WriteLine($"New Customer has arrived! Name - {Name}");
-            Car myCar = new PassengerCar();
+            MyCar = new PassengerCar();
+
         }
 
     }

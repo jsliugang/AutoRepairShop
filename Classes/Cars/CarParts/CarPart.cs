@@ -20,14 +20,13 @@ namespace AutoRepairShop.Classes.Cars.CarParts
         {
             Name = name;
             IsWorking = SetPartState();
-            Console.WriteLine($"The {Name} is working? {IsWorking}");
         }
 
         protected bool SetPartState()
         {
             while (true)
             {
-                Console.WriteLine($"Is {Name} ok? 1=Yes, 2=No");
+                Console.WriteLine($"Is {Name} ok? 1=Yes, 0=No");
                 string userInput = Console.ReadLine();
                 if (userInput == "1")
                 {
@@ -58,5 +57,6 @@ namespace AutoRepairShop.Classes.Cars.CarParts
                 Console.WriteLine($"{Name} is already broken!");
             }
         }
+
     }
 }

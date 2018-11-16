@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoRepairShop.Classes.Managers
+namespace AutoRepairShop.Classes.Cars.Modifications
 {
-    class StockManager:Manager
+    class SportSuspension
     {
-
     }
 }

@@ -8,7 +8,7 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
 {
     class TruckCar:Car
     {
-        public TruckCar():base()
+        public TruckCar():base("Truck")
         {
                 
         }

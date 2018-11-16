@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace AutoRepairShop.Classes.Managers
 {
-    class GarageStockManager
+    class GarageStockManager :Manager
     {
+        public GarageStockManager()
+        {
+
+        }
     }
 }

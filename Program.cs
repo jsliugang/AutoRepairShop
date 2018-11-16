@@ -13,11 +13,11 @@ namespace AutoRepairShop
     {
         static void Main(string[] args)
         {
+            
+           
             Menu menu = new Menu();
-            ShopManager sm = new ShopManager();
+            
 
-
-            Human myCustomer = new Customer();
             Console.ReadLine();
         }
     }

@@ -8,7 +8,7 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
 {
     class SpecialCar:Car
     {
-        public SpecialCar():base()
+        public SpecialCar():base("Special Car")
         {
                 
         }
