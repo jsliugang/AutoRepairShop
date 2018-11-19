@@ -13,11 +13,7 @@ namespace AutoRepairShop
     {
         static void Main(string[] args)
         {
-            
-           
             Menu menu = new Menu();
-            
-
             Console.ReadLine();
         }
     }

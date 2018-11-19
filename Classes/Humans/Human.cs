@@ -15,10 +15,10 @@ namespace AutoRepairShop.Classes.Humans
 
         public void Greet()
         {
-            Console.WriteLine($"Hello! My name is {Name}");
+            Say($"Hello! My name is {Name}");
         }
 
-        public void Say(string message)
+        public virtual void Say(string message)
         {
             Console.WriteLine(message);
         }

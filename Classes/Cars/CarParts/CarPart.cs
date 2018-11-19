@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoRepairShop.Classes.Managers;
 
 namespace AutoRepairShop.Classes.Cars.CarParts
 {
@@ -11,10 +12,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
         public string Name { get; }
         public bool IsWorking { get; set; }
 
-        protected CarPart()
-        {
-
-        }
+        protected CarPart(){}
 
         protected CarPart(string name)
         {
@@ -26,24 +24,20 @@ namespace AutoRepairShop.Classes.Cars.CarParts
         {
             while (true)
             {
-                Console.WriteLine($"Is {Name} ok? 1=Yes, 0=No");
+                Menu.PrintMenuMessage($" ->  Is {Name} ok? 1=Yes, 0=No");
                 string userInput = Console.ReadLine();
                 if (userInput == "1")
                 {
                     return true;
                 }
-                else if (userInput == "0")
+                if (userInput == "0")
                 {
                     return false;
                 }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid Input! Please try again:");
-                    Console.ResetColor();
-                }
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid Input! Please try again:");
+                Console.ResetColor();
             }
-
         }
 
         protected void BreakPart()
@@ -57,6 +51,5 @@ namespace AutoRepairShop.Classes.Cars.CarParts
                 Console.WriteLine($"{Name} is already broken!");
             }
         }
-
     }
 }

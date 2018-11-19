@@ -1,0 +1,20 @@
+
+
+
+1/1/1990 10:12:09 PM : New customer: Ivan, Car: PassengerCar, Customer registered
+
+1/1/1990 12:12:09 PM : New customer: Ivan Durak, Car: PassengerCar, Customer registered
+
+1/1/1990 10:25:21 AM : New customer: Ivan, Car: PassengerCar, Customer registered
+
+1/1/1990 11:02:03 AM : New customer: dasfsf, Car: PassengerCar, Customer registered
+
+1/1/1990 12:50:46 PM : New customer: Ivan, Car: PassengerCar, Customer registered
+
+1/1/1990 11:47:39 AM : New customer: Ivan, Car: PassengerCar, Customer registered
+
+1/1/1990 10:52:11 AM : New customer: Ivan, Car: PassengerCar, Customer registered
+
+1/1/1990 10:53:20 AM : New customer: Ivan, Car: PassengerCar, Customer registered
+
+1/1/1990 11:14:07 AM : New customer: Ivan, Car: PassengerCar, Customer registered

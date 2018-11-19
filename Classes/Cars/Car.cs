@@ -4,46 +4,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoRepairShop.Classes.Managers;
 
 namespace AutoRepairShop.Classes.Cars
 {
     abstract class Car
     {
-        public string Name { get; set; }
-        protected List<string> CarNames = new List<string>();
-        protected BodyPart body = new BodyPart();
-        protected CarburetorPart carburetor = new CarburetorPart();
-        protected EnginePart engine = new EnginePart();
-        protected GearboxPart gearbox = new GearboxPart();
-        protected HeatRegulatorPart heatregularor = new HeatRegulatorPart();
-        protected MufflerPart muffler = new MufflerPart();
-        protected RadiatorPart radiator = new RadiatorPart();
-        protected WheelsPart wheels = new WheelsPart();
-        protected HornPart horn = new HornPart();
-
-        Liquids carLiquids = new Liquids();
+        protected List<string> CarNames;
+        protected BodyPart body;
+        protected CarburetorPart carburetor;
+        protected EnginePart engine;
+        protected GearboxPart gearbox;
+        protected HeatRegulatorPart heatregularor;
+        protected MufflerPart muffler;
+        protected RadiatorPart radiator;
+        protected WheelsPart wheels;
+        protected HornPart horn;
+        Liquids carLiquids;
 
 
         protected Car()
         {
-                
+            Console.WriteLine($"ctor car");
         }
 
         protected Car(string name)
         {
             Name = name;
-            Console.WriteLine("Please specify what parts are broken:");
-
-            
+            Menu.PrintMenuMessage("**Please specify what parts are broken: **");
+            CarNames = new List<string>();
+            body = new BodyPart();
+            carburetor = new CarburetorPart();
+            engine = new EnginePart();
+            gearbox = new GearboxPart();
+            heatregularor = new HeatRegulatorPart();
+            muffler = new MufflerPart();
+            radiator = new RadiatorPart();
+            wheels = new WheelsPart();
+            horn = new HornPart();
+            carLiquids = new Liquids();
         }
+
+        public string Name { get; set; }
 
         public void Drive()
         {
-            //Check if all parts are working before driving
-            if (engine.CheckFuel(carLiquids))
+            if (ComputerCheck())
             {
-                Console.WriteLine("Wroom-wroom,what is the destination?");
-            }
+                if (engine.CheckFuel(carLiquids))
+                {
+                    Console.WriteLine("Wroom-wroom,what is the destination?");
+                }
+            }          
         }
 
         public void Stop()
@@ -61,5 +73,21 @@ namespace AutoRepairShop.Classes.Cars
             Console.WriteLine("Honk honk! What is taking so long?!");
         }
 
+        public bool ComputerCheck()
+        {
+            if (body.IsWorking &&
+                carburetor.IsWorking &&
+                engine.IsWorking &&
+                gearbox.IsWorking &&
+                heatregularor.IsWorking &&
+                muffler.IsWorking &&
+                radiator.IsWorking &&
+                wheels.IsWorking &&
+                horn.IsWorking)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

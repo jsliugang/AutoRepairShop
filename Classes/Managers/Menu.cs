@@ -12,46 +12,96 @@ using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Classes.Managers
 {
-    class Menu
+    sealed class Menu
     {
-        private List<Customer> customers = new List<Customer>();
-        private List<RepairMan> repairMen = new List<RepairMan>();
-        private ShopManager sm = new ShopManager();
-        private Time time;
-        private GarageStockManager GSM = new GarageStockManager();
 
-        public Menu()
+        private static List<Customer> customers = new List<Customer>();
+        private List<RepairMan> repairMen = new List<RepairMan>();
+        public static Time Time { get; }
+        private GarageStockManager GSM = new GarageStockManager();
+     
+        static Menu()
         {
             // Initialize all the repairMen
-            time = new Time();
-            GreetUser();
-            DisplayMenu();
-
+            Time = new Time();
+            Menu.GreetUser();
+            Menu.DisplayMenu();
         }
 
-        public void GreetUser()
+        public static void GreetUser()
         {
-            PrintCustomMessage("Welcome to the Repair Shop!", ConsoleColor.Green, ConsoleColor.Black);
+            Menu.PrintCustomMessage("Welcome to the Repair Shop!", ConsoleColor.Green, ConsoleColor.Black);
         }
 
-        public void DisplayMenu()
+        public static void DisplayMenu()
         {
-            Console.WriteLine("*****MENU*****");
-            Console.WriteLine("1. Create new customer.");
-            Console.WriteLine("2. Check current orders.");
-            Console.WriteLine("3. Check game time.");
+            PrintMenuMessage("*****MENU*****");
+            PrintMenuMessage("1. Create new customer.");
+            PrintMenuMessage("2. Check current orders.");
+            PrintMenuMessage("3. Check game time.");
+            PrintMenuMessage("=========================");
             //GSM.RetrieveNewCarPart(typeof(BodyPart));  // testing of Stock and GarageStock
-            ProcessInput();
+            Menu.ProcessInput();
         }
 
-        public void ProcessInput()
+        public static void RepairMenu()
+        {
+            Menu.PrintMenuMessage("***REPAIR MENU***");
+            Menu.PrintMenuMessage("1. Diagnoze");
+            Menu.PrintMenuMessage("2. Repair broken parts");
+            Menu.PrintMenuMessage("3. Upgrade my ride!");
+            Menu.PrintMenuMessage("4. Replace broken parts");
+            Menu.ProcessServiceInput();
+        }
+
+        public static void ProcessServiceInput()
+        {
+            int userInput;
+            Int32.TryParse(Console.ReadLine(), out userInput);
+            Customer currentCustomer = customers.Last();
+            switch (userInput)
+            {
+                case 1:
+                    currentCustomer.MakeDiagnosticsOrder();
+                    break;
+
+                case 2:
+                    currentCustomer.MakeRepairOrder();
+                    break;
+
+                case 3:
+                    currentCustomer.PimpMyCar();
+                    break;
+
+                case 4:
+                    currentCustomer.RepairBrokenParts();
+                    break;
+
+                default:
+                    ThrowWarning();
+                    RepairMenu();
+                    break;
+
+            }
+        }
+
+        public static void ProcessInput()
         {
             string userInput = Console.ReadLine();
             if (userInput == "1")
             {
-                Customer newCustomer = new Customer();
-                customers.Add(newCustomer);
-                sm.AcceptNewCustomer(newCustomer);
+                if (ShopManager.WorkingHours())
+                {
+                    Customer newCustomer = new Customer();
+                    Menu.customers.Add(newCustomer);
+                    ShopManager.AcceptNewCustomer(newCustomer);
+                }
+                else
+                {
+                    Console.WriteLine($"The Auto Repair Show will open at 8 am tomorrow! We are not working at night time: {PassMeTime().ToString()}");
+                    Menu.DisplayMenu();
+                }
+                
                 //foreach (object o in customers)
                 //{
                 //    foreach (PropertyInfo prop in o.GetType().GetProperties())
@@ -62,12 +112,22 @@ namespace AutoRepairShop.Classes.Managers
             }
             else if (userInput == "3")
             {
-                time.GetGameTime();
+                Menu.Time.GetGameTimeToScreen();
                 DisplayMenu();
             }
         }
 
-        public void PrintCustomMessage(string message, ConsoleColor textColor, ConsoleColor backgroundColor)
+        public static void ThrowWarning()
+        {
+            PrintCustomMessage("Invalid input! Try again:", ConsoleColor.Red, ConsoleColor.Black);
+        }
+
+        public static void PrintMenuMessage(string message)
+        {
+            PrintCustomMessage(message, ConsoleColor.DarkYellow, ConsoleColor.Black);
+        }
+
+        public static void PrintCustomMessage(string message, ConsoleColor textColor, ConsoleColor backgroundColor)
         {
             Console.ForegroundColor = textColor;
             Console.BackgroundColor = backgroundColor;
@@ -78,6 +138,11 @@ namespace AutoRepairShop.Classes.Managers
         public void PrintMessage(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public static DateTime PassMeTime()
+        {
+            return Menu.Time.GetGameTime();
         }
     }
 }

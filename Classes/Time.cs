@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AutoRepairShop.Classes
 {
-    class Time
+    sealed class Time
     {
         private static readonly DateTime gameStartRealTime;
         private static readonly DateTime gameStartGameTime;
@@ -20,7 +20,13 @@ namespace AutoRepairShop.Classes
             Console.WriteLine($"The GameTime Now is {gameStartGameTime}");
         }
 
-        public void GetGameTime()
+        public void GetGameTimeToScreen()
+        {
+            
+            Console.WriteLine($"The GameTime Now is {GetGameTime()}");
+        }
+
+        public DateTime GetGameTime()
         {
             DateTime timeNow = DateTime.Now;
             TimeSpan differenceFromAppStart = timeNow - gameStartRealTime;
@@ -28,7 +34,7 @@ namespace AutoRepairShop.Classes
             DateTime newGameTime = new DateTime();
             newGameTime = gameStartGameTime;
             newGameTime = newGameTime.AddSeconds(difference);
-            Console.WriteLine($"The GameTime Now is {newGameTime}");
+            return newGameTime;
         }
     }
 }
