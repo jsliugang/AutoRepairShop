@@ -11,6 +11,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
     {
         public string Name { get; }
         public bool IsWorking { get; set; }
+        public int Cost { get; set; }
 
         protected CarPart(){}
 
@@ -24,7 +25,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
         {
             while (true)
             {
-                Menu.PrintMenuMessage($" ->  Is {Name} ok? 1=Yes, 0=No");
+                Menu.PrintServiceMessage($" ->  Is {Name} ok? 1=Yes, 0=No");
                 string userInput = Console.ReadLine();
                 if (userInput == "1")
                 {
@@ -34,9 +35,8 @@ namespace AutoRepairShop.Classes.Cars.CarParts
                 {
                     return false;
                 }
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Invalid Input! Please try again:");
-                Console.ResetColor();
+                Menu.ThrowWarning();
+                SetPartState();
             }
         }
 

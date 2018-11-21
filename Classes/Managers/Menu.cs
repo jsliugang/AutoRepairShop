@@ -16,7 +16,6 @@ namespace AutoRepairShop.Classes.Managers
     {
 
         private static List<Customer> customers = new List<Customer>();
-        private List<RepairMan> repairMen = new List<RepairMan>();
         public static Time Time { get; }
         private GarageStockManager GSM = new GarageStockManager();
      
@@ -24,6 +23,10 @@ namespace AutoRepairShop.Classes.Managers
         {
             // Initialize all the repairMen
             Time = new Time();
+        }
+
+        public Menu()
+        {
             Menu.GreetUser();
             Menu.DisplayMenu();
         }
@@ -37,11 +40,11 @@ namespace AutoRepairShop.Classes.Managers
         {
             PrintMenuMessage("*****MENU*****");
             PrintMenuMessage("1. Create new customer.");
-            PrintMenuMessage("2. Check current orders.");
+            PrintMenuMessage("2. Check last order.");
             PrintMenuMessage("3. Check game time.");
             PrintMenuMessage("=========================");
             //GSM.RetrieveNewCarPart(typeof(BodyPart));  // testing of Stock and GarageStock
-            Menu.ProcessInput();
+            Menu.ProcessMenuInput();
         }
 
         public static void RepairMenu()
@@ -51,13 +54,20 @@ namespace AutoRepairShop.Classes.Managers
             Menu.PrintMenuMessage("2. Repair broken parts");
             Menu.PrintMenuMessage("3. Upgrade my ride!");
             Menu.PrintMenuMessage("4. Replace broken parts");
-            Menu.ProcessServiceInput();
+            Menu.PrintMenuMessage("5. Check and fix the liquids");
+            int _reply = ShopManager.CustomerReplyHandler(customers.Last().GetReply(5));
+            if (_reply == 0)
+            {
+                new Menu();
+            }
+            else
+            {
+                ProcessServiceInput(_reply);
+            }
         }
 
-        public static void ProcessServiceInput()
+        public static void ProcessServiceInput(int userInput)
         {
-            int userInput;
-            Int32.TryParse(Console.ReadLine(), out userInput);
             Customer currentCustomer = customers.Last();
             switch (userInput)
             {
@@ -74,46 +84,67 @@ namespace AutoRepairShop.Classes.Managers
                     break;
 
                 case 4:
-                    currentCustomer.RepairBrokenParts();
+                    currentCustomer.ReplaceBrokenParts();
+                    break;
+
+                case 5:
+                    currentCustomer.ReplaceLiquids();
                     break;
 
                 default:
                     ThrowWarning();
                     RepairMenu();
                     break;
-
             }
         }
 
-        public static void ProcessInput()
+        public static void ProcessMenuInput()
         {
-            string userInput = Console.ReadLine();
-            if (userInput == "1")
+            int userInput; 
+            int.TryParse(Console.ReadLine(), out userInput);
+            switch (userInput)
             {
-                if (ShopManager.WorkingHours())
-                {
-                    Customer newCustomer = new Customer();
-                    Menu.customers.Add(newCustomer);
-                    ShopManager.AcceptNewCustomer(newCustomer);
-                }
-                else
-                {
-                    Console.WriteLine($"The Auto Repair Show will open at 8 am tomorrow! We are not working at night time: {PassMeTime().ToString()}");
-                    Menu.DisplayMenu();
-                }
-                
-                //foreach (object o in customers)
-                //{
-                //    foreach (PropertyInfo prop in o.GetType().GetProperties())
-                //    {
-                //        Console.WriteLine(prop.GetValue(o));
-                //    }                     
-                //}
-            }
-            else if (userInput == "3")
-            {
-                Menu.Time.GetGameTimeToScreen();
-                DisplayMenu();
+                case 1:
+                    if (ShopManager.WorkingHours())
+                    {
+                        Customer newCustomer = new Customer();
+                        Menu.customers.Add(newCustomer);
+                        ShopManager.AcceptNewCustomer(newCustomer);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The Auto Repair Shop will open at 8 am tomorrow! We are not working at night time: {PassMeTime().ToString()}");
+                        Menu.DisplayMenu();
+                    }               
+                    //foreach (object o in customers)
+                    //{
+                    //    foreach (PropertyInfo prop in o.GetType().GetProperties())
+                    //    {
+                    //        Console.WriteLine(prop.GetValue(o));
+                    //    }                     
+                    //}          
+                break;
+                case 2:
+                    Customer checkCustomer = ShopManager.GetCurrentCustomer();
+                    if (checkCustomer != null)
+                    {
+                        Menu.PrintMenuMessage($"The last order was from {checkCustomer.Name}, car - {checkCustomer.MyCar.Name}.");
+                        Console.WriteLine();
+                        DisplayMenu();
+                    }
+                    else
+                    {
+                        Menu.PrintMenuMessage($"No orders were placed!");
+                        Console.WriteLine();
+                        DisplayMenu();
+                    }
+                    break;
+                case 3:
+                    Time.GetGameTimeToScreen();
+                    DisplayMenu();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -127,12 +158,17 @@ namespace AutoRepairShop.Classes.Managers
             PrintCustomMessage(message, ConsoleColor.DarkYellow, ConsoleColor.Black);
         }
 
-        public static void PrintCustomMessage(string message, ConsoleColor textColor, ConsoleColor backgroundColor)
+        private static void PrintCustomMessage(string message, ConsoleColor textColor, ConsoleColor backgroundColor)
         {
             Console.ForegroundColor = textColor;
             Console.BackgroundColor = backgroundColor;
             Console.WriteLine(message);
             Console.ResetColor();
+        }
+
+        public static void PrintServiceMessage(string message)
+        {
+            PrintCustomMessage(message, ConsoleColor.DarkGray, ConsoleColor.Black);
         }
 
         public void PrintMessage(string message)

@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoRepairShop.Classes.Cars.Modifications;
 using AutoRepairShop.Classes.Managers;
 
 namespace AutoRepairShop.Classes.Cars
 {
     abstract class Car
     {
+        public Liquids carLiquids;
         protected List<string> CarNames;
+        public List<CarPart> CarContent;
         protected BodyPart body;
         protected CarburetorPart carburetor;
         protected EnginePart engine;
@@ -20,32 +23,35 @@ namespace AutoRepairShop.Classes.Cars
         protected RadiatorPart radiator;
         protected WheelsPart wheels;
         protected HornPart horn;
-        Liquids carLiquids;
 
 
-        protected Car()
-        {
-            Console.WriteLine($"ctor car");
-        }
+
+        protected Car(){}
 
         protected Car(string name)
         {
             Name = name;
-            Menu.PrintMenuMessage("**Please specify what parts are broken: **");
-            CarNames = new List<string>();
-            body = new BodyPart();
-            carburetor = new CarburetorPart();
-            engine = new EnginePart();
-            gearbox = new GearboxPart();
-            heatregularor = new HeatRegulatorPart();
-            muffler = new MufflerPart();
-            radiator = new RadiatorPart();
-            wheels = new WheelsPart();
-            horn = new HornPart();
             carLiquids = new Liquids();
+            Menu.PrintServiceMessage("**Please specify what parts are broken: **");
+            CarNames = new List<string>();
+            CarContent = new List<CarPart>();
+            CarContent.Add(body = new BodyPart());
+            CarContent.Add(carburetor = new CarburetorPart());
+            CarContent.Add(engine = new EnginePart());
+            CarContent.Add(gearbox = new GearboxPart());
+            CarContent.Add(heatregularor = new HeatRegulatorPart());
+            CarContent.Add(muffler = new MufflerPart());
+            CarContent.Add(radiator = new RadiatorPart());
+            CarContent.Add(wheels = new WheelsPart());
+            CarContent.Add(horn = new HornPart());
         }
 
         public string Name { get; set; }
+
+        public void AddModification(Modification modification)
+        {
+            
+        }
 
         public void Drive()
         {

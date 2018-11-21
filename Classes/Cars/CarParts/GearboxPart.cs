@@ -10,7 +10,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
     {
         public GearboxPart() : base("Gear Box")
         {
-
+            Cost = 2500;
         }
     }
 }

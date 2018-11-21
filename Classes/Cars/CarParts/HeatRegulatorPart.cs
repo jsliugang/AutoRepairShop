@@ -10,7 +10,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
     {
         public HeatRegulatorPart() : base("Heat Regulator")
         {
-
+            Cost = 200;
         }
     }
 }

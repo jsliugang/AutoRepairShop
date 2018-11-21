@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,15 @@ namespace AutoRepairShop.Classes.Managers
             }
         }
 
+        public void StoreTime()
+        {
+            using (StreamWriter w = File.AppendText("LucyLog.txt"))
+            {
+                w.WriteLine($"Application closed");
+                w.WriteLine($"\r{Menu.PassMeTime().ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture)}");
+            }
+        }
+
         public void DumpLog()
         {
             string currentTime = ShopManager.WhatTimeIsItNow().ToString();
@@ -37,7 +47,7 @@ namespace AutoRepairShop.Classes.Managers
 
         public static void Log(string logMessage, TextWriter w)
         {
-            w.Write($"\r\n{Menu.PassMeTime()} : ");
+            w.Write($"\r{Menu.PassMeTime().ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture)} : ");
             w.WriteLine($"{logMessage}");
         }
 

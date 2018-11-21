@@ -10,7 +10,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
     {
         public MufflerPart() : base("Muffler")
         {
-
+            Cost = 100;
         }
     }
 }

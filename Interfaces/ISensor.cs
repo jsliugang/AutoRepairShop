@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoRepairShop.Classes.Cars.Modifications
+namespace AutoRepairShop.Interfaces
 {
-    class ExhaustPipe: Modification
+    interface ISensor
     {
+        bool IsWorking { get; set; }
+
+        void SensorData();
     }
 }

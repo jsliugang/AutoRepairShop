@@ -10,7 +10,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
     {
         public BodyPart():base("Body")
         {
-                    
+            Cost = 1000;
         }
 
 

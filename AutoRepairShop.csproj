@@ -93,14 +93,15 @@
     <Compile Include="Classes\Managers\Menu.cs" />
     <Compile Include="Classes\Managers\StockManager.cs" />
     <Compile Include="Classes\Time.cs" />
+    <Compile Include="Interfaces\ICentralLock.cs" />
+    <Compile Include="Interfaces\IRadio.cs" />
+    <Compile Include="Interfaces\ISensor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

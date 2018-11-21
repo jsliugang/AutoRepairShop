@@ -3,62 +3,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoRepairShop.Classes;
+using AutoRepairShop.Classes.Cars;
+using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Classes.Humans
 {
     abstract class RepairMan : Human
     {
+        public bool IsBusy { get; set; }
+        protected CarPart _carPart;
+
         protected RepairMan()
         {
-                
-        }
 
-        private class GeneralRepair
+        }
+        protected void Disassemble()
         {
-            private string _partName;
-            private string _workerName;
-            
-            private void Disassemble()
-            {
-                Console.WriteLine($"{_workerName} is disassembling the {_partName}");
-            }
-
-            private void Repair()
-            {
-                Console.WriteLine($"{_workerName} is repairing the {_partName}");
-            }
-
-            private void Assemble()
-            {
-                Console.WriteLine($"{_workerName} is assembling the {_partName}");
-            }
-
-            public void MakeRepairs(string workerName, string partName)
-            {
-                _workerName = workerName;
-                _partName = partName;
-                Disassemble();
-                Repair();
-                Assemble();
-            }
+            Console.WriteLine($"{Name} is disassembling the {_carPart.Name}");
         }
 
-        private class Diagnostics
+        protected void Repair()
         {
-            public void Diagnoze(string workerName, string partName)
+            Console.WriteLine($"{Name} is repairing the {_carPart.Name}");
+            _carPart.IsWorking = true;
+        }
+
+        protected void Assemble()
+        {
+            Console.WriteLine($"{Name} is assembling the {_carPart.Name}");
+        }
+
+        public void MakeRepairs(CarPart carPart)
+        {
+            _carPart = carPart; 
+            Disassemble();
+            Thread.Sleep(10000);
+            Repair();
+            Thread.Sleep(5000);
+            Assemble();
+        }
+        
+        public void DiagnozeCar(Car car)
+        {               
+            foreach (CarPart part in car.CarContent)
             {
-                Console.WriteLine($"{workerName} is assembling the {partName}");
-                Console.WriteLine($"{workerName} found that {partName} is ok");
+                Thread.Sleep(1000);
+                Console.WriteLine(part.IsWorking
+                    ? $"{Name} found that {part.Name} is OK!"
+                    : $"{Name} found that {part.Name} is broken!");
             }
         }
-
-
-        public void DoSomething()
-        {
-            
-        }
-
     }
 }

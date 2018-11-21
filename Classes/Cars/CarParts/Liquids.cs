@@ -8,19 +8,15 @@ namespace AutoRepairShop.Classes.Cars.CarParts
 {
     class Liquids
     {
-        public byte Fuel { get; set; }
-        public byte EngineOil { get; set; }
-        public byte BrakeFluid { get; set; }
-        public byte CoolingLiquid { get; set; }
-        public byte WindshieldWasherLiquid { get; set; }
+        public Dictionary<string, byte> CarLiquids = new Dictionary<string, byte>(); 
 
         public Liquids()
         {
-            Fuel = 50;
-            EngineOil = 50;
-            BrakeFluid = 50;
-            CoolingLiquid = 50;
-            WindshieldWasherLiquid = 50;
+            CarLiquids.Add("Fuel", 50);
+            CarLiquids.Add("EngineOil", 50);
+            CarLiquids.Add("BrakeFluid", 50);
+            CarLiquids.Add("CoolingLiquid", 50);
+            CarLiquids.Add("WindshieldWasherLiquid", 50);
         }
     }
 }

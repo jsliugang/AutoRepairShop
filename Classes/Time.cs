@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,14 +18,28 @@ namespace AutoRepairShop.Classes
         static Time()
         {
             gameStartRealTime = DateTime.Now;
-            gameStartGameTime = new DateTime(1990, 1, 1, 9, 0, 0); //Starting time of the application. Need to be read from log of last closed session
-            Console.WriteLine($"The GameTime Now is {gameStartGameTime}");
+            if (new FileInfo("LucyLog.txt").Length == 0)
+            {
+                gameStartGameTime = new DateTime(1990, 1, 1, 9, 0, 0);
+            }
+            else
+            {
+                try
+                {
+                    var lastLine = File.ReadLines("LucyLog.txt").Last();
+                    gameStartGameTime = DateTime.ParseExact(lastLine, "MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture);
+                }
+                catch (FormatException)
+                {
+                    gameStartGameTime = new DateTime(1990, 1, 1, 9, 0, 0);
+                }
+            }
         }
 
         public void GetGameTimeToScreen()
         {
-            
-            Console.WriteLine($"The GameTime Now is {GetGameTime()}");
+         
+            Console.WriteLine($"The GameTime Now is {GetGameTime().ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture)}");
         }
 
         public DateTime GetGameTime()

@@ -10,12 +10,15 @@ namespace AutoRepairShop.Classes.Cars.CarParts
     {
         public EnginePart() : base("Engine")
         {
-
+            Cost = 3000;
         }
 
         public bool CheckFuel(Liquids carLiquids)
         {
-            if (carLiquids.Fuel < 1)
+            byte fuelLevel;
+            carLiquids.CarLiquids.TryGetValue("Fuel", out fuelLevel);
+
+            if (fuelLevel < 1)
             {
                 return false;
             }
