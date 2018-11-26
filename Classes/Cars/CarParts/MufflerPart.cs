@@ -8,7 +8,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
 {
     class MufflerPart:CarPart
     {
-        public MufflerPart() : base("Muffler")
+        public MufflerPart(bool state) : base("Muffler", state)
         {
             Cost = 100;
         }

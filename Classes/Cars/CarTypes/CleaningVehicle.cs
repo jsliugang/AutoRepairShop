@@ -8,7 +8,7 @@ using AutoRepairShop.Interfaces;
 
 namespace AutoRepairShop.Classes.Cars.CarTypes
 {
-    class CleaningVehicle:SpecialCar, IRadio
+    abstract class CleaningVehicle:SpecialCar, IRadio
     {
         protected CleaningVehicle()
         {
@@ -25,7 +25,7 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
 
         public void RemoveHorn()
         {
-            horn = null;
+            CarContent.RemoveAt(8);
         }
 
         public void SwitchRadio()

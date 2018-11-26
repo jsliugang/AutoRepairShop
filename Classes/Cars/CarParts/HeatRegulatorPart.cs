@@ -8,7 +8,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
 {
     class HeatRegulatorPart:CarPart
     {
-        public HeatRegulatorPart() : base("Heat Regulator")
+        public HeatRegulatorPart(bool state) : base("HeatRegulator", state)
         {
             Cost = 200;
         }

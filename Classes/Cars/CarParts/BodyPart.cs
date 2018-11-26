@@ -8,11 +8,9 @@ namespace AutoRepairShop.Classes.Cars.CarParts
 {
     class BodyPart:CarPart
     {
-        public BodyPart():base("Body")
+        public BodyPart(bool state):base("Body", state)
         {
             Cost = 1000;
         }
-
-
     }
 }

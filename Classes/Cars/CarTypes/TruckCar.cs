@@ -7,7 +7,7 @@ using AutoRepairShop.Interfaces;
 
 namespace AutoRepairShop.Classes.Cars.CarTypes
 {
-    class TruckCar:Car, IRadio
+    abstract class TruckCar:Car, IRadio
     {
         public bool IsWorking { get; set; }
         public bool RadioState { get; set; }
@@ -25,7 +25,7 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
             }
         }
 
-        public TruckCar():base("Truck")
+        protected TruckCar()
         {
             IsWorking = true;
             RadioState = false;

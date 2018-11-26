@@ -19,32 +19,6 @@ namespace AutoRepairShop.Classes.Humans
             Menu.PrintServiceMessage("Please set new customer's name:");
             Name = Console.ReadLine();
             Menu.PrintMenuMessage($"New Customer has arrived! Name - {Name}");
-            //var type = typeof(Car);
-            Console.WriteLine("Provide Car Type:");
-            Console.WriteLine($"1. Passenger");
-            Console.WriteLine($"2. Truck");
-            Console.WriteLine($"3. Special");
-            int userInput;
-            Int32.TryParse(Console.ReadLine(), out userInput);
-
-            switch (userInput)
-            {
-                case 1:
-                    MyCar = new PassengerCar();
-                    break;
-
-                case 2:
-                    MyCar = new TruckCar();
-                    break;
-
-                case 3:
-                    MyCar = new SpecialCar();
-                    break;
-
-                default:
-                    break;
-            }
-
         }
 
         public override void Say(string message)
@@ -86,6 +60,12 @@ namespace AutoRepairShop.Classes.Humans
         public void MakePayment()
         {
             Say($"Here it is, sweetheart.");
+            MyCar.Drive();
+        }
+
+        public void AssignCar(Car car)
+        {
+            MyCar = car;
         }
 
         public void MakeDiagnosticsOrder()

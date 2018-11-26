@@ -13,31 +13,12 @@ namespace AutoRepairShop.Classes.Cars.CarParts
         public bool IsWorking { get; set; }
         public int Cost { get; set; }
 
-        protected CarPart(){}
+        public CarPart(){}
 
-        protected CarPart(string name)
+        public CarPart(string name, bool state)
         {
+            IsWorking = state;
             Name = name;
-            IsWorking = SetPartState();
-        }
-
-        protected bool SetPartState()
-        {
-            while (true)
-            {
-                Menu.PrintServiceMessage($" ->  Is {Name} ok? 1=Yes, 0=No");
-                string userInput = Console.ReadLine();
-                if (userInput == "1")
-                {
-                    return true;
-                }
-                if (userInput == "0")
-                {
-                    return false;
-                }
-                Menu.ThrowWarning();
-                SetPartState();
-            }
         }
 
         protected void BreakPart()

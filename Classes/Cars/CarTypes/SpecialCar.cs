@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AutoRepairShop.Classes.Cars.CarTypes
 {
-    class SpecialCar:Car
+    abstract class SpecialCar:Car
     {
-        public SpecialCar():base("Special Car")
+        protected SpecialCar()
         {
                 
         }

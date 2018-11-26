@@ -7,18 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoRepairShop.Classes.Humans;
 using AutoRepairShop;
-using AutoRepairShop.Classes.Enum;
+using AutoRepairShop.Classes.Cars;
+using AutoRepairShop.Classes.Cars.CarBuilders;
 using AutoRepairShop.Classes.Cars.CarParts;
+using AutoRepairShop.Classes.Cars.CarTypes;
 
 namespace AutoRepairShop.Classes.Managers
 {
     sealed class Menu
     {
-
         private static List<Customer> customers = new List<Customer>();
         public static Time Time { get; }
         private GarageStockManager GSM = new GarageStockManager();
-     
+        private static CarMaker cm = new CarMaker();
+        
         static Menu()
         {
             // Initialize all the repairMen
@@ -27,8 +29,8 @@ namespace AutoRepairShop.Classes.Managers
 
         public Menu()
         {
-            Menu.GreetUser();
-            Menu.DisplayMenu();
+            GreetUser();
+            DisplayMenu();
         }
 
         public static void GreetUser()
@@ -98,6 +100,56 @@ namespace AutoRepairShop.Classes.Managers
             }
         }
 
+        public static CarBuilder SelectBuilder()
+        {
+            PrintServiceMessage("**CAR BUILDER**"); 
+            PrintServiceMessage($"Select car type:");
+            foreach (CarsEnum carEnum in Enum.GetValues(typeof(CarsEnum)))
+            {
+                PrintServiceMessage($"{carEnum.GetHashCode()}. {carEnum}");
+            }
+            Int32.TryParse(Console.ReadLine(), out int uI);
+            CarBuilder cb;
+            switch (uI)
+            {
+                case 1:
+                    cb = new AmbulanceBuilder();
+                    return cb;
+                case 2:
+                    cb = new CarHaulerBuilder();
+                    return cb;
+                case 3:
+                    cb = new DumpTruckBuilder();
+                    return cb;
+                case 4:
+                    cb = new OffroaderBuilder();
+                    return cb;
+                case 5:
+                    cb = new PickupBuilder();
+                    return cb;
+                case 6:
+                    cb = new PrimeMoverBuilder();
+                    return cb;
+                case 7:
+                    cb = new RacecarBuilder();
+                    return cb;
+                case 8:
+                    cb = new SnowplugBuilder();
+                    return cb;
+                case 9:
+                    cb = new StreetSweeperBuilder();
+                    return cb;
+                case 10:
+                    cb = new TractorBuilder();
+                    return cb;
+                case 11:
+                    cb = new WagonBuilder();
+                    return cb;
+                default:
+                    return SelectBuilder();
+            }
+        }
+
         public static void ProcessMenuInput()
         {
             int userInput; 
@@ -107,23 +159,18 @@ namespace AutoRepairShop.Classes.Managers
                 case 1:
                     if (ShopManager.WorkingHours())
                     {
-                        Customer newCustomer = new Customer();
-                        Menu.customers.Add(newCustomer);
-                        ShopManager.AcceptNewCustomer(newCustomer);
+                        customers.Add(new Customer());
+                        customers.Last().AssignCar(cm.MakeCar(SelectBuilder()));
+                        ShopManager.AcceptNewCustomer(customers.Last());
+                        
                     }
                     else
                     {
-                        Console.WriteLine($"The Auto Repair Shop will open at 8 am tomorrow! We are not working at night time: {PassMeTime().ToString()}");
+                        Console.WriteLine($"The Auto Repair Shop will open at 8 am tomorrow! We are not working at night time: {PassMeTime()}");
                         Menu.DisplayMenu();
-                    }               
-                    //foreach (object o in customers)
-                    //{
-                    //    foreach (PropertyInfo prop in o.GetType().GetProperties())
-                    //    {
-                    //        Console.WriteLine(prop.GetValue(o));
-                    //    }                     
-                    //}          
-                break;
+                    }                      
+                    break;
+
                 case 2:
                     Customer checkCustomer = ShopManager.GetCurrentCustomer();
                     if (checkCustomer != null)
@@ -139,10 +186,12 @@ namespace AutoRepairShop.Classes.Managers
                         DisplayMenu();
                     }
                     break;
+
                 case 3:
                     Time.GetGameTimeToScreen();
                     DisplayMenu();
                     break;
+
                 default:
                     break;
             }

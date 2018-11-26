@@ -8,9 +8,9 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
 {
     class Racecar:SpecialCar
     {
-        protected Racecar()
+        public Racecar()
         {
-           CarNames.Add("Buggy");     
+   
         }
     }
 }

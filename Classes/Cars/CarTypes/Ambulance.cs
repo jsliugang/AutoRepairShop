@@ -8,5 +8,6 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
 {
     class Ambulance:SpecialCar
     {
+        
     }
 }

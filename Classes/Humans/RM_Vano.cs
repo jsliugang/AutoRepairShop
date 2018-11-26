@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoRepairShop.Classes.Cars;
 using AutoRepairShop.Classes.Cars.CarParts;
-using AutoRepairShop.Classes.Cars.Modifications;
+using AutoRepairShop.Classes.Cars.CarTypes;
 using AutoRepairShop.Classes.Humans;
 
 namespace AutoRepairShop.Classes.Humans
@@ -18,20 +18,26 @@ namespace AutoRepairShop.Classes.Humans
             Name = "Vano";
         }
 
-        public void ReplacePart(CarPart part)
+        public int ReplacePart(CarPart part, Car car)
         {
             _carPart = part;
-            Disassemble();
-            Thread.Sleep(5000);
-            Replace();
-            Thread.Sleep(10000);
-            Assemble();
+            var newPart = CheckPartAvailability(_carPart.Name);
+            if (newPart!=null)
+            {
+                Disassemble();
+                Thread.Sleep(5000);
+                car.CarContent.Find(x => x.Name == part.Name).IsWorking = newPart.IsWorking;
+                Replace();
+                Thread.Sleep(10000);
+                Assemble();
+                return _carPart.Cost;
+            }
+            return 0;
         }
 
         private void Replace()
-        {
+        {        
             Console.WriteLine($"Replacing the broken part with new one!");
-            _carPart.IsWorking = true;
         }
 
         

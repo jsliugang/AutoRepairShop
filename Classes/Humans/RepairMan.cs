@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoRepairShop.Classes;
-using AutoRepairShop.Classes.Cars;
+using AutoRepairShop.Classes.Cars.CarTypes;
 using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Classes.Humans
@@ -47,7 +47,7 @@ namespace AutoRepairShop.Classes.Humans
         }
         
         public void DiagnozeCar(Car car)
-        {               
+        {   
             foreach (CarPart part in car.CarContent)
             {
                 Thread.Sleep(1000);
@@ -55,6 +55,17 @@ namespace AutoRepairShop.Classes.Humans
                     ? $"{Name} found that {part.Name} is OK!"
                     : $"{Name} found that {part.Name} is broken!");
             }
+        }
+
+        public CarPart CheckPartAvailability(string name)
+        {
+            CarPart newPart = ShopManager.GarStMan.RetrieveNewCarPart(name);
+            if (newPart != null)
+            {
+                return newPart;
+            }
+            Console.WriteLine($"{Name} is out of stock!");
+            return null;
         }
     }
 }

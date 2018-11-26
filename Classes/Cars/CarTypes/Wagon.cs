@@ -10,8 +10,7 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
     {
         public Wagon()
         {
-            CarNames.Add("Lada Granta");
-            CarNames.Add("Audi RS4 V Avant");
+
         }
     }
 }

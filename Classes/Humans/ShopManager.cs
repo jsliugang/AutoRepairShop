@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoRepairShop.Classes;
-using AutoRepairShop.Classes.Cars;
 using AutoRepairShop.Classes.Cars.CarParts;
+using AutoRepairShop.Classes.Cars.CarTypes;
 using AutoRepairShop.Classes.Managers;
 
 namespace AutoRepairShop.Classes.Humans
@@ -16,10 +15,9 @@ namespace AutoRepairShop.Classes.Humans
         private Customer _customer;
         private bool IsGarageEmpty = true;
         private int costOfServices = 0;
-        StockManager StMan = new StockManager();
-        GarageStockManager GarStMan = new GarageStockManager();
-        LogManager LogMan = new LogManager();
-        LogManager LM = new LogManager();
+        public static StockManager StMan = new StockManager();
+        public static GarageStockManager GarStMan = new GarageStockManager();
+        LogReadWrite LRW = new LogReadWrite();
         private static RM_Kirill Kirill = new RM_Kirill();
         private static RM_Petrovich Petrovich = new RM_Petrovich();
         private static RM_Vano Vano = new RM_Vano();
@@ -54,6 +52,7 @@ namespace AutoRepairShop.Classes.Humans
             Lucy.Say("Will do!");
             switch (choice)
             {
+
                 case 1: //diagnoze
                     if (!Petrovich.IsBusy)
                     {
@@ -71,7 +70,7 @@ namespace AutoRepairShop.Classes.Humans
                     {
                         CustomerOnHold();
                     }
-                    AddCostToTotal("Diagnoze");
+                    AddCostToTotal("Diagnoze", 0);
                     Menu.RepairMenu();
                     break;
 
@@ -93,7 +92,7 @@ namespace AutoRepairShop.Classes.Humans
                     {
                         CustomerOnHold();
                     }
-                    AddCostToTotal("Repair");
+                    AddCostToTotal("Repair", 0);
                     Menu.RepairMenu();
                     break;
 
@@ -102,8 +101,11 @@ namespace AutoRepairShop.Classes.Humans
                     {
                         CustomerOnHold();
                     }
-                    Kirill.Modify(customerCar);
-                    AddCostToTotal("Modify");
+                    int cost = Kirill.Modify(customerCar);
+                    if (cost != 0)
+                    {
+                        AddCostToTotal("Modify", cost);
+                    }
                     Menu.RepairMenu();
                     break;
                 case 4: //replace
@@ -112,8 +114,11 @@ namespace AutoRepairShop.Classes.Humans
                     {
                         CustomerOnHold();
                     }
-                    Vano.ReplacePart(brokenPart);
-                    AddCostToTotal("Replace");
+                    cost = Vano.ReplacePart(brokenPart, customerCar);
+                    if (cost != 0)
+                    {
+                        AddCostToTotal("Replace", cost);
+                    }
                     Menu.RepairMenu();
                     break;
 
@@ -122,8 +127,7 @@ namespace AutoRepairShop.Classes.Humans
                     {
                         CustomerOnHold();
                     }
-                    Petrovich.ReplaceFluid(Lucy._customer.MyCar.carLiquids);
-                    AddCostToTotal("ReplaceLiquid");
+                    AddCostToTotal("ReplaceLiquid", Petrovich.ReplaceFluid(Lucy._customer.MyCar));
                     Menu.RepairMenu();
                     break;
 
@@ -132,10 +136,10 @@ namespace AutoRepairShop.Classes.Humans
             }
         }
 
-        public static void AddCostToTotal(string service)
+        public static void AddCostToTotal(string service, int partCost)
         {
-            int currentCost;
-            ServicesCatalogue.TryGetValue(service, out currentCost);
+            ServicesCatalogue.TryGetValue(service, out int currentCost);
+            currentCost += partCost;
             Lucy.Say($"{service} complete. The cost is {currentCost} USD.");
             Lucy.costOfServices += currentCost;
         }
@@ -153,7 +157,7 @@ namespace AutoRepairShop.Classes.Humans
             Lucy.Say($"Please leave your {Lucy._customer.MyCar.Name} at the parking lot.");
             ShopManager.CheckWorkerBusy();
             Lucy.IsGarageEmpty = false;
-            Lucy.LM.StoreLog($"New customer: {Lucy._customer.Name}, Car: {Lucy._customer.MyCar.Name}, Customer registered");    
+            Lucy.LRW.StoreLog($"New customer: {Lucy._customer.Name}, Car: {Lucy._customer.MyCar.Name}, Customer registered");    
             
             Lucy.Say($"{Lucy._customer.Name}, what shall we do with your {Lucy._customer.MyCar.Name}?");
             Menu.RepairMenu();
@@ -168,12 +172,12 @@ namespace AutoRepairShop.Classes.Humans
             Lucy.Say($"Your total for today is {Lucy.costOfServices}.");
             customer.MakePayment();
             Lucy.Say($"Have a great day, {customer.Name}");
-            Lucy.LM.StoreLog($"{Lucy._customer.Name}, Car: {Lucy._customer.MyCar.Name}, Customer released. Amount: {Lucy.costOfServices}");
+            Lucy.LRW.StoreLog($"{Lucy._customer.Name}, Car: {Lucy._customer.MyCar.Name}, Customer released. Amount: {Lucy.costOfServices}");
         }
 
         public static void LastTimeLog()
         {
-            Lucy.LM.StoreTime();
+            Lucy.LRW.StoreTime();
         }
 
         public static int CustomerReplyHandler(int reply)
@@ -184,11 +188,7 @@ namespace AutoRepairShop.Classes.Humans
                 ReleaseCustomer(Lucy._customer);
                 return 0;
             }
-            else
-            {
-                return reply;
-            }
-
+            return reply;
         }
 
         public static void Thank()
@@ -209,14 +209,7 @@ namespace AutoRepairShop.Classes.Humans
         public static bool WorkingHours()
         {
             DateTime now = WhatTimeIsItNow();
-            if (7 < now.Hour && now.Hour < 24 && now.DayOfWeek != DayOfWeek.Sunday)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return 7 < now.Hour && now.Hour < 24 && now.DayOfWeek != DayOfWeek.Sunday;
         }
     }
 }

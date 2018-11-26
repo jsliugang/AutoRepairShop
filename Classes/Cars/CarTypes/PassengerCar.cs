@@ -7,7 +7,7 @@ using AutoRepairShop.Interfaces;
 
 namespace AutoRepairShop.Classes.Cars.CarTypes
 {
-    class PassengerCar:Car, IRadio, ISensor
+    abstract class PassengerCar:Car, IRadio, ISensor
     {
         bool IRadio.IsWorking { get; set; }
         public bool RadioState { get; set; }
@@ -31,7 +31,7 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
             Console.WriteLine($"The sensors are sensing!");
         }
 
-        public PassengerCar() : base("PassengerCar")
+        protected PassengerCar()
         {
             RadioState = false;
         }

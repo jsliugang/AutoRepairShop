@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoRepairShop.Classes.Cars.Modifications
+namespace AutoRepairShop.Classes.Cars.CarParts
 {
-    abstract class Modification
+    class NO2Mod:CarPart
     {
-        protected Modification()
+        public NO2Mod(bool state) : base("NO2", state)
         {
-            
+            Cost = 1000;
         }
     }
 }

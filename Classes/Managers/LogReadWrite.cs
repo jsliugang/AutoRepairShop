@@ -10,7 +10,7 @@ using AutoRepairShop.Classes.Managers;
 
 namespace AutoRepairShop.Classes.Managers
 {
-    class LogManager
+    class LogReadWrite
     {
         public void StoreLog(string logMessage)
         {

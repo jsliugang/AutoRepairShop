@@ -9,10 +9,9 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
 {
     class Snowplug:CleaningVehicle
     {
-        protected Snowplug()
+        public Snowplug()
         {
-            CarNames.Add("Snowplug ZLST551Q");
-            CarNames.Add("Petrol 11 HP snowplug STG1101QE-02");
+
         }
 
         public void CleanSnow()

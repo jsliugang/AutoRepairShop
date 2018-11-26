@@ -8,7 +8,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
 {
     class GearboxPart:CarPart
     {
-        public GearboxPart() : base("Gear Box")
+        public GearboxPart(bool state) : base("Gearbox", state)
         {
             Cost = 2500;
         }

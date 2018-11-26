@@ -10,8 +10,7 @@ namespace AutoRepairShop.Classes.Cars.CarTypes
     {
         public PrimeMover()
         {
-            CarNames.Add("Offroad prime mover MAN TGS 6x6");
-            CarNames.Add("Foton AumanH5 4x2");
+
         }
     }
 }

@@ -8,7 +8,7 @@ namespace AutoRepairShop.Classes.Cars.CarParts
 {
     class EnginePart:CarPart
     {
-        public EnginePart() : base("Engine")
+        public EnginePart(bool state) : base("Engine", state)
         {
             Cost = 3000;
         }

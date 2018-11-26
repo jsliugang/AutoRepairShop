@@ -1,3 +1,3 @@
-01/01/1990 11:22 AM : New customer: Ivan, Car: PassengerCar, Customer registered
+01/01/1990 10:48 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
 Application closed
-01/01/1990 1:42 PM
+01/01/1990 9:49 PM
