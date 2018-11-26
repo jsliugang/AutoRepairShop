@@ -7,7 +7,8 @@ using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Interfaces
 {
-    interface IStock<T> where T: CarPart
+    public interface IStock<T>
+        where T : class
     {
         T ProvideItem();
     }

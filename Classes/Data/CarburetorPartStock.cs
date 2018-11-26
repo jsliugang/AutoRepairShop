@@ -8,7 +8,7 @@ using AutoRepairShop.Interfaces;
 
 namespace AutoRepairShop.Classes.Data
 {
-    class CarburetorPartStock : CarPartStock
+    class CarburetorPartStock : CarPartStock<CarburetorPart>
     {
         public CarburetorPartStock()
         {

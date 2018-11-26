@@ -7,7 +7,7 @@ using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Classes.Data
 {
-    class MufflerPartStock: CarPartStock
+    class MufflerPartStock: CarPartStock<MufflerPart>
     {
         public MufflerPartStock()
         {

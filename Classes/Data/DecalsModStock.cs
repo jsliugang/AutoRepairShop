@@ -7,7 +7,7 @@ using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Classes.Data
 {
-    class DecalsModStock : CarPartStock
+    class DecalsModStock : CarPartStock<DecalsMod>
     {
         public DecalsModStock()
         {

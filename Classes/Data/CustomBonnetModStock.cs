@@ -7,7 +7,7 @@ using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Classes.Data
 {
-    class CustomBonnetModStock : CarPartStock
+    class CustomBonnetModStock : CarPartStock<CustomBonnetMod>
     {
         public CustomBonnetModStock()
         {

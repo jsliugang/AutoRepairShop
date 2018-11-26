@@ -7,7 +7,7 @@ using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Classes.Data
 {
-    class GearboxPartStock : CarPartStock
+    class GearboxPartStock : CarPartStock<GearboxPart>
     {
         public GearboxPartStock()
         {

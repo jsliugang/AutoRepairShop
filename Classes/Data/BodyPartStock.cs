@@ -8,7 +8,8 @@ using AutoRepairShop.Interfaces;
 
 namespace AutoRepairShop.Classes.Data
 {
-    class BodyPartStock: CarPartStock
+    class BodyPartStock: CarPartStock<BodyPart>
+
     {
         public BodyPartStock()
         {
@@ -16,6 +17,6 @@ namespace AutoRepairShop.Classes.Data
             {
                 Stock.Add(new BodyPart(true));
             }
-        }
+        }     
     }
 }

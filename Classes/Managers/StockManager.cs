@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AutoRepairShop.Classes.Managers
 {
-    class StockManager:Manager
+    class StockManager:GarageStockManager
     {
 
     }

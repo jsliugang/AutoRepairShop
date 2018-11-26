@@ -12,5 +12,10 @@ namespace AutoRepairShop.Classes.Cars.CarParts
         {
             Cost = 1000;
         }
+
+        public void Honk()
+        {
+            Console.WriteLine($"Honk honk");
+        }
     }
 }

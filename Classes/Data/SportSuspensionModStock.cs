@@ -7,7 +7,7 @@ using AutoRepairShop.Classes.Cars.CarParts;
 
 namespace AutoRepairShop.Classes.Data
 {
-    class SportSuspensionModStock: CarPartStock
+    class SportSuspensionModStock: CarPartStock<SportSuspensionMod>
     {
         public SportSuspensionModStock()
         {
