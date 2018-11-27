@@ -37,10 +37,14 @@ namespace AutoRepairShop.Classes.Managers
             StockManagers.Add("TitaniumWipers", new TitaniumWipersModStock());
             StockManagers.Add("Wheels", new WheelsPartStock());
         }
-        public virtual CarPart RetrieveNewCarPart(string type)
+        public CarPart RetrieveNewCarPart(string type)
         {
             return StockManagers[type].ProvideItem();
         }
 
+        public void AddPartFromStock(string type)
+        {
+            StockManagers[type].Add(1);
+        }
     }
 }

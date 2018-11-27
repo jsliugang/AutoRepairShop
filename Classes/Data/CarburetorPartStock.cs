@@ -12,7 +12,12 @@ namespace AutoRepairShop.Classes.Data
     {
         public CarburetorPartStock()
         {
-            for (int i = 0; i < 5; i++)
+            Add(3);
+        }
+
+        public override void Add(int amount)
+        {
+            for (int i = 0; i < amount; i++)
             {
                 Stock.Add(new CarburetorPart(true));
             }

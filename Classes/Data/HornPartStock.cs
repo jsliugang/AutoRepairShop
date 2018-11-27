@@ -11,7 +11,12 @@ namespace AutoRepairShop.Classes.Data
     {
         public HornPartStock()
         {
-            for (int i = 0; i < 5; i++)
+            Add(5);
+        }
+
+        public override void Add(int amount)
+        {
+            for (int i = 0; i < amount; i++)
             {
                 Stock.Add(new HornPart(true));
             }

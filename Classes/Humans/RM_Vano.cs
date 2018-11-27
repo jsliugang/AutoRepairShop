@@ -20,26 +20,23 @@ namespace AutoRepairShop.Classes.Humans
 
         public int ReplacePart(CarPart part, Car car)
         {
-            _carPart = part;
-            var newPart = CheckPartAvailability(_carPart.Name);
-            if (newPart!=null)
+            CarPart newPart = CheckPartAvailability(part.Name);
+            if (newPart != null)
             {
-                Disassemble();
+                Disassemble(part);
                 Thread.Sleep(5000);
                 car.CarContent.Find(x => x.Name == part.Name).IsWorking = newPart.IsWorking;
-                Replace();
+                Console.WriteLine($"Replacing the broken part with new one!");
                 Thread.Sleep(10000);
-                Assemble();
-                return _carPart.Cost;
+                Assemble(part);
+                return part.Cost;
+            }
+            Console.WriteLine($"{Name}: {part.Name} is not in garage, we have to request it from Stock.");
+            if (RequestPartFromStock(part.Name))
+            {
+                return ReplacePart(part, car);
             }
             return 0;
-        }
-
-        private void Replace()
-        {        
-            Console.WriteLine($"Replacing the broken part with new one!");
-        }
-
-        
+        }       
     }
 }

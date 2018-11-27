@@ -9,7 +9,6 @@ using AutoRepairShop.Interfaces;
 namespace AutoRepairShop.Classes.Data
 {
     class CarPartStock<T> : IStock<CarPart>
-        //where T : CarPart
     {
         public List<CarPart> Stock = new List<CarPart>();
 
@@ -23,6 +22,11 @@ namespace AutoRepairShop.Classes.Data
             }
             Console.WriteLine($"No item found");
             return null;
+        }
+
+        public virtual void Add(int amount)
+        {
+            
         }
     }
 }

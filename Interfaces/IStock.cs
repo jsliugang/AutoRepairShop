@@ -11,5 +11,6 @@ namespace AutoRepairShop.Interfaces
         where T : class
     {
         T ProvideItem();
+        void Add(int amount);
     }
 }

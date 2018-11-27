@@ -211,5 +211,20 @@ namespace AutoRepairShop.Classes.Humans
             DateTime now = WhatTimeIsItNow();
             return 7 < now.Hour && now.Hour < 24 && now.DayOfWeek != DayOfWeek.Sunday;
         }
+
+        public static bool MovePartToGarage(string partName)
+        {
+            if (StMan.Read(partName))
+            {
+                GarStMan.AddPartFromStock(partName);
+                //invoke delete from StMan and add part to GarMan
+                return true;
+            }
+            else
+            {
+                //no part in stock 
+                return false;
+            }
+        }
     }
 }

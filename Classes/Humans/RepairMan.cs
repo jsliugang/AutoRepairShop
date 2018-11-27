@@ -14,36 +14,34 @@ namespace AutoRepairShop.Classes.Humans
     abstract class RepairMan : Human
     {
         public bool IsBusy { get; set; }
-        protected CarPart _carPart;
 
         protected RepairMan()
         {
 
         }
-        protected void Disassemble()
+        protected void Disassemble(CarPart part)
         {
-            Console.WriteLine($"{Name} is disassembling the {_carPart.Name}");
+            Console.WriteLine($"{Name} is disassembling the {part.Name}");
         }
 
-        protected void Repair()
+        protected void Repair(CarPart part)
         {
-            Console.WriteLine($"{Name} is repairing the {_carPart.Name}");
-            _carPart.IsWorking = true;
+            Console.WriteLine($"{Name} is repairing the {part.Name}");
+            part.IsWorking = true;
         }
 
-        protected void Assemble()
+        protected void Assemble(CarPart part)
         {
-            Console.WriteLine($"{Name} is assembling the {_carPart.Name}");
+            Console.WriteLine($"{Name} is assembling the {part.Name}");
         }
 
         public void MakeRepairs(CarPart carPart)
         {
-            _carPart = carPart; 
-            Disassemble();
+            Disassemble(carPart);
             Thread.Sleep(10000);
-            Repair();
+            Repair(carPart);
             Thread.Sleep(5000);
-            Assemble();
+            Assemble(carPart);
         }
         
         public void DiagnozeCar(Car car)
@@ -64,8 +62,20 @@ namespace AutoRepairShop.Classes.Humans
             {
                 return newPart;
             }
-            Console.WriteLine($"{Name} is out of stock!");
+            Console.WriteLine($"{name} is out of stock!");
             return null;
+        }
+
+        public bool RequestPartFromStock(string partName)
+        {
+            if (ShopManager.MovePartToGarage(partName))
+            {
+                Thread.Sleep(10000);
+                Console.WriteLine($"{partName} successfully requested and moved to garage!");
+                return true;
+            }
+            Console.WriteLine($"{partName} is out of stock!");
+            return false;
         }
     }
 }

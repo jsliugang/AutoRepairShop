@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoRepairShop.Classes.Cars.CarParts;
 using AutoRepairShop.Classes.Cars.CarTypes;
+using AutoRepairShop.Classes.Managers;
 
 namespace AutoRepairShop.Classes.Humans
 {
@@ -28,27 +29,36 @@ namespace AutoRepairShop.Classes.Humans
 
         public int Modify(Car car)
         {
-            Console.WriteLine($"Kirill Artemovich: What kind of modification would you like?");
-            for (int i = 0; i < _modificationsOffer.Count; i++)
+            int userInput=-1;
+            while (userInput < 0 && userInput >= _modificationsOffer.Count)
             {
-                Console.WriteLine($"{i}. {_modificationsOffer[i]}");
-            }
-            Int32.TryParse(Console.ReadLine(), out int userInput);
-            Console.WriteLine($"Applying modifications to {car.Name}");
-            if (userInput >= 0 && userInput < _modificationsOffer.Count)
-            {
-                CarPart newPart = CheckPartAvailability(_modificationsOffer[userInput]);
-                if (newPart != null)
+                Console.WriteLine($"Kirill Artemovich: What kind of modification would you like?");
+                for (int i = 0; i < _modificationsOffer.Count; i++)
                 {
-                    car.CarContent.Add(newPart);
-                    Thread.Sleep(15000);
-                    Console.WriteLine($"All done!");
-                    return car.CarContent.Last().Cost;
+                    Console.WriteLine($"{i}. {_modificationsOffer[i]}");
                 }
+                Int32.TryParse(Console.ReadLine(), out userInput);               
+            }
+            Console.WriteLine($"Applying modifications to {car.Name}");
+            return PerformModification(_modificationsOffer[userInput], car);
+        }
+
+        public int PerformModification(string partName, Car car)
+        {
+            CarPart newPart = CheckPartAvailability(partName);
+            if (newPart != null)
+            {
+                car.CarContent.Add(newPart);
+                Thread.Sleep(15000);
+                Console.WriteLine($"All done!");
+                return car.CarContent.Last().Cost;
+            }
+            Console.WriteLine($"{Name}: {partName} is not in garage, we have to request it from Stock.");
+            if (RequestPartFromStock(partName))
+            {
+                return PerformModification(partName, car);
             }
             return 0;
-
-
         }
     }
 }
