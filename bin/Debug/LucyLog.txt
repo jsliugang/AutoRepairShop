@@ -75,3 +75,14 @@ Application closed
 01/01/1990 10:39 AM : New customer: Ivan, Car: Ursus 11054, Customer registered
 01/01/1990 9:47 AM : New customer: Ivan, Car: Emergency 911 Ambulance, Customer registered
 01/01/1990 9:26 AM : New customer: Sal, Car: MTZ 122, Customer registered
+01/01/1990 10:04 AM : New customer: Albert, Car: Suzuki Jimny, Customer registered
+01/01/1990 9:00 AM : New customer: Marshall, Car: MTZ 122, Customer registered
+01/01/1990 9:00 AM : New customer: Ria, Car: Lohr, Customer registered
+01/01/1990 9:00 AM : New customer: Clemencia, Car: Emergency 911 Ambulance, Customer registered
+01/01/1990 9:00 AM : New customer: Bruce, Car: FIA GT1, Customer registered
+01/01/1990 9:00 AM : New customer: Bruce, Car: FIA GT1, Customer registered
+01/01/1990 9:00 AM : New customer: Sonny, Car: Dulevo sweeper, Customer registered
+01/01/1990 9:00 AM : New customer: Weston, Car: Volvo FL 7, Customer registered
+01/01/1990 2:35 PM : Weston, Car: Volvo FL 7, Customer released. Amount: 0
+01/01/1990 9:00 AM : New customer: Shela, Car: Lohr, Customer registered
+01/01/1990 11:44 AM : Shela, Car: Lohr, Customer released. Amount: 50
