@@ -15,15 +15,25 @@ namespace AutoRepairShop.Classes.Cars.CarBuilders
         public Car Car { get; set; }
         public List<string> CarNames;
 
-        protected CarBuilder()
+        public CarBuilder(bool random)
         {
             CarNames = new List<string>();
-            Menu.PrintServiceMessage($"Please choose Car subtype:");
             SetCarNamesList();
-            foreach (string carName in CarNames)
+            if (!random) //manual input
             {
-                Menu.PrintServiceMessage($"{CarNames.IndexOf(carName)}. {carName}");
-            }           
+                Menu.PrintServiceMessage($"Please choose Car subtype:");
+                foreach (string carName in CarNames)
+                {
+                    Menu.PrintServiceMessage($"{CarNames.IndexOf(carName)}. {carName}");
+                }
+            }
+
+        }
+
+        public void RandomCarName()
+        {
+            Random rand = new Random();
+            Car.Name = CarNames[rand.Next(0, CarNames.Count)];
         }
 
         protected abstract void SetCarNamesList();
@@ -49,6 +59,22 @@ namespace AutoRepairShop.Classes.Cars.CarBuilders
             SetWheels();
             SetLiquids();
             SetMods();
+        }
+
+        public void CreateCarRandomly()
+        {
+            Random rand = new Random();
+            Car.CarContent.Add(new BodyPart(rand.NextDouble() > 0.5));
+            Car.CarContent.Add(new CarburetorPart(rand.NextDouble() > 0.5));
+            Car.CarContent.Add(new EnginePart(rand.NextDouble() > 0.5));
+            Car.CarContent.Add(new GearboxPart(rand.NextDouble() > 0.5));
+            Car.CarContent.Add(new HeatRegulatorPart(rand.NextDouble() > 0.5));
+            Car.CarContent.Add(new HornPart(rand.NextDouble() > 0.5));
+            Car.CarContent.Add(new MufflerPart(rand.NextDouble() > 0.5));
+            Car.CarContent.Add(new RadiatorPart(rand.NextDouble() > 0.5));
+            Car.CarContent.Add(new WheelsPart(rand.NextDouble() > 0.5));
+            Car.CarLiquids = new Liquids();
+            // TODO: generate random mods
         }
 
         public void SetBody()

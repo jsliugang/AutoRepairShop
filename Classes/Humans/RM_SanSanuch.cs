@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoRepairShop.Classes.Cars.CarParts
+namespace AutoRepairShop.Classes.Humans
 {
-    class BodyPart:CarPart
+    class RM_SanSanuch: RepairMan
     {
-        public BodyPart(bool state):base("Body", state)
+        public RM_SanSanuch()
         {
-            Cost = 1000;
+            Name = "San-Sanuch";
         }
     }
 }

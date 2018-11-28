@@ -77,5 +77,11 @@ namespace AutoRepairShop.Classes.Humans
             Console.WriteLine($"{partName} is out of stock!");
             return false;
         }
+
+        public void GetSickLeave()
+        {
+            IsBusy = true;
+            //specify amount of days sick
+        }
     }
 }

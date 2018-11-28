@@ -10,15 +10,27 @@ using AutoRepairShop.Classes.Managers;
 
 namespace AutoRepairShop.Classes.Humans
 {
-    class Customer:Human
+    class Customer:Human, IComparable<Customer>
     {
         public Car MyCar { get; set; }
+        public int Priority { get; set; }
 
-        public Customer()
+        public Customer() //manual ctor
         {
             Menu.PrintServiceMessage("Please set new customer's name:");
             Name = Console.ReadLine();
+            Menu.PrintServiceMessage($"Please set {Name}'s priority (1 highest to 10 lowest):");
+            Int32.TryParse(Console.ReadLine(), out int userInput);
+            Priority = userInput;
             Menu.PrintMenuMessage($"New Customer has arrived! Name - {Name}");
+        }
+
+        public Customer(Car car) //automated ctor
+        {
+            Random rand = new Random();
+            MyCar = car;
+            Name = NamesList[rand.Next(0, NamesList.Count)];
+            Priority = rand.Next(1,10);
         }
 
         public override void Say(string message)
@@ -36,25 +48,19 @@ namespace AutoRepairShop.Classes.Humans
                 Say("Sorry, I have to go, see you later!");
                 return -1;
             }
-            else if (reply == "looking good")
+            if (reply == "looking good")
             {
                 Say("You look great today, Lucy!");
                 ShopManager.Thank();
                 return GetReply(menuLength);
             }
-            else
+            int.TryParse(reply, out int i);
+            if (i > 0 && i <= menuLength)
             {
-                int.TryParse(reply, out int i);
-                if (i > 0 && i <= menuLength)
-                {
-                    return i;
-                }
-                else
-                {
-                    Menu.ThrowWarning();
-                    return GetReply(menuLength);
-                }
+                return i;
             }
+            Menu.ThrowWarning();
+            return GetReply(menuLength);
         }
 
         public void MakePayment()
@@ -113,5 +119,11 @@ namespace AutoRepairShop.Classes.Humans
             return MyCar.CarContent[userInput];
         }
 
+        public int CompareTo(Customer other)
+        {
+            if (this.Priority < other.Priority) return -1;
+            if (this.Priority > other.Priority) return 1;
+            return 0;
+        }
     }
 }

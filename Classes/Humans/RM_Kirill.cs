@@ -28,7 +28,7 @@ namespace AutoRepairShop.Classes.Humans
         }
 
         public int Modify(Car car)
-        {
+        {          
             int userInput=-1;
             while (userInput < 0 && userInput >= _modificationsOffer.Count)
             {

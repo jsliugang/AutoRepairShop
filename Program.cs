@@ -1,5 +1,8 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,9 +19,24 @@ namespace AutoRepairShop
     {
         static void Main(string[] args)
         {
-            SetConsoleCtrlHandler(new HandlerRoutine(ConsoleCtrlCheck), true);
+            //Process BalanceViewer = new Process();
+            //BalanceViewer.StartInfo.UseShellExecute = false;
+            //BalanceViewer.StartInfo.RedirectStandardOutput = true;
+            //BalanceViewer.StartInfo.FileName = @"C:\Users\Yuri.Pustovoy\Documents\Visual Studio 2017\Projects\AutoRepairShop\BalanceViewer\bin\Debug\BalanceViewer.exe";
+            //BalanceViewer.Start();
+            //StreamReader sw = BalanceViewer.StandardOutput;
+            //BalanceViewer.OutputDataReceived += CaptureOutput;
+            //BalanceViewer.BeginOutputReadLine();
             Menu menu = new Menu();
-            Console.ReadLine();
+            //BalanceViewer.WaitForExit();
+
+            SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
+            //BalanceViewer.WaitForExit();
+        }
+
+        static void CaptureOutput(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine($"Received: {e.Data}"); 
         }
 
         private static bool ConsoleCtrlCheck(CtrlTypes ctrlType)

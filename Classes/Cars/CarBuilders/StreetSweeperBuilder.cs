@@ -9,10 +9,17 @@ namespace AutoRepairShop.Classes.Cars.CarBuilders
 {
     class StreetSweeperBuilder:CarBuilder
     {
-        public StreetSweeperBuilder()
+        public StreetSweeperBuilder(bool random):base(random)
         {
             Car = new StreetSweeper();
-            ProcessNamingInput();
+            if (random)
+            {
+                RandomCarName();
+            }
+            else
+            {
+                ProcessNamingInput();
+            }
         }
 
         public override void CreateCar()

@@ -9,10 +9,17 @@ namespace AutoRepairShop.Classes.Cars.CarBuilders
 {
     class PrimeMoverBuilder:CarBuilder
     {
-        public PrimeMoverBuilder()
+        public PrimeMoverBuilder(bool random):base(random)
         {
             Car = new PrimeMover();
-            ProcessNamingInput();
+            if (random)
+            {
+                RandomCarName();
+            }
+            else
+            {
+                ProcessNamingInput();
+            }
         }
 
         public override void CreateCar()

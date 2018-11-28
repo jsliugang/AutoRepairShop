@@ -9,10 +9,17 @@ namespace AutoRepairShop.Classes.Cars.CarBuilders
 {
     class TractorBuilder:CarBuilder
     {
-        public TractorBuilder()
+        public TractorBuilder(bool random):base(random)
         {
             Car = new Tractor();
-            ProcessNamingInput();
+            if (random)
+            {
+                RandomCarName();
+            }
+            else
+            {
+                ProcessNamingInput();
+            }
         }
 
         public override void CreateCar()

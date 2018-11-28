@@ -11,10 +11,17 @@ namespace AutoRepairShop.Classes.Cars.CarBuilders
     class AmbulanceBuilder:CarBuilder
     {
 
-        public AmbulanceBuilder()
+        public AmbulanceBuilder(bool random):base(random)
         {
             Car = new Ambulance();
-            ProcessNamingInput();
+            if (random)
+            {
+                RandomCarName();
+            }
+            else
+            {
+                ProcessNamingInput();
+            }
         }
 
         protected override void SetCarNamesList()

@@ -52,5 +52,10 @@ namespace AutoRepairShop.Classes
             newGameTime = newGameTime.AddSeconds(difference);
             return newGameTime;
         }
+
+        public void UpdateBalance()
+        {
+            
+        }
     }
 }

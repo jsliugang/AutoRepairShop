@@ -16,7 +16,6 @@ namespace AutoRepairShop.Classes.Managers
 {
     sealed class Menu
     {
-        private static List<Customer> customers = new List<Customer>();
         public static Time Time { get; }
         private GarageStockManager GSM = new GarageStockManager();
         private static CarMaker cm = new CarMaker();
@@ -57,7 +56,7 @@ namespace AutoRepairShop.Classes.Managers
             Menu.PrintMenuMessage("3. Upgrade my ride!");
             Menu.PrintMenuMessage("4. Replace broken parts");
             Menu.PrintMenuMessage("5. Check and fix the liquids");
-            int _reply = ShopManager.CustomerReplyHandler(customers.Last().GetReply(5));
+            int _reply = ShopManager.CustomerReplyHandler(ShopManager._customerQueue.Pop().GetReply(5));
             if (_reply == 0)
             {
                 new Menu();
@@ -70,7 +69,7 @@ namespace AutoRepairShop.Classes.Managers
 
         public static void ProcessServiceInput(int userInput)
         {
-            Customer currentCustomer = customers.Last();
+            Customer currentCustomer = ShopManager._customerQueue.Pop();
             switch (userInput)
             {
                 case 1:
@@ -100,56 +99,6 @@ namespace AutoRepairShop.Classes.Managers
             }
         }
 
-        public static CarBuilder SelectBuilder()
-        {
-            PrintServiceMessage("**CAR BUILDER**"); 
-            PrintServiceMessage($"Select car type:");
-            foreach (CarsEnum carEnum in Enum.GetValues(typeof(CarsEnum)))
-            {
-                PrintServiceMessage($"{carEnum.GetHashCode()}. {carEnum}");
-            }
-            Int32.TryParse(Console.ReadLine(), out int uI);
-            CarBuilder cb;
-            switch (uI)
-            {
-                case 1:
-                    cb = new AmbulanceBuilder();
-                    return cb;
-                case 2:
-                    cb = new CarHaulerBuilder();
-                    return cb;
-                case 3:
-                    cb = new DumpTruckBuilder();
-                    return cb;
-                case 4:
-                    cb = new OffroaderBuilder();
-                    return cb;
-                case 5:
-                    cb = new PickupBuilder();
-                    return cb;
-                case 6:
-                    cb = new PrimeMoverBuilder();
-                    return cb;
-                case 7:
-                    cb = new RacecarBuilder();
-                    return cb;
-                case 8:
-                    cb = new SnowplugBuilder();
-                    return cb;
-                case 9:
-                    cb = new StreetSweeperBuilder();
-                    return cb;
-                case 10:
-                    cb = new TractorBuilder();
-                    return cb;
-                case 11:
-                    cb = new WagonBuilder();
-                    return cb;
-                default:
-                    return SelectBuilder();
-            }
-        }
-
         public static void ProcessMenuInput()
         {
             int userInput; 
@@ -159,10 +108,9 @@ namespace AutoRepairShop.Classes.Managers
                 case 1:
                     if (ShopManager.WorkingHours())
                     {
-                        customers.Add(new Customer());
-                        customers.Last().AssignCar(cm.MakeCar(SelectBuilder()));
-                        ShopManager.AcceptNewCustomer(customers.Last());
-                        
+                        ShopManager._customerQueue.Enqueue(new Customer(cm.MakeRandomCar()));
+                        //ShopManager._customerQueue.Pop().AssignCar(cm.MakeRandomCar());
+                        ShopManager.AcceptNewCustomer(ShopManager._customerQueue.Pop());                       
                     }
                     else
                     {

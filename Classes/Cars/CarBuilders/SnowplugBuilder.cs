@@ -9,10 +9,17 @@ namespace AutoRepairShop.Classes.Cars.CarBuilders
 {
     class SnowplugBuilder:CarBuilder
     {
-        public SnowplugBuilder()
+        public SnowplugBuilder(bool random):base(random)
         {
             Car = new Snowplug();
-            ProcessNamingInput();
+            if (random)
+            {
+                RandomCarName();
+            }
+            else
+            {
+                ProcessNamingInput();
+            }
         }
 
         public override void CreateCar()
