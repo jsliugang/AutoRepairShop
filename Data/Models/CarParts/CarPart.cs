@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoRepairShop.Data.Base
+namespace AutoRepairShop.Data.Models.CarParts
 {
     abstract class CarPart
     {

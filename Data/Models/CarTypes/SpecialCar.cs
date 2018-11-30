@@ -1,4 +1,4 @@
-﻿namespace AutoRepairShop.Data.Base
+﻿namespace AutoRepairShop.Data.Models.CarTypes
 {
     abstract class SpecialCar:Car
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
-using AutoRepairShop.Data.Base;
+using AutoRepairShop.Data.Models.CarTypes;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    class RmPetrovich:RepairMan
+    class RmPetrovich:RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplaceFluids<RepairMan>
     {
         public static readonly RmPetrovich Petrovich = new RmPetrovich();
 
@@ -13,36 +13,16 @@ namespace AutoRepairShop.Data.Models.Humans
             Name = "Petrovich";
         }
 
-        public int ReplaceFluid(Car car)
+        public int ReplaceFluid(Car car, string liquid)
         {
-            while (true)
-            {
-                byte value;
-                Console.WriteLine($"Petrovich: What liquid shall I replace?");
-                car.CarLiquids.CarLiquids.TryGetValue("Fuel", out value);
-                Console.WriteLine($"Fuel = {value}");
-                car.CarLiquids.CarLiquids.TryGetValue("EngineOil", out value);
-                Console.WriteLine($"EngineOil = {value}");
-                car.CarLiquids.CarLiquids.TryGetValue("BrakeFluid", out value);
-                Console.WriteLine($"BrakeFluid = {value}");
-                car.CarLiquids.CarLiquids.TryGetValue("CoolingLiquid", out value);
-                Console.WriteLine($"CoolingLiquid = {value}");
-                car.CarLiquids.CarLiquids.TryGetValue("WindshieldWasherLiquid", out value);
-                Console.WriteLine($"WindshieldWasherLiquid = {value}");
-                string key = Console.ReadLine();
-
-                if (key != null && car.CarLiquids.CarLiquids.ContainsKey(key))
+                if (liquid != null && car.CarLiquids.CarLiquids.ContainsKey(liquid))
                 {
-                    Console.WriteLine($"Petrovich: Getting access to tank.");
+                    Console.WriteLine($"{Name}: Getting access to tank.");
                     Thread.Sleep(15000);
-                    car.CarLiquids.CarLiquids[key] = 100;
-                    Console.WriteLine($"Petrovich: All done!");
-                    break;
+                    car.CarLiquids.CarLiquids[liquid] = 100;
+                    Console.WriteLine($"{Name}: All done!");
                 }
-                Console.WriteLine($"No such liquid found! Please, try again:");
-                ReplaceFluid(car);
-            }
-            return 50; //specify fluid costs
+        return 50; //specify fluid costs
         }
     }
 }

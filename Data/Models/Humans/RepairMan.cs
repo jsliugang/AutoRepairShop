@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Threading;
+using AutoRepairShop.Data.Models.CarParts;
+using AutoRepairShop.Data.Models.CarTypes;
+using AutoRepairShop.Data.Repository;
 using AutoRepairShop.WorkFlow;
 
-namespace AutoRepairShop.Data.Base
+namespace AutoRepairShop.Data.Models.Humans
 {
     abstract class RepairMan : Human
     {
@@ -24,8 +27,9 @@ namespace AutoRepairShop.Data.Base
             Console.WriteLine($"{Name} is assembling the {part.Name}");
         }
 
-        public void MakeRepairs(CarPart carPart)
+        public void MakeRepairs(string partName)
         {
+            CarPart carPart = ShopManager.CurrentCustomer.MyCar.CarContent.Find(x => x.Name == partName);
             Disassemble(carPart);
             Thread.Sleep(10000);
             Repair(carPart);

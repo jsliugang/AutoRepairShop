@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Schema;
+using AutoRepairShop.Data.Models.Humans;
 
-namespace AutoRepairShop.Data.Queues
+namespace AutoRepairShop.Data.Repository
 {
     class CustomerQueue<T> where T : IComparable<T>
     {
-        private List<T> _customers;
+        private static List<T> _customers;
+        public static int Length => _customers.Count;
+    
+        
 
-        public CustomerQueue()
+        static CustomerQueue()
         {
             _customers = new List<T>();
         }
 
-        public void Enqueue(T item)
+        public static void Enqueue(T item)
         {
             _customers.Add(item);
             int ci = _customers.Count - 1;
@@ -26,7 +31,7 @@ namespace AutoRepairShop.Data.Queues
             }
         }
 
-        public T Dequeue()
+        public static T Dequeue()
         {
             // Assumes pq isn't empty
             int li = _customers.Count - 1;
@@ -50,9 +55,21 @@ namespace AutoRepairShop.Data.Queues
             return frontItem;
         }
 
-        public T Pop()
+        public static T Read(int pos)
+        {
+            if (pos < _customers.Count)
+                return _customers[pos];
+            return _customers[0];
+        }
+
+        public static T Pop()
         {
             return _customers[0];
+        }
+
+        public static bool Empty()
+        {
+            return _customers.Count == 0;
         }
     }
 

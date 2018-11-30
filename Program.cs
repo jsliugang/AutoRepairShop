@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop
@@ -9,8 +10,9 @@ namespace AutoRepairShop
     {
         static void Main()
         {
-            Menu menu = new Menu();
+            MsgDecoratorTool.PrintCustomMessage("Welcome to the Repair Shop!", ConsoleColor.Green, ConsoleColor.Black);
             SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
+            RepairAutomationTool repairAutomationTool = new RepairAutomationTool();
         }
 
         private static bool ConsoleCtrlCheck(CtrlTypes ctrlType)

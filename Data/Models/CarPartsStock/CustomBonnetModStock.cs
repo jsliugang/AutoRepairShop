@@ -1,5 +1,4 @@
 ﻿using AutoRepairShop.Data.Models.CarParts;
-using AutoRepairShop.Data.Base;
 
 namespace AutoRepairShop.Data.Models.CarPartsStock
 {

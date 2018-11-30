@@ -1,88 +1,21 @@
-01/01/1990 10:48 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
 Application closed
-01/01/1990 9:49 PM
-01/02/1990 1:04 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-Application closed
-01/01/1990 11:00 AM
-01/01/1990 2:25 PM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/01/1990 11:48 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/01/1990 11:32 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-Application closed
-01/01/1990 4:19 PM
-Application closed
-01/01/1990 4:28 PM
-01/01/1990 7:25 PM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-Application closed
-01/01/1990 10:53 PM
-01/02/1990 12:51 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/01/1990 11:07 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-Application closed
-01/01/1990 10:03 PM
-01/01/1990 11:56 PM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/02/1990 5:46 PM : Ivan, Car: Regular Ambulance, Customer released. Amount: 4800
-Application closed
-01/02/1990 7:09 PM
-Application closed
-01/02/1990 10:31 PM
-Application closed
-01/03/1990 1:35 AM
-Application closed
-01/03/1990 2:53 AM
-Application closed
-01/03/1990 4:03 AM
-Application closed
-01/03/1990 10:39 AM
-Application closed
-01/03/1990 11:45 AM
-Application closed
-01/03/1990 12:36 PM
+01/02/1990 3:59 PM
+01/02/1990 10:59 PM : New customer: Bruce, Car: FIA GT1, Customer registered
 Application closed
 01/03/1990 1:14 PM
-01/03/1990 10:16 PM : New customer: 1, Car: Regular Ambulance, Customer registered
+01/03/1990 5:02 PM : New customer: Tarra, Car: Emergency 911 Ambulance, Customer registered
 Application closed
-01/04/1990 11:13 AM
-Application closed
-01/04/1990 11:40 AM
-Application closed
-01/04/1990 3:09 PM
-Application closed
-01/04/1990 3:58 PM
-Application closed
-01/04/1990 8:09 PM
-Application closed
-01/04/1990 10:01 PM
-Application closed
-01/05/1990 12:20 AM
-Application closed
-01/05/1990 12:57 AM
-Application closed
-01/05/1990 5:58 AM
-01/05/1990 10:01 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/05/1990 3:28 PM : Ivan, Car: Regular Ambulance, Customer released. Amount: 250
-01/06/1990 1:09 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/06/1990 5:20 AM : Ivan, Car: Regular Ambulance, Customer released. Amount: 300
-01/01/1990 2:10 PM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/01/1990 5:50 PM : Ivan, Car: Regular Ambulance, Customer released. Amount: 1200
-01/01/1990 9:46 PM : New customer: 1, Car: Regular Ambulance, Customer registered
-01/02/1990 1:57 AM : 1, Car: Regular Ambulance, Customer released. Amount: 3700
-01/01/1990 3:16 PM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/01/1990 8:05 PM : Ivan, Car: Regular Ambulance, Customer released. Amount: 1200
-01/08/1990 10:19 AM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/08/1990 2:25 PM : Ivan, Car: Regular Ambulance, Customer released. Amount: 1200
-01/01/1990 12:55 PM : New customer: Ivan, Car: Regular Ambulance, Customer registered
-01/01/1990 6:43 PM : Ivan, Car: Regular Ambulance, Customer released. Amount: 300
-01/01/1990 12:58 PM : New customer: Ivan, Car: UAZ Patriot, Customer registered
-01/01/1990 10:39 AM : New customer: Ivan, Car: Ursus 11054, Customer registered
-01/01/1990 9:47 AM : New customer: Ivan, Car: Emergency 911 Ambulance, Customer registered
-01/01/1990 9:26 AM : New customer: Sal, Car: MTZ 122, Customer registered
-01/01/1990 10:04 AM : New customer: Albert, Car: Suzuki Jimny, Customer registered
-01/01/1990 9:00 AM : New customer: Marshall, Car: MTZ 122, Customer registered
-01/01/1990 9:00 AM : New customer: Ria, Car: Lohr, Customer registered
-01/01/1990 9:00 AM : New customer: Clemencia, Car: Emergency 911 Ambulance, Customer registered
-01/01/1990 9:00 AM : New customer: Bruce, Car: FIA GT1, Customer registered
-01/01/1990 9:00 AM : New customer: Bruce, Car: FIA GT1, Customer registered
-01/01/1990 9:00 AM : New customer: Sonny, Car: Dulevo sweeper, Customer registered
-01/01/1990 9:00 AM : New customer: Weston, Car: Volvo FL 7, Customer registered
-01/01/1990 2:35 PM : Weston, Car: Volvo FL 7, Customer released. Amount: 0
-01/01/1990 9:00 AM : New customer: Shela, Car: Lohr, Customer registered
-01/01/1990 11:44 AM : Shela, Car: Lohr, Customer released. Amount: 50
+01/04/1990 8:27 PM
+01/04/1990 9:03 PM : New customer: Edgar, Car: Dulevo sweeper, Customer registered
+01/01/1990 9:12 AM : New customer: Wilbert, Car: Toyota Tacoma, Customer registered
+01/01/1990 9:12 AM : New customer: Weston, Car: Volvo FL 7, Customer registered
+01/24/1990 7:10 AM : Weston, Car: Volvo FL 7, Customer released. Amount: 2000
+01/24/1990 7:11 AM : New customer: Wanetta, Car: Lohr, Customer registered
+01/25/1990 10:54 AM : Wanetta, Car: Lohr, Customer released. Amount: 3300
+01/25/1990 10:54 AM : New customer: Fannie, Car: Emergency 911 Ambulance, Customer registered
+01/26/1990 12:44 AM : Fannie, Car: Emergency 911 Ambulance, Customer released. Amount: 900
+01/26/1990 12:44 AM : New customer: Tarra, Car: Emergency 911 Ambulance, Customer registered
+01/26/1990 7:57 PM : Tarra, Car: Emergency 911 Ambulance, Customer released. Amount: 5500
+01/26/1990 7:57 PM : New customer: Clemencia, Car: Emergency 911 Ambulance, Customer registered
+01/27/1990 7:58 PM : Clemencia, Car: Emergency 911 Ambulance, Customer released. Amount: 3650
+01/27/1990 7:58 PM : New customer: Kym, Car: Emergency 911 Ambulance, Customer registered

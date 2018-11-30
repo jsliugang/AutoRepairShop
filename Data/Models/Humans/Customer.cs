@@ -1,7 +1,9 @@
 ﻿using System;
-using AutoRepairShop.Data.Base;
 using AutoRepairShop.WorkFlow;
 using AutoRepairShop.Classes.Data.Models;
+using AutoRepairShop.Data.Models.CarParts;
+using AutoRepairShop.Data.Models.CarTypes;
+using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
@@ -13,20 +15,19 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public Customer() //manual ctor
         {
-            Menu.PrintServiceMessage("Please set new customer's name:");
+            MsgDecoratorTool.PrintServiceMessage("Please set new customer's name:");
             Name = Console.ReadLine();
-            Menu.PrintServiceMessage($"Please set {Name}'s priority (1 highest to 10 lowest):");
+            MsgDecoratorTool.PrintServiceMessage($"Please set {Name}'s priority (1 highest to 10 lowest):");
             Int32.TryParse(Console.ReadLine(), out int userInput);
             Priority = userInput;
-            Menu.PrintMenuMessage($"New Customer has arrived! Name - {Name}");
+            MsgDecoratorTool.PrintMenuMessage($"New Customer has arrived! Name - {Name}");
         }
 
         public Customer(Car car) //automated ctor
         {
-            Random rand = new Random();
             MyCar = car;
-            Name = NamesList[rand.Next(0, NamesList.Count)];
-            Priority = rand.Next(1,10);
+            Name = NamesList[new Random().Next(0, NamesList.Count)];
+            Priority = new Random().Next(1,10);
         }
 
         public override void Say(string message)
@@ -36,29 +37,20 @@ namespace AutoRepairShop.Data.Models.Humans
             Console.ResetColor();
         }
 
-        public int GetReply(int menuLength)
+        //TODO Refactor to leave the AutoRepairShop
+
+        public void LeaveShop()
         {
-            string reply = Console.ReadLine();
-            if (reply == "quit")
-            {
-                Say("Sorry, I have to go, see you later!");
-                return -1;
-            }
-            if (reply == "looking good")
-            {
-                Say("You look great today, Lucy!");
-                ShopManager.Thank();
-                return GetReply(menuLength);
-            }
-            int.TryParse(reply, out int i);
-            if (i > 0 && i <= menuLength)
-            {
-                return i;
-            }
-            Menu.ThrowWarning();
-            return GetReply(menuLength);
+            Say("I think that is it for today, Lucy, I have to go, see you later!");
+            ShopManager.ReleaseCustomer(this);
         }
 
+        public void ComplimentLucy()
+        {
+            Say("You look great today, Lucy!");
+            ShopManager.Thank();
+        }
+   
         public void MakePayment()
         {
             Say($"Here it is, sweetheart.");
@@ -73,31 +65,31 @@ namespace AutoRepairShop.Data.Models.Humans
         public void MakeDiagnosticsOrder()
         {
             Say($"Please diagnoze my {MyCar.Name}, I need to know what is broken");
-            ShopManager.TakeCar(MyCar, 1);
+            ShopManager.ProcessOrder(1, "");
         }
 
-        public void MakeRepairOrder()
+        public void MakeRepairOrder(string part)
         {
             Say($"Please repair all the broken parts of my {MyCar.Name}.");
-            ShopManager.TakeCar(MyCar, 2);
+            ShopManager.ProcessOrder(2, part);
         }
 
-        public void PimpMyCar()
+        public void PimpMyCar(string modificationType)
         {
             Say($"Xzibit, pimp my {MyCar.Name}!!");
-            ShopManager.TakeCar(MyCar, 3);
+            ShopManager.ProcessOrder(3, modificationType);
         }
 
-        public void ReplaceBrokenParts()
+        public void ReplaceBrokenParts(string part)
         {
             Say($"Replace all broken parts in {MyCar.Name}, please...");
-            ShopManager.TakeCar(MyCar, 4);
+            ShopManager.ProcessOrder(4, part);
         }
 
-        public void ReplaceLiquids()
+        public void ReplaceLiquids(string liquid)
         {
             Say($"Replace the liquids in {MyCar.Name}, please...");
-            ShopManager.TakeCar(MyCar, 5);
+            ShopManager.ProcessOrder(5, liquid);
         }
 
         public CarPart PointAtCarPart()
@@ -108,17 +100,16 @@ namespace AutoRepairShop.Data.Models.Humans
                 if (!MyCar.CarContent[i].IsWorking)
                 {
                     Console.WriteLine($"{i}. Repair {MyCar.CarContent[i].Name}!");
+                    return MyCar.CarContent[i];
                 }
             }
-            int userInput;
-            int.TryParse(Console.ReadLine(), out userInput);
-            return MyCar.CarContent[userInput];
+            return MyCar.CarContent[0]; //replace - if no parts are broken
         }
 
         public int CompareTo(Customer other)
         {
-            if (this.Priority < other.Priority) return -1;
-            if (this.Priority > other.Priority) return 1;
+            if (Priority < other.Priority) return -1;
+            if (Priority > other.Priority) return 1;
             return 0;
         }
     }

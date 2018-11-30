@@ -1,7 +1,6 @@
 ﻿using System;
-using AutoRepairShop.Data.Models.CarTypes;
 
-namespace AutoRepairShop.Data.Base
+namespace AutoRepairShop.Data.Models.CarTypes
 {
     abstract class PassengerCar:Car, IRadio, ISensor
     {

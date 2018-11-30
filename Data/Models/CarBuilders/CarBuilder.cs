@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoRepairShop.Data.Models.CarParts;
+using AutoRepairShop.Data.Models.CarTypes;
+using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
 
-namespace AutoRepairShop.Data.Base
+namespace AutoRepairShop.Data.Models.CarBuilders
 {
     abstract class CarBuilder
     {
@@ -16,10 +18,10 @@ namespace AutoRepairShop.Data.Base
             SetCarNamesList();
             if (!random) //manual input
             {
-                Menu.PrintServiceMessage($"Please choose Car subtype:");
+                MsgDecoratorTool.PrintServiceMessage($"Please choose Car subtype:");
                 foreach (string carName in CarNames)
                 {
-                    Menu.PrintServiceMessage($"{CarNames.IndexOf(carName)}. {carName}");
+                    MsgDecoratorTool.PrintServiceMessage($"{CarNames.IndexOf(carName)}. {carName}");
                 }
             }
 
@@ -41,7 +43,6 @@ namespace AutoRepairShop.Data.Base
 
         public virtual void CreateCar()
         {
-            Menu.PrintServiceMessage("**Please specify what parts are broken: **");
             SetBody();
             SetCarburetor();
             SetEngine();
@@ -74,37 +75,37 @@ namespace AutoRepairShop.Data.Base
 
         public void SetBody()
         {
-            Menu.PrintServiceMessage($"Is Body working? 1-Yes, 0-No:");
+            MsgDecoratorTool.PrintServiceMessage($"Is Body working? 1-Yes, 0-No:");
             Car.CarContent.Add(new BodyPart(SetWorking()));
         }
 
         public void SetCarburetor()
         {
-            Menu.PrintServiceMessage($"Is Carburetor working? 1-Yes, 0-No:");
+            MsgDecoratorTool.PrintServiceMessage($"Is Carburetor working? 1-Yes, 0-No:");
             Car.CarContent.Add(new CarburetorPart(SetWorking()));
         }
 
         public void SetEngine()
         {
-            Menu.PrintServiceMessage($"Is Engine working? 1-Yes, 0-No:");
+            MsgDecoratorTool.PrintServiceMessage($"Is Engine working? 1-Yes, 0-No:");
             Car.CarContent.Add(new EnginePart(SetWorking()));
         }
 
         public void SetGearbox()
         {
-            Menu.PrintServiceMessage($"Is Gearbox working? 1-Yes, 0-No:");
+            MsgDecoratorTool.PrintServiceMessage($"Is Gearbox working? 1-Yes, 0-No:");
             Car.CarContent.Add(new GearboxPart(SetWorking()));
         }
 
         public void SetHeatRegulator()
         {
-            Menu.PrintServiceMessage($"Is Heat Regulator working? 1-Yes, 0-No:");
+            MsgDecoratorTool.PrintServiceMessage($"Is Heat Regulator working? 1-Yes, 0-No:");
             Car.CarContent.Add(new HeatRegulatorPart(SetWorking()));
         }
 
         public void SetHorn()
         {
-            Menu.PrintServiceMessage($"Is Horn working? 1-Yes, 0-No:");
+            MsgDecoratorTool.PrintServiceMessage($"Is Horn working? 1-Yes, 0-No:");
             Car.CarContent.Add(new HornPart(SetWorking()));
         }
 
@@ -115,19 +116,19 @@ namespace AutoRepairShop.Data.Base
 
         public void SetMuffler()
         {
-            Menu.PrintServiceMessage($"Is Muffler working? 1-Yes, 0-No:");
+            MsgDecoratorTool.PrintServiceMessage($"Is Muffler working? 1-Yes, 0-No:");
             Car.CarContent.Add(new MufflerPart(SetWorking()));
         }
 
         public void SetRadiator()
         {
-            Menu.PrintServiceMessage($"Is Radiator working? 1-Yes, 0-No:");
+            MsgDecoratorTool.PrintServiceMessage($"Is Radiator working? 1-Yes, 0-No:");
             Car.CarContent.Add(new RadiatorPart(SetWorking()));
         }
 
         public void SetWheels()
         {
-            Menu.PrintServiceMessage($"Are wheels working? 1-Yes, 0-No:");
+            MsgDecoratorTool.PrintServiceMessage($"Are wheels working? 1-Yes, 0-No:");
             Car.CarContent.Add(new WheelsPart(SetWorking()));
         }
 
@@ -135,56 +136,56 @@ namespace AutoRepairShop.Data.Base
         {
             while (true)
             {
-                Menu.PrintServiceMessage($"Please choose modes (press 0 to quit):");
-                Menu.PrintServiceMessage($"1. Custom bonnet");
-                Menu.PrintServiceMessage($"2. Decals");
-                Menu.PrintServiceMessage($"3. ExhaustPipe");
-                Menu.PrintServiceMessage($"4. NO 2");
-                Menu.PrintServiceMessage($"5. Spinners");
-                Menu.PrintServiceMessage($"6. Spoiler");
-                Menu.PrintServiceMessage($"7. Sport Suspension");
-                Menu.PrintServiceMessage($"8. Titanium Wipers");
+                MsgDecoratorTool.PrintServiceMessage($"Please choose modes (press 0 to quit):");
+                MsgDecoratorTool.PrintServiceMessage($"1. Custom bonnet");
+                MsgDecoratorTool.PrintServiceMessage($"2. Decals");
+                MsgDecoratorTool.PrintServiceMessage($"3. ExhaustPipe");
+                MsgDecoratorTool.PrintServiceMessage($"4. NO 2");
+                MsgDecoratorTool.PrintServiceMessage($"5. Spinners");
+                MsgDecoratorTool.PrintServiceMessage($"6. Spoiler");
+                MsgDecoratorTool.PrintServiceMessage($"7. Sport Suspension");
+                MsgDecoratorTool.PrintServiceMessage($"8. Titanium Wipers");
                 Int32.TryParse(Console.ReadLine(), out int userInput);
                 switch (userInput)
                 {
                     case 1:
-                        Menu.PrintServiceMessage($"Is Bonnet OK? 1-Yes, 0-No:");
+                        MsgDecoratorTool.PrintServiceMessage($"Is Bonnet OK? 1-Yes, 0-No:");
                         Car.CarContent.Add(new CustomBonnetMod(SetWorking()));
                         break;
                     case 2:
-                        Menu.PrintServiceMessage($"Are Decals OK? 1-Yes, 0-No:");
+                        MsgDecoratorTool.PrintServiceMessage($"Are Decals OK? 1-Yes, 0-No:");
                         Car.CarContent.Add(new DecalsMod(SetWorking()));
                         break;
                     case 3:
-                        Menu.PrintServiceMessage($"Is Exhaust Pipe OK? 1-Yes, 0-No:");
+                        MsgDecoratorTool.PrintServiceMessage($"Is Exhaust Pipe OK? 1-Yes, 0-No:");
                         Car.CarContent.Add(new ExhaustPipeMod(SetWorking()));
                         break;
                     case 4:
-                        Menu.PrintServiceMessage($"Is NO2 OK? 1-Yes, 0-No:");
+                        MsgDecoratorTool.PrintServiceMessage($"Is NO2 OK? 1-Yes, 0-No:");
                         Car.CarContent.Add(new No2Mod(SetWorking()));
                         break;
                     case 5:
-                        Menu.PrintServiceMessage($"Are Spinners OK? 1-Yes, 0-No:");
+                        MsgDecoratorTool.PrintServiceMessage($"Are Spinners OK? 1-Yes, 0-No:");
                         Car.CarContent.Add(new SpinnersMod(SetWorking()));
                         break;
                     case 6:
-                        Menu.PrintServiceMessage($"Is Spolier OK? 1-Yes, 0-No:");
+                        MsgDecoratorTool.PrintServiceMessage($"Is Spolier OK? 1-Yes, 0-No:");
                         Car.CarContent.Add(new SpoilerMod(SetWorking()));
                         break;
                     case 7:
-                        Menu.PrintServiceMessage($"Is Sport Suspension OK? 1-Yes, 0-No:");
+                        MsgDecoratorTool.PrintServiceMessage($"Is Sport Suspension OK? 1-Yes, 0-No:");
                         Car.CarContent.Add(new SportSuspensionMod(SetWorking()));
                         break;
                     case 8:
-                        Menu.PrintServiceMessage($"Are Titanium Wipers OK? 1-Yes, 0-No:");
+                        MsgDecoratorTool.PrintServiceMessage($"Are Titanium Wipers OK? 1-Yes, 0-No:");
                         Car.CarContent.Add(new TitaniumWipersMod(SetWorking()));
                         break;
 
                     default:
-                        Menu.PrintServiceMessage($"No modifications chosen.");
+                        MsgDecoratorTool.PrintServiceMessage($"No modifications chosen.");
                         break;
                 }
-                Menu.PrintServiceMessage($"Add more? Yes-1, No-0:");
+                MsgDecoratorTool.PrintServiceMessage($"Add more? Yes-1, No-0:");
                 Int32.TryParse(Console.ReadLine(), out int again);
                 if (again == 1)
                 {

@@ -1,5 +1,4 @@
-﻿using AutoRepairShop.Data.Base;
-using AutoRepairShop.Data.Models.CarTypes;
+﻿using AutoRepairShop.Data.Models.CarTypes;
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {

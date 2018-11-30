@@ -2,42 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using AutoRepairShop.Data.Base;
+using AutoRepairShop.Data.Models.CarParts;
+using AutoRepairShop.Data.Models.CarTypes;
+using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    class RmKirill:RepairMan
+    class RmKirill:RepairMan, ICanCustomize<RepairMan>, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>
     {
-        private List<string> _modificationsOffer = new List<string>();
         public static readonly RmKirill Kirill = new RmKirill();
 
         private RmKirill()
         {
             Name = "Kirill Artemovich";
-            _modificationsOffer.Add("CustomBonnet");
-            _modificationsOffer.Add("Decals");
-            _modificationsOffer.Add("ExhaustPipe");
-            _modificationsOffer.Add("NO2");
-            _modificationsOffer.Add("Spinners");
-            _modificationsOffer.Add("Spoiler");
-            _modificationsOffer.Add("SportSuspension");
-            _modificationsOffer.Add("TitaniumWipers");
         }
 
-        public int Modify(Car car)
+        public int Modify(Car car, string modificationType)
         {          
-            int userInput=-1;
-            while (userInput < 0 && userInput >= _modificationsOffer.Count)
-            {
-                Console.WriteLine($"Kirill Artemovich: What kind of modification would you like?");
-                for (int i = 0; i < _modificationsOffer.Count; i++)
-                {
-                    Console.WriteLine($"{i}. {_modificationsOffer[i]}");
-                }
-                Int32.TryParse(Console.ReadLine(), out userInput);               
-            }
             Console.WriteLine($"Applying modifications to {car.Name}");
-            return PerformModification(_modificationsOffer[userInput], car);
+            return PerformModification(modificationType, car);
         }
 
         public int PerformModification(string partName, Car car)

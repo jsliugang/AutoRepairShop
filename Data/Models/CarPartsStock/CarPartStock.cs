@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoRepairShop.Data.Base;
+using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Repository;
 
-namespace AutoRepairShop.Data.Base
+namespace AutoRepairShop.Data.Models.CarPartsStock
 {
     class CarPartStock<T> : IStock<CarPart>
     {

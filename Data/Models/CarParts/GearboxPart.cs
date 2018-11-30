@@ -1,6 +1,4 @@
-﻿using AutoRepairShop.Data.Base;
-
-namespace AutoRepairShop.Data.Models.CarParts
+﻿namespace AutoRepairShop.Data.Models.CarParts
 {
     class GearboxPart:CarPart
     {

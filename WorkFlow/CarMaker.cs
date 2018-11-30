@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoRepairShop.Data.Base;
 using AutoRepairShop.Data.Enums;
 using AutoRepairShop.Data.Models.CarBuilders;
-using AutoRepairShop.WorkFlow;
+using AutoRepairShop.Data.Models.CarTypes;
+using AutoRepairShop.Tools;
 
-namespace AutoRepairShop.Classes.Cars
+namespace AutoRepairShop.WorkFlow
 {
     class CarMaker
     {
@@ -29,11 +25,11 @@ namespace AutoRepairShop.Classes.Cars
 
         public int SelectBuilder()
         {
-            Menu.PrintServiceMessage("**CAR BUILDER**");
-            Menu.PrintServiceMessage($"Select car type:");
+            MsgDecoratorTool.PrintServiceMessage("**CAR BUILDER**");
+            MsgDecoratorTool.PrintServiceMessage($"Select car type:");
             foreach (CarsEnum carEnum in Enum.GetValues(typeof(CarsEnum)))
             {
-                Menu.PrintServiceMessage($"{carEnum.GetHashCode()}. {carEnum}");
+                MsgDecoratorTool.PrintServiceMessage($"{carEnum.GetHashCode()}. {carEnum}");
             }
             Int32.TryParse(Console.ReadLine(), out int userInput);
             return userInput;

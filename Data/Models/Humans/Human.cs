@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace AutoRepairShop.Data.Base
+namespace AutoRepairShop.Data.Models.Humans
 {
     abstract class Human
     {

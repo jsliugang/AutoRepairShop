@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AutoRepairShop.Data.Base;
+using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.CarPartsStock;
 
 namespace AutoRepairShop.Data.Repository
@@ -17,7 +17,7 @@ namespace AutoRepairShop.Data.Repository
             StockManagers.Add("Engine", new EnginePartStock());
             StockManagers.Add("ExhaustPipe", new ExhaustPipeModStock());
             StockManagers.Add("Gearbox", new GearboxPartStock());
-            StockManagers.Add("HeatRegularor", new HeatRegulatorPartStock());
+            StockManagers.Add("HeatRegulator", new HeatRegulatorPartStock());
             StockManagers.Add("Horn", new HornPartStock());
             StockManagers.Add("Muffler", new MufflerPartStock());
             StockManagers.Add("NO2", new No2ModStock());

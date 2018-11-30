@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoRepairShop.Data.Models.CarParts;
 
-namespace AutoRepairShop.Data.Base
+namespace AutoRepairShop.Data.Models.CarTypes
 {
     abstract class Car
     {

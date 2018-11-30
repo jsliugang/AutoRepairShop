@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Services
@@ -27,7 +28,7 @@ namespace AutoRepairShop.Services
             using (StreamWriter w = File.AppendText("LucyLog.txt"))
             {
                 w.WriteLine($"Application closed");
-                w.WriteLine($"\r{Menu.PassMeTime().ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture)}");
+                w.WriteLine($"\r{MsgDecoratorTool.PassMeTime().ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture)}");
             }
         }
 
@@ -42,7 +43,7 @@ namespace AutoRepairShop.Services
 
         public static void Log(string logMessage, TextWriter w)
         {
-            w.Write($"\r{Menu.PassMeTime().ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture)} : ");
+            w.Write($"\r{MsgDecoratorTool.PassMeTime().ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture)} : ");
             w.WriteLine($"{logMessage}");
         }
 

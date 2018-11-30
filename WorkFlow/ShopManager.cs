@@ -1,178 +1,181 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using AutoRepairShop.Data.Base;
+using AutoRepairShop.Data.Lists;
+using AutoRepairShop.Data.Models.CarTypes;
 using AutoRepairShop.Data.Models.Humans;
-using AutoRepairShop.Data.Queues;
 using AutoRepairShop.Data.Repository;
 using AutoRepairShop.Services;
+using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.WorkFlow
 {
-    sealed class ShopManager : Human
+    internal sealed class ShopManager : Human
     {
         private bool _isGarageEmpty = true;
         private int _costOfServices = 0;
         public static StockManager StMan = new StockManager();
         public static GarageStockManager GarStMan = new GarageStockManager();
-        LoggerService _lrw = new LoggerService();
-        //private static RM_Kirill _kirill = new RM_Kirill();
-        //private static RM_Petrovich _petrovich = new RM_Petrovich();
-        //private static RM_Vano _vano = new RM_Vano();
-        //private static RM_SanSanuch _sanSanuch = new RM_SanSanuch();
-        private static Dictionary<string, int> _servicesCatalogue = new Dictionary<string, int>();
+        private readonly LoggerService _lrw = new LoggerService();
+        private static readonly Dictionary<string, int> ServicesCatalogue = new Dictionary<string, int>();
         private static int _balance;
-        public static readonly ShopManager Lucy = new ShopManager();
-        public static CustomerQueue<Customer> CustomerQueue = new CustomerQueue<Customer>();
+        public static List<string> ModificationsOffer = new List<string>();
+        public static Customer CurrentCustomer;
 
         private ShopManager()
         {
             Name = "Lucy";   
-            _servicesCatalogue.Add("Diagnoze", 50);
-            _servicesCatalogue.Add("Repair", 250);
-            _servicesCatalogue.Add("Modify", 500);
-            _servicesCatalogue.Add("Replace", 200);
-            _servicesCatalogue.Add("ReplaceLiquid", 50);
+            ServicesCatalogue.Add("Diagnoze", 50);
+            ServicesCatalogue.Add("Repair", 250);
+            ServicesCatalogue.Add("Modify", 500);
+            ServicesCatalogue.Add("Replace", 200);
+            ServicesCatalogue.Add("ReplaceLiquid", 50);
             _balance = BalanceReadWrite.Read();
+            ModificationsOffer.Add("CustomBonnet");
+            ModificationsOffer.Add("Decals");
+            ModificationsOffer.Add("ExhaustPipe");
+            ModificationsOffer.Add("NO2");
+            ModificationsOffer.Add("Spinners");
+            ModificationsOffer.Add("Spoiler");
+            ModificationsOffer.Add("SportSuspension");
+            ModificationsOffer.Add("TitaniumWipers");
         }
 
-        public override void Say(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            base.Say(message);
-            Console.ResetColor();
-        }
+        public static ShopManager Lucy { get { return Nested.lucy; } }
 
-        public static void CustomerOnHold()
+        private class Nested
         {
-            Lucy.Say($"All repair men are busy at this moment!");//ask to wait and menu?
-        }
-
-        public static void TakeCar(Car customerCar, int choice)
-        {
-            Lucy.Say("Will do!");
-            switch (choice)
+            static Nested()
             {
-
-                case 1: //diagnoze
-                    if (!RmPetrovich.Petrovich.IsBusy)
-                    {
-                        RmPetrovich.Petrovich.DiagnozeCar(customerCar);
-                    }
-                    else if (!RmVano.Vano.IsBusy)
-                    {
-                        RmVano.Vano.DiagnozeCar(customerCar);
-                    }
-                    else if (!RmKirill.Kirill.IsBusy)
-                    {
-                        RmKirill.Kirill.DiagnozeCar(customerCar);
-                    }
-                    else
-                    {
-                        CustomerOnHold();
-                    }
-                    AddCostToTotal("Diagnoze", 0);
-                    Menu.RepairMenu();
-                    break;
-
-                case 2: //repair
-                    CarPart part = CustomerQueue.Pop().PointAtCarPart();
-                    if (!RmPetrovich.Petrovich.IsBusy)
-                    {
-                        RmPetrovich.Petrovich.MakeRepairs(part);
-                    }
-                    else if (!RmVano.Vano.IsBusy)
-                    {
-                        RmVano.Vano.MakeRepairs(part);
-                    }
-                    else if (!RmKirill.Kirill.IsBusy)
-                    {
-                        RmKirill.Kirill.MakeRepairs(part);
-                    }
-                    else
-                    {
-                        CustomerOnHold();
-                    }
-                    AddCostToTotal("Repair", 0);
-                    Menu.RepairMenu();
-                    break;
-
-                case 3: // mods
-                    if (RmKirill.Kirill.IsBusy)
-                    {
-                        CustomerOnHold();
-                    }
-                    int cost = RmKirill.Kirill.Modify(customerCar);
-                    if (cost != 0)
-                    {
-                        AddCostToTotal("Modify", cost);
-                    }
-                    Menu.RepairMenu();
-                    break;
-                case 4: //replace
-                    CarPart brokenPart = CustomerQueue.Pop().PointAtCarPart();
-                    if (RmVano.Vano.IsBusy)
-                    {
-                        CustomerOnHold();
-                    }
-                    cost = RmVano.Vano.ReplacePart(brokenPart, customerCar);
-                    if (cost != 0)
-                    {
-                        AddCostToTotal("Replace", cost);
-                    }
-                    Menu.RepairMenu();
-                    break;
-
-                case 5: //liquids
-                    if (RmPetrovich.Petrovich.IsBusy)
-                    {
-                        CustomerOnHold();
-                    }
-                    AddCostToTotal("ReplaceLiquid", RmPetrovich.Petrovich.ReplaceFluid(CustomerQueue.Pop().MyCar));
-                    Menu.RepairMenu();
-                    break;
-
-                default:
-                    break;
             }
-        }
-
-        public static void AddCostToTotal(string service, int partCost)
-        {
-            _servicesCatalogue.TryGetValue(service, out int currentCost);
-            currentCost += partCost;
-            Lucy.Say($"{service} complete. The cost is {currentCost} USD.");
-            Lucy._costOfServices += currentCost;
-        }
-
-        public static Customer GetCurrentCustomer()
-        {
-            return CustomerQueue.Pop();
+            internal static readonly ShopManager lucy = new ShopManager();
         }
 
         public static void AcceptNewCustomer(Customer customer)
         {
+            CurrentCustomer = customer;
+            CustomerQueue<Customer>.Dequeue();
             Lucy._costOfServices = 0;
-            Lucy.Say($"Greetings {CustomerQueue.Pop().Name}! My name is {Lucy.Name} and I will be your Repair Shop Manager today.");
-            Lucy.Say($"Please leave your {CustomerQueue.Pop().MyCar.Name} at the parking lot.");
-            ShopManager.CheckWorkerBusy();
-            Lucy._isGarageEmpty = false;
-            Lucy._lrw.StoreLog($"New customer: {CustomerQueue.Pop().Name}, Car: {CustomerQueue.Pop().MyCar.Name}, Customer registered");    
-            Lucy.Say($"{CustomerQueue.Pop().Name}, what shall we do with your {CustomerQueue.Pop().MyCar.Name}?");
-            Menu.RepairMenu();
-        }      
+            Lucy.Say($"Greetings {CurrentCustomer.Name}! My name is {Lucy.Name} and I will be your Repair Shop Manager today.");
+            Lucy.Say($"Please leave your {CurrentCustomer.MyCar.Name} at the parking lot.");
+            if (Lucy._isGarageEmpty)
+            {
+                Lucy._isGarageEmpty = false;
+            }
+            Lucy._lrw.StoreLog($"New customer: {CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer registered");
+            Lucy.Say($"{CurrentCustomer.Name}, what shall we do with your {CurrentCustomer.MyCar.Name}?");
+            RepairAutomationTool.MakeRepairChoice();
+        }
 
         public static void ReleaseCustomer(Customer customer)
         {
-            // Calculate amount, talk to customer, take money
+            Lucy.Say($"Ok then!");
             Lucy._isGarageEmpty = true;
             Lucy._costOfServices -= Lucy._costOfServices * (customer.MyDiscounts.GetDiscountRate() / 100);
             customer.MyDiscounts.PunchDiscountCard();
             Lucy.Say($"Your total for today is {Lucy._costOfServices}.");
             customer.MakePayment();
             Lucy.Say($"Have a great day, {customer.Name}");
-            Lucy._lrw.StoreLog($"{CustomerQueue.Pop().Name}, Car: {CustomerQueue.Pop().MyCar.Name}, Customer released. Amount: {Lucy._costOfServices}");
+            Lucy._lrw.StoreLog($"{CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer released. Amount: {Lucy._costOfServices}");
             BalanceReadWrite.Write(_balance += Lucy._costOfServices);
+        }
+
+        public static void CustomerOnHold()
+        {
+            Lucy.Say($"All repair men are busy at this moment!");//ask to wait?
+        }
+
+        public static void ShopIsClosed()
+        {
+            Lucy.Say($"The Auto Repair Shop will open at 8 am tomorrow! We are not working at night time: {MsgDecoratorTool.PassMeTime()}");
+        }
+
+        public static void ProcessOrder(int choice, string part)
+        {
+            Car customerCar = CurrentCustomer.MyCar;
+            Lucy.Say("Will do!");
+            switch (choice)
+            {
+                case 1: //diagnoze
+                    ICanDiagnoze<RepairMan> diagnozeMan = CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false);
+                    if (diagnozeMan != null)
+                    {
+                        diagnozeMan.DiagnozeCar(customerCar);
+                    }                  
+                    else
+                    {
+                        CustomerOnHold();
+                    }
+                    AddCostToTotal("Diagnoze", 0);
+                    break;
+
+                case 2: //repair
+                    ICanRepair<RepairMan> repairMan = CanRepairList.RepairMen.Find(x => x.IsBusy == false);
+                    repairMan = CanRepairList.RepairMen.Find(x => x.IsBusy == false);
+                    if (repairMan != null)
+                    {
+                        repairMan.MakeRepairs(part);
+                    }
+                    else
+                    {
+                        CustomerOnHold();
+                    }
+                    AddCostToTotal("Repair", 0);
+                    break;
+
+                case 3: // mods
+                    int cost = 0;
+                    ICanCustomize<RepairMan> customizeMan = CanCustomizeList.RepairMen.Find(x => x.IsBusy == false);
+                    if (customizeMan != null)
+                    {
+                        cost = customizeMan.Modify(customerCar, part);
+                    }
+                    else
+                    {
+                        CustomerOnHold();
+                    }
+                    if (cost != 0)
+                    {
+                        AddCostToTotal("Modify", cost);
+                    }
+                    break;
+                case 4: //replace
+                    cost = 0;
+                    ICanReplace<RepairMan> replaceMan = CanReplaceList.RepairMen.Find(x => x.IsBusy == false);
+                    if (replaceMan != null)
+                    {
+                        cost = replaceMan.ReplacePart(part, customerCar);
+                    }
+                    else
+                    {
+                        CustomerOnHold();
+                    }
+                    if (cost != 0)
+                    {
+                        AddCostToTotal("Replace", cost);
+                    }
+                    break;
+
+                case 5: //liquids 
+                    ICanReplaceFluids<RepairMan> replaceFluidsMan = CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false);
+                    if (replaceFluidsMan != null)
+                    {
+                        AddCostToTotal("ReplaceLiquid", replaceFluidsMan.ReplaceFluid(CurrentCustomer.MyCar, part));
+                    }
+                    else
+                    {
+                        CustomerOnHold();
+                    }
+                    break;
+            }
+        }
+
+        public static void AddCostToTotal(string service, int partCost)
+        {
+            ServicesCatalogue.TryGetValue(service, out int currentCost);
+            currentCost += partCost;
+            Lucy.Say($"{service} complete. The cost is {currentCost} USD.");
+            Lucy._costOfServices += currentCost;
         }
 
         public static void LastTimeLog()
@@ -180,30 +183,14 @@ namespace AutoRepairShop.WorkFlow
             Lucy._lrw.StoreTime();
         }
 
-        public static int CustomerReplyHandler(int reply)
-        {
-            if (reply == -1)
-            {
-                Lucy.Say($"Ok then!");
-                ReleaseCustomer(CustomerQueue.Pop());
-                return 0;
-            }
-            return reply;
-        }
-
         public static void Thank()
         {
             Lucy.Say($"Oh thank you, thank you *blashes*");
         }
 
-        public static void CheckWorkerBusy()
-        {
-            
-        }
-
         public static DateTime WhatTimeIsItNow()
         {
-            return Menu.PassMeTime();
+            return MsgDecoratorTool.PassMeTime();
         }
 
         public static bool WorkingHours()
@@ -230,6 +217,13 @@ namespace AutoRepairShop.WorkFlow
         public static void HandleProblematicCustomer()
         {
             Thread.Sleep(5000);
+        }
+
+        public override void Say(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            base.Say(message);
+            Console.ResetColor();
         }
     }
 }
