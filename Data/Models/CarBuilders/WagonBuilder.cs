@@ -17,9 +17,6 @@ namespace AutoRepairShop.Data.Models.CarBuilders
             }
         }
 
-        public override void CreateCar()
-        {
-        }
         protected override void SetCarNamesList()
         {
             CarNames.Add("Lada Granta");

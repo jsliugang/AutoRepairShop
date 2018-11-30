@@ -51,6 +51,7 @@
     <Compile Include="Data\Models\CarBuilders\CarBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\CarHaulerBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\DumpTruckBuilder.cs" />
+    <Compile Include="Data\Models\CarBuilders\ICarBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\OffroaderBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\PickupBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\PrimeMoverBuilder.cs" />
@@ -59,12 +60,14 @@
     <Compile Include="Data\Models\CarBuilders\StreetSweeperBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\TractorBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\WagonBuilder.cs" />
+    <Compile Include="Data\Models\Factories\CarFactory.cs" />
     <Compile Include="Data\Models\Humans\ICanBase.cs" />
     <Compile Include="Data\Models\Humans\ICanCustomize.cs" />
     <Compile Include="Data\Models\Humans\ICanDiagnoze.cs" />
     <Compile Include="Data\Models\Humans\ICanRepair.cs" />
     <Compile Include="Data\Models\Humans\ICanReplace.cs" />
     <Compile Include="Data\Models\Humans\ICanReplaceFluids.cs" />
+    <Compile Include="Services\DailyStatService.cs" />
     <Compile Include="Services\ErrorLogService.cs" />
     <Compile Include="Tools\MsgDecoratorTool.cs" />
     <Compile Include="Tools\RepairAutomationTool.cs" />

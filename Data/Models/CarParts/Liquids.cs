@@ -2,7 +2,7 @@
 
 namespace AutoRepairShop.Data.Models.CarParts
 {
-    class Liquids
+    public class Liquids
     {
         public Dictionary<string, byte> CarLiquids = new Dictionary<string, byte>(); 
 

@@ -19,7 +19,7 @@ namespace AutoRepairShop.Data.Models.CarBuilders
             }
         }
 
-        public override void CreateCar()
+        public override Car CreateCar()
         {
             Random rand = new Random();
             Car.CarContent.Add(new BodyPart(rand.NextDouble() > 0.5));
@@ -30,6 +30,7 @@ namespace AutoRepairShop.Data.Models.CarBuilders
             Car.CarContent.Add(new MufflerPart(rand.NextDouble() > 0.5));
             Car.CarContent.Add(new RadiatorPart(rand.NextDouble() > 0.5));
             Car.CarContent.Add(new WheelsPart(rand.NextDouble() > 0.5));
+            return Car;
         }
         protected override void SetCarNamesList()
         {

@@ -1,25 +1,40 @@
 ﻿using System;
+using System.CodeDom;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using AutoRepairShop.Data.Enums;
 using AutoRepairShop.Data.Models.CarBuilders;
 using AutoRepairShop.Data.Models.CarTypes;
+using AutoRepairShop.Data.Models.Factories;
 using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.WorkFlow
 {
     class CarMaker
     {
-        public Car MakeCar()
+        public List<CarBuilder> CarBuilders = new List<CarBuilder>
         {
-            CarBuilder cb = ReturnBuilder(SelectBuilder(), false);
-            cb.CreateCar();
-            return cb.Car;
+            new AmbulanceBuilder()
+        };
+        public CarMaker()
+        {
+            CarBuilders.Add(new AmbulanceBuilder(true));
         }
 
         public Car MakeRandomCar()
         {
-            Random rand = new Random();
-            CarBuilder cb = ReturnBuilder(rand.Next(1,11), true);
-            cb.CreateCarRandomly();
+            Type t = CarBuilders[0].GetType();
+            var cb = AbstractFactory.Create<CarBuilders[0].GetType()> ();
+            return cb.CreateCarRandomly();
+        }
+
+        //ReturnBuilder(rand.Next(1,12), true);
+
+        public Car MakeCar()
+        {
+            CarBuilder cb = ReturnBuilder(SelectBuilder(), false);
+            cb.CreateCar();
             return cb.Car;
         }
 
@@ -78,4 +93,6 @@ namespace AutoRepairShop.WorkFlow
             }
         }
     }
+
+
 }

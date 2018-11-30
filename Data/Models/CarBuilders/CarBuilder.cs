@@ -7,10 +7,11 @@ using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
-    abstract class CarBuilder
+    public abstract class CarBuilder:ICarBuilder
     {
         public Car Car { get; set; }
         public List<string> CarNames;
+
 
         public CarBuilder(bool random)
         {
@@ -24,7 +25,11 @@ namespace AutoRepairShop.Data.Models.CarBuilders
                     MsgDecoratorTool.PrintServiceMessage($"{CarNames.IndexOf(carName)}. {carName}");
                 }
             }
+        }
 
+        public CarBuilder()
+        {
+            
         }
 
         public void RandomCarName()
@@ -41,7 +46,7 @@ namespace AutoRepairShop.Data.Models.CarBuilders
             Car.Name = CarNames[userInput];
         }
 
-        public virtual void CreateCar()
+        public virtual Car CreateCar()
         {
             SetBody();
             SetCarburetor();
@@ -55,9 +60,10 @@ namespace AutoRepairShop.Data.Models.CarBuilders
             SetWheels();
             SetLiquids();
             SetMods();
+            return Car;
         }
 
-        public void CreateCarRandomly()
+        public Car CreateCarRandomly()
         {
             Random rand = new Random();
             Car.CarContent.Add(new BodyPart(rand.NextDouble() > 0.5));
@@ -70,6 +76,7 @@ namespace AutoRepairShop.Data.Models.CarBuilders
             Car.CarContent.Add(new RadiatorPart(rand.NextDouble() > 0.5));
             Car.CarContent.Add(new WheelsPart(rand.NextDouble() > 0.5));
             Car.CarLiquids = new Liquids();
+            return Car;
             // TODO: generate random mods
         }
 

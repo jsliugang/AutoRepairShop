@@ -2,6 +2,9 @@
 {
     class Ambulance:SpecialCar
     {
-        
+        public Ambulance()
+        {
+            
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AutoRepairShop.Data.Models.CarParts
 {
-    abstract class CarPart
+    public abstract class CarPart
     {
         public string Name { get; }
         public bool IsWorking { get; set; }

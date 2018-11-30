@@ -5,7 +5,7 @@ using AutoRepairShop.Data.Models.CarParts;
 
 namespace AutoRepairShop.Data.Models.CarTypes
 {
-    abstract class Car
+    public abstract class Car
     {
         public Liquids CarLiquids;
         public List<CarPart> CarContent;

@@ -18,6 +18,11 @@ namespace AutoRepairShop.Data.Models.CarBuilders
             }
         }
 
+        public AmbulanceBuilder()
+        {
+            
+        }
+
         protected override void SetCarNamesList()
         {
             CarNames.Add("Emergency 911 Ambulance");
