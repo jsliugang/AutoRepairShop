@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using AutoRepairShop.WorkFlow;
 using AutoRepairShop.Classes.Data.Models;
 using AutoRepairShop.Data.Models.CarParts;
@@ -12,6 +13,7 @@ namespace AutoRepairShop.Data.Models.Humans
         public Car MyCar { get; set; }
         public int Priority { get; set; }
         public DiscountCard MyDiscounts = new DiscountCard();
+        private Timer _waitForService;
 
         public Customer() //manual ctor
         {
@@ -21,6 +23,7 @@ namespace AutoRepairShop.Data.Models.Humans
             Int32.TryParse(Console.ReadLine(), out int userInput);
             Priority = userInput;
             MsgDecoratorTool.PrintMenuMessage($"New Customer has arrived! Name - {Name}");
+            SetWaitForServicesTimer();
         }
 
         public Customer(Car car) //automated ctor
@@ -28,6 +31,7 @@ namespace AutoRepairShop.Data.Models.Humans
             MyCar = car;
             Name = NamesList[new Random().Next(0, NamesList.Count)];
             Priority = new Random().Next(1,10);
+            SetWaitForServicesTimer();
         }
 
         public override void Say(string message)
@@ -36,8 +40,6 @@ namespace AutoRepairShop.Data.Models.Humans
             base.Say(message);
             Console.ResetColor();
         }
-
-        //TODO Refactor to leave the AutoRepairShop
 
         public void LeaveShop()
         {
@@ -111,6 +113,26 @@ namespace AutoRepairShop.Data.Models.Humans
             if (Priority < other.Priority) return -1;
             if (Priority > other.Priority) return 1;
             return 0;
+        }
+
+        public void SetWaitForServicesTimer()
+        {
+            _waitForService = new Timer(TimeTool.TimeInstance.ConvertToGameTime(72*TimeTool.Thousand));
+            _waitForService.Elapsed += OnScandalEvent;
+            _waitForService.AutoReset = false;
+            _waitForService.Enabled = true;
+        }
+
+        public void OnScandalEvent(Object source, EventArgs e)
+        {
+            Say($"{Name}: THIS IS NOT GOING ANYWHERE!!!! I have been waiting for 3 days already!");
+            Say($"{Name} slams the door and leaves the Auto Repair Shop");
+            ShopManager.HandleProblematicCustomer();
+        }
+
+        public void StopWaitForServicesTimer()
+        {
+            _waitForService.Enabled = false;
         }
     }
 }

@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarFactory.cs" />
     <Compile Include="Data\Lists\CanCustomizeList.cs" />
     <Compile Include="Data\Lists\CanDiagnozeList.cs" />
     <Compile Include="Data\Lists\CanRepairList.cs" />
@@ -60,6 +59,7 @@
     <Compile Include="Data\Models\CarBuilders\StreetSweeperBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\TractorBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\WagonBuilder.cs" />
+    <Compile Include="Data\Models\Humans\CustomerBalanceData.cs" />
     <Compile Include="Data\Models\Humans\ICanBase.cs" />
     <Compile Include="Data\Models\Humans\ICanCustomize.cs" />
     <Compile Include="Data\Models\Humans\ICanDiagnoze.cs" />
@@ -137,7 +137,7 @@
     <Compile Include="Data\Models\Humans\RmPetrovich.cs" />
     <Compile Include="Data\Models\Humans\RmVano.cs" />
     <Compile Include="WorkFlow\ShopManager.cs" />
-    <Compile Include="Services\LoggerService.cs" />
+    <Compile Include="Services\FileLoggerService.cs" />
     <Compile Include="Data\Repository\GarageStockManager.cs" />
     <Compile Include="Services\StockService.cs" />
     <Compile Include="Tools\TimeTool.cs" />

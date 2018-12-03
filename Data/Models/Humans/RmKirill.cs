@@ -15,6 +15,7 @@ namespace AutoRepairShop.Data.Models.Humans
         private RmKirill()
         {
             Name = "Kirill Artemovich";
+            Priority = 1;
         }
 
         public int Modify(Car car, string modificationType)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using AutoRepairShop.Data.Lists;
 using AutoRepairShop.Data.Models.CarTypes;
@@ -13,18 +14,22 @@ namespace AutoRepairShop.WorkFlow
     internal sealed class ShopManager : Human
     {
         private bool _isGarageEmpty = true;
-        private int _costOfServices = 0;
+        private static double _balance;
         public static StockManager StMan = new StockManager();
         public static GarageStockManager GarStMan = new GarageStockManager();
-        private readonly LoggerService _lrw = new LoggerService();
+        private readonly FileLoggerService _lrw = new FileLoggerService();
         private static readonly Dictionary<string, int> ServicesCatalogue = new Dictionary<string, int>();
-        private static int _balance;
         public static List<string> ModificationsOffer = new List<string>();
         public static Customer CurrentCustomer;
+        public static CustomerBalanceData CurrentCustomerBalance;
+        public static DailyStatService Dss = new DailyStatService();
+        private static Dictionary<Customer, CustomerBalanceData> OnHoldCustomerBalance = new Dictionary<Customer, CustomerBalanceData>();
+        public static List<Customer> Customers;
+        public static List<Customer> CustomersOnHold;
 
         private ShopManager()
         {
-            Name = "Lucy";   
+            Name = "Lucy";
             ServicesCatalogue.Add("Diagnoze", 50);
             ServicesCatalogue.Add("Repair", 250);
             ServicesCatalogue.Add("Modify", 500);
@@ -39,6 +44,8 @@ namespace AutoRepairShop.WorkFlow
             ModificationsOffer.Add("Spoiler");
             ModificationsOffer.Add("SportSuspension");
             ModificationsOffer.Add("TitaniumWipers");
+            Customers = new List<Customer>();
+            CustomersOnHold = new List<Customer>();
         }
 
         public static ShopManager Lucy { get { return Nested.lucy; } }
@@ -54,8 +61,10 @@ namespace AutoRepairShop.WorkFlow
         public static void AcceptNewCustomer(Customer customer)
         {
             CurrentCustomer = customer;
-            CustomerQueue<Customer>.Dequeue();
-            Lucy._costOfServices = 0;
+            CurrentCustomerBalance = new CustomerBalanceData(0, 0);
+            CustomerQueue<Customer>.Dequeue(Customers);
+            CurrentCustomer.StopWaitForServicesTimer();
+            Dss.AddCustomer(CurrentCustomer); //daily logging service
             Lucy.Say($"Greetings {CurrentCustomer.Name}! My name is {Lucy.Name} and I will be your Repair Shop Manager today.");
             Lucy.Say($"Please leave your {CurrentCustomer.MyCar.Name} at the parking lot.");
             if (Lucy._isGarageEmpty)
@@ -64,6 +73,22 @@ namespace AutoRepairShop.WorkFlow
             }
             Lucy._lrw.StoreLog($"New customer: {CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer registered");
             Lucy.Say($"{CurrentCustomer.Name}, what shall we do with your {CurrentCustomer.MyCar.Name}?");
+            CurrentCustomer.MakeDiagnosticsOrder();
+            RepairAutomationTool.MakeRepairChoice();
+        }
+
+        public static void ResumeWorkingWithCustomer(Customer customer)
+        {
+            CurrentCustomer = customer;
+            CustomerQueue<Customer>.Dequeue(CustomersOnHold);
+            CurrentCustomerBalance = OnHoldCustomerBalance[CurrentCustomer];
+            OnHoldCustomerBalance.Remove(CurrentCustomer);
+            CurrentCustomer.StopWaitForServicesTimer();
+            Lucy.Say($"Thank you for waiting. We are ready to complete your work orders, {CurrentCustomer.Name}!");
+            if (Lucy._isGarageEmpty)
+            {
+                Lucy._isGarageEmpty = false;
+            }
             RepairAutomationTool.MakeRepairChoice();
         }
 
@@ -71,23 +96,54 @@ namespace AutoRepairShop.WorkFlow
         {
             Lucy.Say($"Ok then!");
             Lucy._isGarageEmpty = true;
-            Lucy._costOfServices -= Lucy._costOfServices * (customer.MyDiscounts.GetDiscountRate() / 100);
-            customer.MyDiscounts.PunchDiscountCard();
-            Lucy.Say($"Your total for today is {Lucy._costOfServices}.");
-            customer.MakePayment();
+            Console.WriteLine($"Cost of services: {CurrentCustomerBalance.CostOfServices}");
+            Console.WriteLine($"Cost of parts: {CurrentCustomerBalance.CostOfParts}");
+            Lucy.Say($"Your total for today is {CurrentCustomerBalance.CalculateTotal(CurrentCustomer.MyDiscounts.GetDiscountRate())}.");
+            CurrentCustomer.MakePayment();
+            CurrentCustomer.MyDiscounts.PunchDiscountCard();
             Lucy.Say($"Have a great day, {customer.Name}");
-            Lucy._lrw.StoreLog($"{CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer released. Amount: {Lucy._costOfServices}");
-            BalanceReadWrite.Write(_balance += Lucy._costOfServices);
+            Lucy._lrw.StoreLog($"{CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer released. Amount: {CurrentCustomerBalance.CostOfServices}");
+            BalanceReadWrite.Write(_balance+AllocateMoney(CurrentCustomerBalance.CostOfServices));
+            Dss.FinalizeCustomer(CurrentCustomer, CurrentCustomerBalance.CalculateTotal(CurrentCustomer.MyDiscounts.GetDiscountRate()));
         }
 
         public static void CustomerOnHold()
         {
-            Lucy.Say($"All repair men are busy at this moment!");//ask to wait?
+            Lucy.Say($"All repair men are busy at this moment! Please a little...");
+            OnHoldCustomerBalance.Add(CurrentCustomer, CurrentCustomerBalance);
+            CustomerQueue<Customer>.Enqueue(CurrentCustomer, CustomersOnHold);
+            CurrentCustomer.SetWaitForServicesTimer();
         }
 
         public static void ShopIsClosed()
         {
             Lucy.Say($"The Auto Repair Shop will open at 8 am tomorrow! We are not working at night time: {MsgDecoratorTool.PassMeTime()}");
+        }
+
+        public static double AllocateMoney(double shopIncome)
+        {
+            double discount = shopIncome * CurrentCustomer.MyDiscounts.GetDiscountRate() / 100;
+            double salary = shopIncome - discount;
+            salary = salary * 40 / 100;
+            return salary;
+        }
+
+        public static double CalculateSalary(double income)
+        {
+            double discount = income * CurrentCustomer.MyDiscounts.GetDiscountRate() / 100;
+            double salary = income - discount;
+            salary = salary * 60 / 100;
+            return salary;
+        }
+
+        public static void PayRepairMan(double salary, RepairMan rm)
+        {
+            if (rm.Name == "SanSanuch")
+            {
+                _balance -= salary;
+                salary *= 2;
+            }
+            rm.GetSalary(salary);
         }
 
         public static void ProcessOrder(int choice, string part)
@@ -97,38 +153,54 @@ namespace AutoRepairShop.WorkFlow
             switch (choice)
             {
                 case 1: //diagnoze
-                    ICanDiagnoze<RepairMan> diagnozeMan = CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false);
+                    ICanDiagnoze<RepairMan> diagnozeMan = CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
                     if (diagnozeMan != null)
                     {
                         diagnozeMan.DiagnozeCar(customerCar);
+                        Dss.AddWorkOrder((RepairMan)diagnozeMan, "Diagnoze", ServicesCatalogue["Diagnoze"], 0);
+                        CurrentCustomerBalance.CostOfServices += ServicesCatalogue["Diagnoze"];
+                        PayRepairMan(CalculateSalary(ServicesCatalogue["Diagnoze"]), (RepairMan)diagnozeMan);
+                        Console.WriteLine($"Cost of services: {CurrentCustomerBalance.CostOfServices}");
+                        Console.WriteLine($"Cost of parts: {CurrentCustomerBalance.CostOfParts}");
                     }                  
                     else
                     {
                         CustomerOnHold();
                     }
-                    AddCostToTotal("Diagnoze", 0);
+                    //AddCostToTotal("Diagnoze", 0);//remove?
                     break;
 
                 case 2: //repair
-                    ICanRepair<RepairMan> repairMan = CanRepairList.RepairMen.Find(x => x.IsBusy == false);
+                    ICanRepair<RepairMan> repairMan = CanRepairList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
                     repairMan = CanRepairList.RepairMen.Find(x => x.IsBusy == false);
                     if (repairMan != null)
                     {
                         repairMan.MakeRepairs(part);
+                        Dss.AddWorkOrder((RepairMan) repairMan, "Repair", ServicesCatalogue["Repair"], 0);
+                        CurrentCustomerBalance.CostOfServices += ServicesCatalogue["Repair"];
+                        PayRepairMan(CalculateSalary(ServicesCatalogue["Repair"]), (RepairMan)repairMan);
+                        Console.WriteLine($"Cost of services: {CurrentCustomerBalance.CostOfServices}");
+                        Console.WriteLine($"Cost of parts: {CurrentCustomerBalance.CostOfParts}");
                     }
                     else
                     {
                         CustomerOnHold();
                     }
-                    AddCostToTotal("Repair", 0);
+                    //AddCostToTotal("Repair", 0);//remove?
                     break;
 
                 case 3: // mods
                     int cost = 0;
-                    ICanCustomize<RepairMan> customizeMan = CanCustomizeList.RepairMen.Find(x => x.IsBusy == false);
+                    ICanCustomize<RepairMan> customizeMan = CanCustomizeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
                     if (customizeMan != null)
                     {
                         cost = customizeMan.Modify(customerCar, part);
+                        Dss.AddWorkOrder((RepairMan)customizeMan, "Modify", ServicesCatalogue["Modify"], CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost);
+                        CurrentCustomerBalance.CostOfServices += ServicesCatalogue["Modify"];
+                        CurrentCustomerBalance.CostOfParts += CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost;
+                        PayRepairMan(CalculateSalary(ServicesCatalogue["Modify"]), (RepairMan)customizeMan);
+                        Console.WriteLine($"Cost of services: {CurrentCustomerBalance.CostOfServices}");
+                        Console.WriteLine($"Cost of parts: {CurrentCustomerBalance.CostOfParts}");
                     }
                     else
                     {
@@ -136,15 +208,21 @@ namespace AutoRepairShop.WorkFlow
                     }
                     if (cost != 0)
                     {
-                        AddCostToTotal("Modify", cost);
+                        //AddCostToTotal("Modify", cost);//remove?
                     }
                     break;
                 case 4: //replace
                     cost = 0;
-                    ICanReplace<RepairMan> replaceMan = CanReplaceList.RepairMen.Find(x => x.IsBusy == false);
+                    ICanReplace<RepairMan> replaceMan = CanReplaceList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
                     if (replaceMan != null)
                     {
                         cost = replaceMan.ReplacePart(part, customerCar);
+                        Dss.AddWorkOrder((RepairMan)replaceMan, "Replace", ServicesCatalogue["Replace"], CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost);
+                        CurrentCustomerBalance.CostOfServices += ServicesCatalogue["Replace"];
+                        CurrentCustomerBalance.CostOfParts += CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost;
+                        PayRepairMan(CalculateSalary(ServicesCatalogue["Replace"]), (RepairMan)replaceMan);
+                        Console.WriteLine($"Cost of services: {CurrentCustomerBalance.CostOfServices}");
+                        Console.WriteLine($"Cost of parts: {CurrentCustomerBalance.CostOfParts}");
                     }
                     else
                     {
@@ -152,15 +230,21 @@ namespace AutoRepairShop.WorkFlow
                     }
                     if (cost != 0)
                     {
-                        AddCostToTotal("Replace", cost);
+                        //AddCostToTotal("Replace", cost);//remove?
                     }
                     break;
 
                 case 5: //liquids 
-                    ICanReplaceFluids<RepairMan> replaceFluidsMan = CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false);
+                    ICanReplaceFluids<RepairMan> replaceFluidsMan = CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
                     if (replaceFluidsMan != null)
                     {
-                        AddCostToTotal("ReplaceLiquid", replaceFluidsMan.ReplaceFluid(CurrentCustomer.MyCar, part));
+                        //AddCostToTotal("ReplaceLiquid", replaceFluidsMan.ReplaceFluid(CurrentCustomer.MyCar, part));
+                        Dss.AddWorkOrder((RepairMan)replaceFluidsMan, "ReplaceLiquid", ServicesCatalogue["ReplaceLiquid"], 0);
+                        CurrentCustomerBalance.CostOfServices += ServicesCatalogue["ReplaceLiquid"];
+                        CurrentCustomerBalance.CostOfParts += 50; //fixed liquid price
+                        PayRepairMan(CalculateSalary(ServicesCatalogue["ReplaceLiquid"]), (RepairMan)replaceFluidsMan);
+                        Console.WriteLine($"Cost of services: {CurrentCustomerBalance.CostOfServices}");
+                        Console.WriteLine($"Cost of parts: {CurrentCustomerBalance.CostOfParts}");
                     }
                     else
                     {
@@ -170,13 +254,13 @@ namespace AutoRepairShop.WorkFlow
             }
         }
 
-        public static void AddCostToTotal(string service, int partCost)
-        {
-            ServicesCatalogue.TryGetValue(service, out int currentCost);
-            currentCost += partCost;
-            Lucy.Say($"{service} complete. The cost is {currentCost} USD.");
-            Lucy._costOfServices += currentCost;
-        }
+        //public static void AddCostToTotal(string service, int partCost)
+        //{
+        //    ServicesCatalogue.TryGetValue(service, out int currentCost);
+        //    currentCost += partCost;
+        //    Lucy.Say($"{service} complete. The cost is {currentCost} USD.");
+        //    _costOfServices += currentCost;
+        //}
 
         public static void LastTimeLog()
         {

@@ -15,6 +15,7 @@ namespace AutoRepairShop.Data.Models.Humans
         private RmSanSanuch()
         {
             Name = "San-Sanuch";
+            Priority = 2;
         }
 
         public int Modify(Car car, string modificationType)

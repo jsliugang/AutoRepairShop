@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.Humans;
@@ -10,11 +11,13 @@ namespace AutoRepairShop.Tools
     internal sealed class RepairAutomationTool
     {
         public static readonly CarMaker _cm = new CarMaker();
+        public static List<Customer> DefaultCustomerList;
 
         public RepairAutomationTool()
         {
             TimeTool.TimeInstance.GetGameTimeToScreen();
             ShopManager.Lucy.Greet();
+            AddDefaultCustomers();
             CheckQueue();
         }
 
@@ -22,16 +25,27 @@ namespace AutoRepairShop.Tools
         {
             while (true)
             {
-                int i = CustomerQueue<Customer>.Length;
-                if (i==0) continue;
-                ShopManager.AcceptNewCustomer(CustomerQueue<Customer>.Pop());
+                if (ShopManager.CustomersOnHold.Count != 0)
+                {
+                    ShopManager.ResumeWorkingWithCustomer(CustomerQueue<Customer>.Peek(ShopManager.CustomersOnHold));
+                }
+                if (ShopManager.Customers.Count == 0) continue;
+                ShopManager.AcceptNewCustomer(CustomerQueue<Customer>.Peek(ShopManager.Customers));
+            }
+        }
+
+        private void AddDefaultCustomers()
+        {
+            DefaultCustomerList = new List<Customer>();
+            for (int i = 0; i < 10; i++)
+            {
+                DefaultCustomerList.Add(new Customer(_cm.MakeRandomCar()));
             }
         }
 
         public static void MakeRepairChoice()
         {
             Random rand = new Random();
-            ShopManager.CurrentCustomer.MakeDiagnosticsOrder();
             foreach (CarPart carPart in ShopManager.CurrentCustomer.MyCar.CarContent)
             {
                 if (!ShopManager.WorkingHours())
@@ -72,8 +86,10 @@ namespace AutoRepairShop.Tools
 
         public static void AddCustomer()
         {
+            Random rand = new Random();
             if (ShopManager.WorkingHours())
-                CustomerQueue<Customer>.Enqueue(new Customer(_cm.MakeRandomCar()));
+                //CustomerQueue<Customer>.Enqueue(new Customer(_cm.MakeRandomCar()), ShopManager.Customers);
+                CustomerQueue<Customer>.Enqueue(DefaultCustomerList[rand.Next(0, DefaultCustomerList.Count)], ShopManager.Customers);
             else
                 ShopManager.ShopIsClosed();
         }   

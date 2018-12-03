@@ -6,7 +6,7 @@ using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Services
 {
-    class LoggerService
+    class FileLoggerService
     {
         public void StoreLog(string logMessage)
         {

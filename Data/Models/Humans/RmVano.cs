@@ -12,6 +12,7 @@ namespace AutoRepairShop.Data.Models.Humans
         private RmVano()
         {
             Name = "Vano";
+            Priority = 1;
         }
 
         public int ReplacePart(string partName, Car car)

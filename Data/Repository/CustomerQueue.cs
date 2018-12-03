@@ -7,37 +7,30 @@ namespace AutoRepairShop.Data.Repository
 {
     class CustomerQueue<T> where T : IComparable<T>
     {
-        private static List<T> _customers;
-        public static int Length => _customers.Count;
-    
-        
-
-        static CustomerQueue()
+        public static void Enqueue(T item, List<T> currentList)
         {
-            _customers = new List<T>();
-        }
-
-        public static void Enqueue(T item)
-        {
-            _customers.Add(item);
-            int ci = _customers.Count - 1;
+            currentList.Add(item);
+            int ci = currentList.Count - 1;
             while (ci > 0)
             {
                 int pi = (ci - 1) / 2;
-                if (_customers[ci].CompareTo(_customers[pi]) >= 0)
+                if (currentList[ci].CompareTo(currentList[pi]) >= 0)
                     break;
-                T tmp = _customers[ci]; _customers[ci] = _customers[pi]; _customers[pi] = tmp;
+                T tmp = currentList[ci]; currentList[ci] = currentList[pi]; currentList[pi] = tmp;
                 ci = pi;
             }
         }
 
-        public static T Dequeue()
+        public static T Dequeue(List<T> currentList)
         {
-            // Assumes pq isn't empty
-            int li = _customers.Count - 1;
-            T frontItem = _customers[0];
-            _customers[0] = _customers[li];
-            _customers.RemoveAt(li);
+            if (currentList.Count == 0)
+            {
+                return default(T);
+            }
+            int li = currentList.Count - 1;
+            T frontItem = currentList[0];
+            currentList[0] = currentList[li];
+            currentList.RemoveAt(li);
 
             --li;
             int pi = 0;
@@ -46,30 +39,34 @@ namespace AutoRepairShop.Data.Repository
                 int ci = pi * 2 + 1;
                 if (ci > li) break;
                 int rc = ci + 1;
-                if (rc <= li && _customers[rc].CompareTo(_customers[ci]) < 0)
+                if (rc <= li && currentList[rc].CompareTo(currentList[ci]) < 0)
                     ci = rc;
-                if (_customers[pi].CompareTo(_customers[ci]) <= 0) break;
-                T tmp = _customers[pi]; _customers[pi] = _customers[ci]; _customers[ci] = tmp;
+                if (currentList[pi].CompareTo(currentList[ci]) <= 0) break;
+                T tmp = currentList[pi]; currentList[pi] = currentList[ci]; currentList[ci] = tmp;
                 pi = ci;
             }
             return frontItem;
         }
 
-        public static T Read(int pos)
+        public static T Read(int pos, List<T> currentList)
         {
-            if (pos < _customers.Count)
-                return _customers[pos];
-            return _customers[0];
+            if (pos < currentList.Count)
+                return currentList[pos];
+            return currentList[0];
         }
 
-        public static T Pop()
+        public static T Peek(List<T> currentList)
         {
-            return _customers[0];
+            if (currentList.Count==0)
+            {
+                return default(T);
+            }
+            return currentList[0];
         }
 
-        public static bool Empty()
+        public static bool Empty(List<T> currentList)
         {
-            return _customers.Count == 0;
+            return currentList.Count == 0;
         }
     }
 

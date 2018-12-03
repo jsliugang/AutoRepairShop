@@ -1,24 +1,54 @@
+01/01/1990 3:12 PM : New customer: Quentin, Car: MTZ 122, Customer registered
+01/01/1990 5:00 PM : 1/1/1990 5:00:22 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/01/1990 8:00 PM : 1/1/1990 8:00:43 PM -- Work Order: Replace, work cost: 200, part cost: 3000
+
+01/01/1990 11:01 PM : 1/1/1990 11:00:49 PM -- Work Order: Replace, work cost: 200, part cost: 2500
+
+01/02/1990 2:01 AM : 1/2/1990 2:01:06 AM -- Work Order: Repair, work cost: 250, part cost: 0
+
+01/02/1990 10:50 AM : 1/2/1990 10:49:57 AM -- Work Order: Replace, work cost: 200, part cost: 50
+
+01/02/1990 1:50 PM : 1/2/1990 1:50:07 PM -- Work Order: Replace, work cost: 200, part cost: 100
+
+01/02/1990 1:50 PM : 1/2/1990 1:50:24 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
+
+01/02/1990 1:51 PM : Quentin, Car: MTZ 122, Customer released. Amount: 1150
+01/02/1990 1:51 PM : New customer: Ria, Car: Lohr, Customer registered
+01/02/1990 3:39 PM : 1/2/1990 3:39:30 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
 Application closed
-01/02/1990 3:59 PM
-01/02/1990 10:59 PM : New customer: Bruce, Car: FIA GT1, Customer registered
+01/03/1990 7:11 AM
+01/03/1990 10:59 AM : New customer: Tory, Car: Toyota Tacoma, Customer registered
+01/03/1990 12:47 PM : 1/3/1990 12:47:19 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/03/1990 3:47 PM : 1/3/1990 3:47:46 PM -- Work Order: Replace, work cost: 200, part cost: 1000
+
+01/03/1990 6:48 PM : 1/3/1990 6:48:01 PM -- Work Order: Replace, work cost: 200, part cost: 200
+
+01/03/1990 9:48 PM : 1/3/1990 9:48:24 PM -- Work Order: Repair, work cost: 250, part cost: 0
+
+01/04/1990 12:48 AM : 1/4/1990 12:48:38 AM -- Work Order: Replace, work cost: 200, part cost: 500
+
+01/04/1990 7:49 AM : 1/4/1990 7:49:52 AM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
+
+01/04/1990 7:50 AM : Tory, Car: Toyota Tacoma, Customer released. Amount: 950
+01/04/1990 7:50 AM : New customer: Tory, Car: Toyota Tacoma, Customer registered
+01/04/1990 9:38 AM : 1/4/1990 9:38:50 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/04/1990 12:39 PM : 1/4/1990 12:39:06 PM -- Work Order: Replace, work cost: 200, part cost: 1000
+
+01/04/1990 3:39 PM : 1/4/1990 3:39:26 PM -- Work Order: Replace, work cost: 200, part cost: 200
+
+01/04/1990 6:39 PM : 1/4/1990 6:39:46 PM -- Work Order: Repair, work cost: 250, part cost: 0
+
+01/04/1990 9:40 PM : 1/4/1990 9:40:00 PM -- Work Order: Replace, work cost: 200, part cost: 500
+
+01/05/1990 12:40 AM : 1/5/1990 12:40:16 AM -- Work Order: Modify, work cost: 500, part cost: 1000
+
+01/05/1990 12:41 AM : Tory, Car: Toyota Tacoma, Customer released. Amount: 1400
+01/05/1990 12:41 AM : New customer: Tory, Car: Toyota Tacoma, Customer registered
+01/05/1990 2:29 AM : 1/5/1990 2:29:24 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
 Application closed
-01/03/1990 1:14 PM
-01/03/1990 5:02 PM : New customer: Tarra, Car: Emergency 911 Ambulance, Customer registered
-Application closed
-01/04/1990 8:27 PM
-01/04/1990 9:03 PM : New customer: Edgar, Car: Dulevo sweeper, Customer registered
-01/01/1990 9:12 AM : New customer: Wilbert, Car: Toyota Tacoma, Customer registered
-01/01/1990 9:12 AM : New customer: Weston, Car: Volvo FL 7, Customer registered
-01/24/1990 7:10 AM : Weston, Car: Volvo FL 7, Customer released. Amount: 2000
-01/24/1990 7:11 AM : New customer: Wanetta, Car: Lohr, Customer registered
-01/25/1990 10:54 AM : Wanetta, Car: Lohr, Customer released. Amount: 3300
-01/25/1990 10:54 AM : New customer: Fannie, Car: Emergency 911 Ambulance, Customer registered
-01/26/1990 12:44 AM : Fannie, Car: Emergency 911 Ambulance, Customer released. Amount: 900
-01/26/1990 12:44 AM : New customer: Tarra, Car: Emergency 911 Ambulance, Customer registered
-01/26/1990 7:57 PM : Tarra, Car: Emergency 911 Ambulance, Customer released. Amount: 5500
-01/26/1990 7:57 PM : New customer: Clemencia, Car: Emergency 911 Ambulance, Customer registered
-01/27/1990 7:58 PM : Clemencia, Car: Emergency 911 Ambulance, Customer released. Amount: 3650
-01/27/1990 7:58 PM : New customer: Kym, Car: Emergency 911 Ambulance, Customer registered
-01/01/1990 9:12 AM : New customer: Rae, Car: Caterpillar 797F, Customer registered
-Application closed
-01/01/1990 9:58 AM
+01/05/1990 8:30 AM

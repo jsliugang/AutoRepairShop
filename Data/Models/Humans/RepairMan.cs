@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Threading;
+using System.Timers;
 using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.CarTypes;
-using AutoRepairShop.Data.Repository;
+using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
+using Timer = System.Timers.Timer;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
     abstract class RepairMan : Human
     {
+        public double Salary { get; set; }
         public bool IsBusy { get; set; }
+        public int Priority { get; set; }
+
+        protected RepairMan()
+        {
+            Salary = 0;
+        }
 
         protected void Disassemble(CarPart part)
         {
@@ -71,14 +80,26 @@ namespace AutoRepairShop.Data.Models.Humans
             return false;
         }
 
-        public void GetSickLeave(bool sick)
+        public void GetSickLeave(bool sick, RepairMan rm)
         {
             if (!sick)
                 return;
             IsBusy = true;
             Console.WriteLine($"Oh noes!, {Name} got sick! Got to drink some vodka to feel better!");
-            //specify amount of days sick
+            Timer sickLeaveTimer = new Timer(TimeTool.TimeInstance.ConvertToGameTime(120) * TimeTool.Thousand);
+            sickLeaveTimer.Elapsed += (source, e) => OnHealthy(source, e, rm);
+            sickLeaveTimer.AutoReset = false;
+            sickLeaveTimer.Enabled = true;
         }
 
+        private static void OnHealthy(Object source, ElapsedEventArgs e, RepairMan rm)
+        {
+            rm.IsBusy = false;
+        }
+
+        public void GetSalary(double money)
+        {
+            Salary += money;
+        }
     }
 }

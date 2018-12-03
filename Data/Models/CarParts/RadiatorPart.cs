@@ -4,7 +4,7 @@
     {
         public RadiatorPart(bool state) : base("Radiator", state)
         {
-            Cost = 3500;
+            Cost = 350;
         }
     }
 }

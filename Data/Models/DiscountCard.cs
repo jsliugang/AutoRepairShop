@@ -14,7 +14,7 @@ namespace AutoRepairShop.Classes.Data.Models
 
         }
 
-        public int GetDiscountRate()
+        public double GetDiscountRate()
         {
             if (NumberOfVisits >= 2 && NumberOfVisits < 4)
             {

@@ -11,6 +11,7 @@ namespace AutoRepairShop.Data.Models.Humans
         private RmPetrovich()
         {
             Name = "Petrovich";
+            Priority = 1;
         }
 
         public int ReplaceFluid(Car car, string liquid)

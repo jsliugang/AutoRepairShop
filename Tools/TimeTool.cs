@@ -6,13 +6,14 @@ using System.Threading;
 using System.Timers;
 using AutoRepairShop.Data.Models.Humans;
 using AutoRepairShop.Services;
+using AutoRepairShop.WorkFlow;
 using Timer = System.Timers.Timer;
 
 namespace AutoRepairShop.Tools
 {
     internal sealed class TimeTool
     {
-        private const int Thousand = 1000;
+        public const int Thousand = 1000;
         private const string DatetimeDormat = "MM/dd/yyyy h:mm tt";
         private Timer _sickTimer;
         private Timer _newCustomerTimer;
@@ -69,7 +70,6 @@ namespace AutoRepairShop.Tools
             {
                 RepairAutomationTool.AddCustomer();
             }
-
         }
 
         private void SetSickTimer()
@@ -83,15 +83,17 @@ namespace AutoRepairShop.Tools
         private static void OnSickEvent(Object source, ElapsedEventArgs e)
         {
             Random rand = new Random();
-            RmKirill.Kirill.GetSickLeave(rand.NextDouble() > 0.5);
-            RmVano.Vano.GetSickLeave(rand.NextDouble() > 0.5);
-            RmPetrovich.Petrovich.GetSickLeave(rand.NextDouble() > 0.5);
-            RmSanSanuch.SanSanuch.GetSickLeave(rand.NextDouble() > 0.5);
+            RmKirill.Kirill.GetSickLeave(rand.NextDouble() > 0.5, RmKirill.Kirill);
+            RmVano.Vano.GetSickLeave(rand.NextDouble() > 0.5, RmVano.Vano);
+            RmPetrovich.Petrovich.GetSickLeave(rand.NextDouble() > 0.5, RmPetrovich.Petrovich);
+            RmSanSanuch.SanSanuch.GetSickLeave(rand.NextDouble() > 0.5, RmSanSanuch.SanSanuch);
         }
 
         public void SetNextDayTimer()
         {
             GetGameTimeToScreen();
+            ShopManager.Dss.Display();
+            ShopManager.Dss.Clear();
             DateTime nextWorkingDateStart = GetGameTime().AddDays(1).Subtract(GetGameTime().TimeOfDay);
             nextWorkingDateStart = nextWorkingDateStart.AddHours(8).Subtract(new TimeSpan(1, 0, 0, 0, 0));
             TimeSpan periodToWait = nextWorkingDateStart - GetGameTime();
@@ -101,7 +103,6 @@ namespace AutoRepairShop.Tools
             errLog.StoreLog($"{GetGameTime()}: Wait for {seconds} seconds.");
             Thread.Sleep((int) seconds * Thousand);
             errLog.StoreLog($"{GetGameTime()}: Resume game.");
-
         }
 
         public int ConvertToGameTime(double gameHours)
