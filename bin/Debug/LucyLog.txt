@@ -19,3 +19,6 @@ Application closed
 01/26/1990 7:57 PM : New customer: Clemencia, Car: Emergency 911 Ambulance, Customer registered
 01/27/1990 7:58 PM : Clemencia, Car: Emergency 911 Ambulance, Customer released. Amount: 3650
 01/27/1990 7:58 PM : New customer: Kym, Car: Emergency 911 Ambulance, Customer registered
+01/01/1990 9:12 AM : New customer: Rae, Car: Caterpillar 797F, Customer registered
+Application closed
+01/01/1990 9:58 AM

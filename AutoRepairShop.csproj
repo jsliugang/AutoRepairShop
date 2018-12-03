@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarFactory.cs" />
     <Compile Include="Data\Lists\CanCustomizeList.cs" />
     <Compile Include="Data\Lists\CanDiagnozeList.cs" />
     <Compile Include="Data\Lists\CanRepairList.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Data\Models\Humans\ICanRepair.cs" />
     <Compile Include="Data\Models\Humans\ICanReplace.cs" />
     <Compile Include="Data\Models\Humans\ICanReplaceFluids.cs" />
+    <Compile Include="Services\DailyStatService.cs" />
     <Compile Include="Services\ErrorLogService.cs" />
     <Compile Include="Tools\MsgDecoratorTool.cs" />
     <Compile Include="Tools\RepairAutomationTool.cs" />
