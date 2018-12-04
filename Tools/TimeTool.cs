@@ -13,19 +13,20 @@ namespace AutoRepairShop.Tools
 {
     internal sealed class TimeTool
     {
+        public static TimeTool TimeInstance { get { return Nested.Time; } }
         public const int Thousand = 1000;
         private const string DatetimeDormat = "MM/dd/yyyy h:mm tt";
-        private Timer _sickTimer;
-        private Timer _newCustomerTimer;
+        private static Timer _sickTimer;
+        private static Timer _newCustomerTimer;
+        private static Timer _nextDayTimer;
         private readonly DateTime _gameStartRealTime;
         private readonly DateTime _gameStartGameTime;
-        public static TimeTool TimeInstance { get { return Nested.Time; } }
         private ErrorLogService errLog = new ErrorLogService();
+        public static Random rand = new Random();
+
 
         private TimeTool()
         {
-            SetSickTimer();
-            SetNewCustomerTimer();
             _gameStartRealTime = DateTime.Now;
             if (new FileInfo("LucyLog.txt").Length == 0)
             {
@@ -51,13 +52,20 @@ namespace AutoRepairShop.Tools
             {
 
             }
-
             internal static readonly TimeTool Time = new TimeTool();
         }
 
-        private void SetNewCustomerTimer()
+        public void SetTimers()
         {
-            _newCustomerTimer = new Timer(ConvertToGameTime(new Random().NextDouble() * new Random().Next(1,10)) * Thousand);
+            SetSickTimer();
+            SetNewCustomerTimer();
+            SetNextDayTimer(CalculateSecondsToNextDay());
+            GetGameTimeToScreen();
+        }
+
+        private static void SetNewCustomerTimer()
+        {
+            _newCustomerTimer = new Timer(ConvertToGameTime(rand.NextDouble() * rand.Next(1,10)+1) * Thousand);
             _newCustomerTimer.Elapsed += OnNewCustomerEvent;
             _newCustomerTimer.AutoReset = true;
             _newCustomerTimer.Enabled = true;
@@ -65,14 +73,14 @@ namespace AutoRepairShop.Tools
 
         private static void OnNewCustomerEvent(Object source, ElapsedEventArgs e)
         {
-            int hour = TimeInstance.GetGameTime().Hour;
+            int hour = GetGameTime().Hour;
             if (7 < hour && hour < 24)
             {
                 RepairAutomationTool.AddCustomer();
             }
         }
 
-        private void SetSickTimer()
+        private static void SetSickTimer()
         {
             _sickTimer = new Timer(ConvertToGameTime(168)*Thousand);
             _sickTimer.Elapsed += OnSickEvent;
@@ -82,46 +90,55 @@ namespace AutoRepairShop.Tools
 
         private static void OnSickEvent(Object source, ElapsedEventArgs e)
         {
-            Random rand = new Random();
             RmKirill.Kirill.GetSickLeave(rand.NextDouble() > 0.5, RmKirill.Kirill);
             RmVano.Vano.GetSickLeave(rand.NextDouble() > 0.5, RmVano.Vano);
             RmPetrovich.Petrovich.GetSickLeave(rand.NextDouble() > 0.5, RmPetrovich.Petrovich);
             RmSanSanuch.SanSanuch.GetSickLeave(rand.NextDouble() > 0.5, RmSanSanuch.SanSanuch);
         }
 
-        public void SetNextDayTimer()
+        public static double CalculateSecondsToNextDay()
         {
-            GetGameTimeToScreen();
-            ShopManager.Dss.Display();
-            ShopManager.Dss.Clear();
-            DateTime nextWorkingDateStart = GetGameTime().AddDays(1).Subtract(GetGameTime().TimeOfDay);
-            nextWorkingDateStart = nextWorkingDateStart.AddHours(8).Subtract(new TimeSpan(1, 0, 0, 0, 0));
-            TimeSpan periodToWait = nextWorkingDateStart - GetGameTime();
+            DateTime ClosingTime = GetGameTime().AddDays(1).Subtract(GetGameTime().TimeOfDay);
+            TimeSpan periodToWait = ClosingTime - GetGameTime();
             double seconds = periodToWait.TotalSeconds;
-            seconds = Math.Abs(seconds/720);
-            Console.WriteLine($"Seconds to wait = {seconds}");
-            errLog.StoreLog($"{GetGameTime()}: Wait for {seconds} seconds.");
-            Thread.Sleep((int) seconds * Thousand);
-            errLog.StoreLog($"{GetGameTime()}: Resume game.");
+            seconds = Math.Abs(seconds / 720);
+            return seconds;
         }
 
-        public int ConvertToGameTime(double gameHours)
+        public static void SetNextDayTimer(double seconds)
+        {     
+            _nextDayTimer = new Timer(seconds * Thousand);
+            _nextDayTimer.Elapsed += OnDayEndEvent;
+            _nextDayTimer.AutoReset = false;
+            _nextDayTimer.Enabled = true;
+            RepairAutomationTool.AddCustomer();
+        }
+
+        private static void OnDayEndEvent(Object source, ElapsedEventArgs e)
+        {
+            ShopManager.Dss.Display(); //daily stat
+            ShopManager.Dss.Clear();
+            SetNextDayTimer(120);
+            GetGameTimeToScreen();
+        }
+
+        public static int ConvertToGameTime(double gameHours)
         {
             int secondsRealTime = (int)(gameHours * 3600) / 720;
             return secondsRealTime;
         }
 
-        public void GetGameTimeToScreen()
+        public static void GetGameTimeToScreen()
         {        
             Console.WriteLine($"The GameTime Now is {GetGameTime().ToString(DatetimeDormat, CultureInfo.CurrentUICulture)}");
         }
 
-        public DateTime GetGameTime()
+        public static DateTime GetGameTime()
         {
             DateTime timeNow = DateTime.Now;
-            TimeSpan differenceFromAppStart = timeNow - _gameStartRealTime;
+            TimeSpan differenceFromAppStart = timeNow - TimeInstance._gameStartRealTime;
             double difference = differenceFromAppStart.TotalSeconds * 720;
-            var newGameTime = _gameStartGameTime;
+            var newGameTime = TimeInstance._gameStartGameTime;
             newGameTime = newGameTime.AddSeconds(difference);
             return newGameTime;
         }

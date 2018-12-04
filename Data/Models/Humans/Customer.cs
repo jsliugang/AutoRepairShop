@@ -14,6 +14,7 @@ namespace AutoRepairShop.Data.Models.Humans
         public int Priority { get; set; }
         public DiscountCard MyDiscounts = new DiscountCard();
         private Timer _waitForService;
+        public static Random rand = new Random();
 
         public Customer() //manual ctor
         {
@@ -23,15 +24,13 @@ namespace AutoRepairShop.Data.Models.Humans
             Int32.TryParse(Console.ReadLine(), out int userInput);
             Priority = userInput;
             MsgDecoratorTool.PrintMenuMessage($"New Customer has arrived! Name - {Name}");
-            SetWaitForServicesTimer();
         }
 
         public Customer(Car car) //automated ctor
         {
             MyCar = car;
-            Name = NamesList[new Random().Next(0, NamesList.Count)];
-            Priority = new Random().Next(1,10);
-            SetWaitForServicesTimer();
+            Name = NamesList[rand.Next(0, NamesList.Count)];
+            Priority = rand.Next(1,10);
         }
 
         public override void Say(string message)
@@ -117,7 +116,7 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public void SetWaitForServicesTimer()
         {
-            _waitForService = new Timer(TimeTool.TimeInstance.ConvertToGameTime(72*TimeTool.Thousand));
+            _waitForService = new Timer(TimeTool.ConvertToGameTime(72*TimeTool.Thousand));
             _waitForService.Elapsed += OnScandalEvent;
             _waitForService.AutoReset = false;
             _waitForService.Enabled = true;
@@ -128,6 +127,7 @@ namespace AutoRepairShop.Data.Models.Humans
             Say($"{Name}: THIS IS NOT GOING ANYWHERE!!!! I have been waiting for 3 days already!");
             Say($"{Name} slams the door and leaves the Auto Repair Shop");
             ShopManager.HandleProblematicCustomer();
+            RepairAutomationTool.RemoveDisappointedCustomer(this);
         }
 
         public void StopWaitForServicesTimer()

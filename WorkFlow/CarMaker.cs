@@ -8,6 +8,8 @@ namespace AutoRepairShop.WorkFlow
 {
     class CarMaker
     {
+        public static Random rand = new Random();
+
         public Car MakeCar()
         {
             CarBuilder cb = ReturnBuilder(SelectBuilder(), false);
@@ -17,7 +19,6 @@ namespace AutoRepairShop.WorkFlow
 
         public Car MakeRandomCar()
         {
-            Random rand = new Random();
             CarBuilder cb = ReturnBuilder(rand.Next(1,11), true);
             cb.CreateCarRandomly();
             return cb.Car;

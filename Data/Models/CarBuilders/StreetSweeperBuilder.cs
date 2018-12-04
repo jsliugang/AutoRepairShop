@@ -21,7 +21,6 @@ namespace AutoRepairShop.Data.Models.CarBuilders
 
         public override void CreateCar()
         {
-            Random rand = new Random();
             Car.CarContent.Add(new BodyPart(rand.NextDouble() > 0.5));
             Car.CarContent.Add(new CarburetorPart(rand.NextDouble() > 0.5));
             Car.CarContent.Add(new EnginePart(rand.NextDouble() > 0.5));

@@ -86,7 +86,7 @@ namespace AutoRepairShop.Data.Models.Humans
                 return;
             IsBusy = true;
             Console.WriteLine($"Oh noes!, {Name} got sick! Got to drink some vodka to feel better!");
-            Timer sickLeaveTimer = new Timer(TimeTool.TimeInstance.ConvertToGameTime(120) * TimeTool.Thousand);
+            Timer sickLeaveTimer = new Timer(TimeTool.ConvertToGameTime(120) * TimeTool.Thousand);
             sickLeaveTimer.Elapsed += (source, e) => OnHealthy(source, e, rm);
             sickLeaveTimer.AutoReset = false;
             sickLeaveTimer.Enabled = true;

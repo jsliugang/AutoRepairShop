@@ -9,6 +9,7 @@ namespace AutoRepairShop.Data.Models.CarBuilders
 {
     abstract class CarBuilder
     {
+        public static Random rand = new Random();
         public Car Car { get; set; }
         public List<string> CarNames;
 
@@ -29,7 +30,7 @@ namespace AutoRepairShop.Data.Models.CarBuilders
 
         public void RandomCarName()
         {
-            Random rand = new Random();
+            
             Car.Name = CarNames[rand.Next(0, CarNames.Count)];
         }
 
@@ -59,7 +60,6 @@ namespace AutoRepairShop.Data.Models.CarBuilders
 
         public void CreateCarRandomly()
         {
-            Random rand = new Random();
             Car.CarContent.Add(new BodyPart(rand.NextDouble() > 0.5));
             Car.CarContent.Add(new CarburetorPart(rand.NextDouble() > 0.5));
             Car.CarContent.Add(new EnginePart(rand.NextDouble() > 0.5));
@@ -70,7 +70,6 @@ namespace AutoRepairShop.Data.Models.CarBuilders
             Car.CarContent.Add(new RadiatorPart(rand.NextDouble() > 0.5));
             Car.CarContent.Add(new WheelsPart(rand.NextDouble() > 0.5));
             Car.CarLiquids = new Liquids();
-            // TODO: generate random mods
         }
 
         public void SetBody()

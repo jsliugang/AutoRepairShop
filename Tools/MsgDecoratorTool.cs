@@ -25,7 +25,7 @@ namespace AutoRepairShop.Tools
 
         public static DateTime PassMeTime()
         {
-            return TimeTool.TimeInstance.GetGameTime();
+            return TimeTool.GetGameTime();
         }
 
         public static void PrintWarningMessage(string message)

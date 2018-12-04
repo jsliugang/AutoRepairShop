@@ -17,7 +17,7 @@ namespace AutoRepairShop.Services
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"New Customer: {customer.Name}, priority: {customer.Priority}");
-            sb.AppendLine($"-- Car: {customer.MyCar.Name}, Accepted on: {TimeTool.TimeInstance.GetGameTime()}");
+            sb.AppendLine($"-- Car: {customer.MyCar.Name}, Accepted on: {TimeTool.GetGameTime()}");
             sb.AppendLine($"Broken parts:");
             foreach (CarPart carPart in customer.MyCar.CarContent)
             {
@@ -33,7 +33,7 @@ namespace AutoRepairShop.Services
         public void AddWorkOrder(RepairMan rm, string order, double workCost, double partCost)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"{TimeTool.TimeInstance.GetGameTime()} -- Work Order: {order}, work cost: {workCost}, part cost: {partCost}");
+            sb.AppendLine($"{TimeTool.GetGameTime()} -- Work Order: {order}, work cost: {workCost}, part cost: {partCost}");
             _fls.StoreLog(sb.ToString());
             DailyStats.Add(sb.ToString());
         }
@@ -42,12 +42,12 @@ namespace AutoRepairShop.Services
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Finilized Customer: {customer.Name}, priority: {customer.Priority}");
-            sb.AppendLine($"-- Car: {customer.MyCar.Name}, Released on: {TimeTool.TimeInstance.GetGameTime()}");
+            sb.AppendLine($"-- Car: {customer.MyCar.Name}, Released on: {TimeTool.GetGameTime()}");
             sb.AppendLine($"Car parts:");
             foreach (CarPart carPart in customer.MyCar.CarContent)
             {
                 string works = carPart.IsWorking ? "is working" : "is not working";
-                sb.AppendLine($"{carPart.Name} - {carPart.IsWorking}");
+                sb.AppendLine($"{carPart.Name} - {works}");
             }
             sb.AppendLine($"The total is {totalCost}");
             sb.AppendLine($"Discount applied: {customer.MyDiscounts.CardName}");
