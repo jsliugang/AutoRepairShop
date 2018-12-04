@@ -12,7 +12,6 @@ namespace AutoRepairShop.Data.Models.Humans
     class Customer:Human, IComparable<Customer>
     {
         public Car MyCar { get; set; }
-        public int Priority { get; set; }
         public DiscountCard MyDiscounts = new DiscountCard();
         private Timer _waitForService;
         public static Random rand = new Random();
@@ -23,7 +22,6 @@ namespace AutoRepairShop.Data.Models.Humans
             Name = Console.ReadLine();
             MsgDecoratorTool.PrintServiceMessage($"Please set {Name}'s priority (1 highest to 10 lowest):");
             Int32.TryParse(Console.ReadLine(), out int userInput);
-            Priority = userInput;
             MsgDecoratorTool.PrintMenuMessage($"New Customer has arrived! Name - {Name}");
         }
 
@@ -33,7 +31,6 @@ namespace AutoRepairShop.Data.Models.Humans
             StringBuilder sb = new StringBuilder();
             sb.Append($"{NamesList[rand.Next(0, NamesList.Count)]} {LastNamesList[rand.Next(0, NamesList.Count)]}");
             Name = sb.ToString();
-            Priority = rand.Next(1,10);
         }
 
         public override void Say(string message)
@@ -112,8 +109,8 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public int CompareTo(Customer other)
         {
-            if (Priority < other.Priority) return -1;
-            if (Priority > other.Priority) return 1;
+            if (MyDiscounts.Priority < other.MyDiscounts.Priority) return -1;
+            if (MyDiscounts.Priority > other.MyDiscounts.Priority) return 1;
             return 0;
         }
 

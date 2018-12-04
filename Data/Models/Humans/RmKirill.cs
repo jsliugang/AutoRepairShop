@@ -18,13 +18,13 @@ namespace AutoRepairShop.Data.Models.Humans
             Priority = 1;
         }
 
-        public int Modify(Car car, string modificationType)
+        public void Modify(Car car, string modificationType)
         {          
             Console.WriteLine($"Applying modifications to {car.Name}");
-            return PerformModification(modificationType, car);
+            PerformModification(modificationType, car);
         }
 
-        public int PerformModification(string partName, Car car)
+        public void PerformModification(string partName, Car car)
         {
             CarPart newPart = CheckPartAvailability(partName);
             if (newPart != null)
@@ -32,14 +32,12 @@ namespace AutoRepairShop.Data.Models.Humans
                 car.CarContent.Add(newPart);
                 Thread.Sleep(15000);
                 Console.WriteLine($"All done!");
-                return car.CarContent.Last().Cost;
             }
             Console.WriteLine($"{Name}: {partName} is not in garage, we have to request it from Stock.");
             if (RequestPartFromStock(partName))
             {
-                return PerformModification(partName, car);
+                PerformModification(partName, car);
             }
-            return 0;
         }
     }
 }

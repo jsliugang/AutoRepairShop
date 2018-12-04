@@ -98,11 +98,6 @@ namespace AutoRepairShop.Tools
                 newCustomer.SetWaitForServicesTimer();
                 CustomerQueue<Customer>.Enqueue(newCustomer, ShopManager.Customers);
             }
-            Console.WriteLine($"-- Customers in Line --");
-            CustomerQueue<Customer>.Display(ShopManager.Customers);
-            Console.WriteLine($"---------------------------------------");
-            Console.WriteLine($"-- Customers on Hold --");
-            CustomerQueue<Customer>.Display(ShopManager.CustomersOnHold);
         }   
 
         public void PrintMessage(string message)

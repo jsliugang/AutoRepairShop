@@ -5,6 +5,6 @@ namespace AutoRepairShop.Data.Models.Humans
 {
     interface ICanReplace<T> : ICanBase where T : class
     {
-        int ReplacePart(string partName, Car car);
+        void ReplacePart(string partName, Car car);
     }
 }

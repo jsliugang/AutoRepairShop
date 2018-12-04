@@ -3,3 +3,17 @@
 
 Application closed
 01/01/1990 1:19 PM
+01/01/1990 1:19 PM : New customer: Trinidad Love, Car: MAN TGX, Customer registered
+01/01/1990 3:07 PM : 1/1/1990 3:07:15 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+Application closed
+01/01/1990 4:05 PM
+01/01/1990 4:05 PM : New customer: Fannie Tate, Car: Chevrolet Tahoe, Customer registered
+01/01/1990 5:53 PM : 1/1/1990 5:53:20 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/01/1990 8:53 PM : 1/1/1990 8:53:30 PM -- Work Order: Repair, work cost: 250, part cost: 0
+
+01/01/1990 11:53 PM : 1/1/1990 11:53:36 PM -- Work Order: Repair, work cost: 250, part cost: 0
+
+Application closed
+01/02/1990 2:46 AM

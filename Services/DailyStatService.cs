@@ -17,7 +17,7 @@ namespace AutoRepairShop.Services
         public void AddCustomer(Customer customer)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"New Customer: {customer.Name}, priority: {customer.Priority}");
+            sb.AppendLine($"New Customer: {customer.Name}, priority: {customer.MyDiscounts.Priority}");
             sb.AppendLine($"-- Car: {customer.MyCar.Name}, Accepted on: {TimeTool.GetGameTime()}");
             sb.AppendLine($"Broken parts:");
             foreach (CarPart carPart in customer.MyCar.CarContent)
@@ -42,7 +42,7 @@ namespace AutoRepairShop.Services
         public void FinalizeCustomer(Customer customer, double totalCost)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Finilized Customer: {customer.Name}, priority: {customer.Priority}");
+            sb.AppendLine($"Finilized Customer: {customer.Name}, priority: {customer.MyDiscounts.Priority}");
             sb.AppendLine($"-- Car: {customer.MyCar.Name}, Released on: {TimeTool.GetGameTime()}");
             sb.AppendLine($"Car parts:");
             foreach (CarPart carPart in customer.MyCar.CarContent)

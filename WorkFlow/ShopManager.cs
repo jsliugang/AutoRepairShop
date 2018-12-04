@@ -152,7 +152,8 @@ namespace AutoRepairShop.WorkFlow
             switch (choice)
             {
                 case 1: //diagnoze
-                    ICanDiagnoze<RepairMan> diagnozeMan = CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
+                    ICanDiagnoze<RepairMan> diagnozeMan = CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
+                                                          CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2);
                     if (diagnozeMan != null)
                     {
                         diagnozeMan.DiagnozeCar(customerCar);
@@ -167,8 +168,8 @@ namespace AutoRepairShop.WorkFlow
                     break;
 
                 case 2: //repair
-                    ICanRepair<RepairMan> repairMan = CanRepairList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
-                    repairMan = CanRepairList.RepairMen.Find(x => x.IsBusy == false);
+                    ICanRepair<RepairMan> repairMan = CanRepairList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
+                                                      CanRepairList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2);
                     if (repairMan != null)
                     {
                         repairMan.MakeRepairs(part);
@@ -183,11 +184,11 @@ namespace AutoRepairShop.WorkFlow
                     break;
 
                 case 3: // mods
-                    int cost = 0;
-                    ICanCustomize<RepairMan> customizeMan = CanCustomizeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
+                    ICanCustomize<RepairMan> customizeMan = CanCustomizeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
+                                                            CanCustomizeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2);
                     if (customizeMan != null)
                     {
-                        cost = customizeMan.Modify(customerCar, part);
+                        customizeMan.Modify(customerCar, part);
                         Dss.AddWorkOrder((RepairMan)customizeMan, "Modify", ServicesCatalogue["Modify"], CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost);
                         CurrentCustomerBalance.CostOfServices += ServicesCatalogue["Modify"];
                         CurrentCustomerBalance.CostOfParts += CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost;
@@ -197,16 +198,13 @@ namespace AutoRepairShop.WorkFlow
                     {
                         CustomerOnHold();
                     }
-                    if (cost != 0)
-                    {
-                    }
                     break;
                 case 4: //replace
-                    cost = 0;
-                    ICanReplace<RepairMan> replaceMan = CanReplaceList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
+                    ICanReplace<RepairMan> replaceMan = CanReplaceList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
+                                                        CanReplaceList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2);
                     if (replaceMan != null)
                     {
-                        cost = replaceMan.ReplacePart(part, customerCar);
+                        replaceMan.ReplacePart(part, customerCar);
                         Dss.AddWorkOrder((RepairMan)replaceMan, "Replace", ServicesCatalogue["Replace"], CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost);
                         CurrentCustomerBalance.CostOfServices += ServicesCatalogue["Replace"];
                         CurrentCustomerBalance.CostOfParts += CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost;
@@ -216,13 +214,11 @@ namespace AutoRepairShop.WorkFlow
                     {
                         CustomerOnHold();
                     }
-                    if (cost != 0)
-                    {
-                    }
                     break;
 
                 case 5: //liquids 
-                    ICanReplaceFluids<RepairMan> replaceFluidsMan = CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1);
+                    ICanReplaceFluids<RepairMan> replaceFluidsMan = CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
+                                                                    CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2);
                     if (replaceFluidsMan != null)
                     {
                         Dss.AddWorkOrder((RepairMan)replaceFluidsMan, "ReplaceLiquid", ServicesCatalogue["ReplaceLiquid"], 0);

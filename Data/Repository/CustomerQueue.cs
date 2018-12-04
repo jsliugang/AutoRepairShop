@@ -86,7 +86,7 @@ namespace AutoRepairShop.Data.Repository
         {
             foreach (Customer item in currentList)
             {
-                Console.Write($"Customer in line: {item.Name}, priority - {item.Priority}");
+                Console.Write($"Customer in line: {item.Name}, priority - {item.MyDiscounts.Priority} \n");
             }
         }
     }

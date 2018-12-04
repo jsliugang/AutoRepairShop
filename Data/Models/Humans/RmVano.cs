@@ -15,7 +15,7 @@ namespace AutoRepairShop.Data.Models.Humans
             Priority = 1;
         }
 
-        public int ReplacePart(string partName, Car car)
+        public void ReplacePart(string partName, Car car)
         {
             CarPart newPart = CheckPartAvailability(partName);
             CarPart oldPart = car.CarContent.Find(x => x.Name == partName);
@@ -27,14 +27,12 @@ namespace AutoRepairShop.Data.Models.Humans
                 Console.WriteLine($"Replacing the broken part with new one!");
                 Thread.Sleep(10000);
                 Assemble(oldPart);
-                return oldPart.Cost;
             }
             Console.WriteLine($"{Name}: {oldPart.Name} is not in garage, we have to request it from Stock.");
             if (RequestPartFromStock(oldPart.Name))
             {
-                return ReplacePart(oldPart.Name, car);
+                ReplacePart(oldPart.Name, car);
             }
-            return 0;
         }       
     }
 }
