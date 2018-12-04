@@ -1,59 +1,5 @@
-01/01/1990 9:00 AM : New customer: Mariann, Car: Petrol 11 HP snowplug STG1101QE-02, Customer registered
-01/01/1990 10:48 AM : 1/1/1990 10:48:18 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/01/1990 9:00 AM : New customer: Weston Armstrong, Car: Chevrolet Tahoe, Customer registered
+01/01/1990 10:48 AM : 1/1/1990 10:48:15 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
 
-01/01/1990 1:48 PM : 1/1/1990 1:48:34 PM -- Work Order: Replace, work cost: 200, part cost: 1000
-
-01/01/1990 4:48 PM : 1/1/1990 4:48:51 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/01/1990 4:49 PM : 1/1/1990 4:48:59 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
-
-01/01/1990 4:49 PM : Mariann, Car: Petrol 11 HP snowplug STG1101QE-02, Customer released. Amount: 550
-01/01/1990 4:49 PM : New customer: Bruce, Car: Foton AumanH5 4x2, Customer registered
-01/01/1990 6:38 PM : 1/1/1990 6:38:06 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/01/1990 9:38 PM : 1/1/1990 9:38:18 PM -- Work Order: Replace, work cost: 200, part cost: 100
-
-01/02/1990 12:38 AM : 1/2/1990 12:38:27 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/02/1990 11:02 AM : 1/2/1990 11:02:39 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/02/1990 2:03 PM : 1/2/1990 2:02:59 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/02/1990 5:03 PM : 1/2/1990 5:03:14 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/02/1990 8:03 PM : 1/2/1990 8:03:35 PM -- Work Order: Modify, work cost: 500, part cost: 1230
-
-01/02/1990 8:04 PM : Bruce, Car: Foton AumanH5 4x2, Customer released. Amount: 1750
-01/02/1990 8:04 PM : New customer: Darius, Car: Lohr, Customer registered
-01/02/1990 9:52 PM : 1/2/1990 9:52:28 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/03/1990 12:52 AM : 1/3/1990 12:52:31 AM -- Work Order: Replace, work cost: 200, part cost: 1000
-
-01/03/1990 11:04 AM : 1/3/1990 11:04:46 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/03/1990 2:04 PM : 1/3/1990 2:04:56 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/03/1990 5:05 PM : 1/3/1990 5:05:02 PM -- Work Order: Replace, work cost: 200, part cost: 50
-
-01/03/1990 8:05 PM : 1/3/1990 8:05:12 PM -- Work Order: Replace, work cost: 200, part cost: 500
-
-01/03/1990 11:05 PM : 1/3/1990 11:05:24 PM -- Work Order: Modify, work cost: 500, part cost: 100
-
-01/03/1990 11:06 PM : Darius, Car: Lohr, Customer released. Amount: 1650
-01/03/1990 11:06 PM : New customer: Xiomara, Car: Buggy, Customer registered
-01/04/1990 12:54 AM : 1/4/1990 12:54:29 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/04/1990 11:06 AM : 1/4/1990 11:06:43 AM -- Work Order: Replace, work cost: 200, part cost: 100
-
-01/04/1990 2:07 PM : 1/4/1990 2:07:02 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/04/1990 5:07 PM : 1/4/1990 5:07:24 PM -- Work Order: Replace, work cost: 200, part cost: 200
-
-01/04/1990 8:07 PM : 1/4/1990 8:07:38 PM -- Work Order: Replace, work cost: 200, part cost: 50
-
-01/01/1990 9:00 AM : New customer: Erich, Car: Petrol 11 HP snowplug STG1101QE-02, Customer registered
 Application closed
-01/01/1990 10:18 AM
-01/01/1990 10:18 AM : New customer: Milton, Car: UAZ Patriot, Customer registered
-Application closed
-01/01/1990 11:45 AM
+01/01/1990 1:19 PM

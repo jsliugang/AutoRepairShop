@@ -43,33 +43,30 @@ namespace AutoRepairShop.Tools
             DefaultCustomerList = new List<Customer>();
             for (int i = 0; i < count; i++)
             {
-                DefaultCustomerList.Add(new Customer(_cm.MakeRandomCar()));
+                CustomerQueue<Customer>.Enqueue(new Customer(_cm.MakeRandomCar()), DefaultCustomerList);
             }
         }
 
         public static void RemoveDisappointedCustomer(Customer customer)
         {
-            DefaultCustomerList.RemoveAt(DefaultCustomerList.IndexOf(customer));
+            CustomerQueue<Customer>.Remove(DefaultCustomerList, customer);
         }
 
         public static void MakeRepairChoice()
         {
             foreach (CarPart carPart in ShopManager.CurrentCustomer.MyCar.CarContent)
             {
-                if (ShopManager.WorkingHours())
-                {
-                    if (carPart.IsWorking) continue;
+                if (!ShopManager.WorkingHours()) continue;
+                if (carPart.IsWorking) continue;
 
-                    if (rand.NextDouble() > 0.5)
-                    {
-                        ShopManager.CurrentCustomer.MakeRepairOrder(carPart.Name);
-                    }
-                    else
-                    {
-                        ShopManager.CurrentCustomer.ReplaceBrokenParts(carPart.Name);
-                    }
+                if (rand.NextDouble() > 0.5)
+                {
+                    ShopManager.CurrentCustomer.MakeRepairOrder(carPart.Name);
                 }
-                
+                else
+                {
+                    ShopManager.CurrentCustomer.ReplaceBrokenParts(carPart.Name);
+                }
             }
 
             if (ShopManager.WorkingHours())
@@ -94,9 +91,18 @@ namespace AutoRepairShop.Tools
 
         public static void AddCustomer()
         {
-                Customer newCustomer = DefaultCustomerList[rand.Next(0, DefaultCustomerList.Count)];
-                CustomerQueue<Customer>.Enqueue(newCustomer, ShopManager.Customers);
+            Customer newCustomer = DefaultCustomerList[rand.Next(0, DefaultCustomerList.Count)];
+            if (!CustomerQueue<Customer>.Contains(ShopManager.Customers, newCustomer) &&
+                !CustomerQueue<Customer>.Contains(ShopManager.CustomersOnHold, newCustomer))
+            {
                 newCustomer.SetWaitForServicesTimer();
+                CustomerQueue<Customer>.Enqueue(newCustomer, ShopManager.Customers);
+            }
+            Console.WriteLine($"-- Customers in Line --");
+            CustomerQueue<Customer>.Display(ShopManager.Customers);
+            Console.WriteLine($"---------------------------------------");
+            Console.WriteLine($"-- Customers on Hold --");
+            CustomerQueue<Customer>.Display(ShopManager.CustomersOnHold);
         }   
 
         public void PrintMessage(string message)

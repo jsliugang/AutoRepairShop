@@ -2,10 +2,8 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Timers;
 using AutoRepairShop.Data.Models.Humans;
-using AutoRepairShop.Services;
 using AutoRepairShop.WorkFlow;
 using Timer = System.Timers.Timer;
 
@@ -21,9 +19,7 @@ namespace AutoRepairShop.Tools
         private static Timer _nextDayTimer;
         private readonly DateTime _gameStartRealTime;
         private readonly DateTime _gameStartGameTime;
-        private ErrorLogService errLog = new ErrorLogService();
         public static Random rand = new Random();
-
 
         private TimeTool()
         {
@@ -49,9 +45,7 @@ namespace AutoRepairShop.Tools
         private class Nested
         {
             static Nested()
-            {
-
-            }
+            {}
             internal static readonly TimeTool Time = new TimeTool();
         }
 

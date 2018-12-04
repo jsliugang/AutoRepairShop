@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Timers;
 using AutoRepairShop.WorkFlow;
 using AutoRepairShop.Classes.Data.Models;
@@ -29,7 +30,9 @@ namespace AutoRepairShop.Data.Models.Humans
         public Customer(Car car) //automated ctor
         {
             MyCar = car;
-            Name = NamesList[rand.Next(0, NamesList.Count)];
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{NamesList[rand.Next(0, NamesList.Count)]} {LastNamesList[rand.Next(0, NamesList.Count)]}");
+            Name = sb.ToString();
             Priority = rand.Next(1,10);
         }
 
@@ -126,7 +129,7 @@ namespace AutoRepairShop.Data.Models.Humans
         {
             Say($"{Name}: THIS IS NOT GOING ANYWHERE!!!! I have been waiting for 3 days already!");
             Say($"{Name} slams the door and leaves the Auto Repair Shop");
-            ShopManager.HandleProblematicCustomer();
+            ShopManager.HandleProblematicCustomer(this);
             RepairAutomationTool.RemoveDisappointedCustomer(this);
         }
 

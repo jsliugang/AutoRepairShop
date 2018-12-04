@@ -44,13 +44,13 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public int ReplaceFluid(Car car, string liquid)
         {
-            if (liquid != null && car.CarLiquids.CarLiquids.ContainsKey(liquid))
-            {
-                Console.WriteLine($"{Name}: Getting access to tank.");
-                Thread.Sleep(15000);
-                car.CarLiquids.CarLiquids[liquid] = 100;
-                Console.WriteLine($"{Name}: All done!");
-            }
+            //if (liquid != null && car.CarLiquids.CarLiquids.ContainsKey(liquid))
+            //{
+            Console.WriteLine($"{Name}: Getting access to tank.");
+            Thread.Sleep(15000);
+            car.CarLiquids.CarLiquids[liquid] = 100;
+            Console.WriteLine($"{Name}: All done!");
+            //}
             return 50; //specify fluid costs
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.Humans;
+using AutoRepairShop.Data.Repository;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
 
@@ -69,16 +70,10 @@ namespace AutoRepairShop.Services
                 Console.WriteLine($"{line}");
             }
             Console.WriteLine($"-- Customers in Line --");
-            foreach (Customer customer in ShopManager.Customers)
-            {
-                Console.WriteLine($"Customer in line: {customer.Name}, priority - {customer.Priority}");
-            }
+            CustomerQueue<Customer>.Display(ShopManager.Customers);
             Console.WriteLine($"---------------------------------------");
             Console.WriteLine($"-- Customers on Hold --");
-            foreach (Customer customer in ShopManager.CustomersOnHold)
-            {
-                Console.WriteLine($"Customer in line: {customer.Name}, priority - {customer.Priority}");
-            }
+            CustomerQueue<Customer>.Display(ShopManager.CustomersOnHold);
             Console.WriteLine($"---------------------------------------");
             Console.WriteLine($"Kirills salary - {RmKirill.Kirill.Salary}");
             Console.WriteLine($"Vanos salary - {RmVano.Vano.Salary}");

@@ -7,6 +7,7 @@ namespace AutoRepairShop.Data.Models.Humans
     abstract class Human
     {
         public List<string> NamesList = new List<string>();
+        public List<string> LastNamesList = new List<string>();
 
         public string Name { get; set; }
 
@@ -29,16 +30,20 @@ namespace AutoRepairShop.Data.Models.Humans
         {
             using (StreamReader r = File.OpenText(@"C:\Users\Yuri.Pustovoy\Documents\Visual Studio 2017\Projects\AutoRepairShop\AutoRepairShop\bin\Debug\HumanNames.txt"))
             {
-                DumpNames(r);
+                DumpNames(r, NamesList);
+            }
+            using (StreamReader r = File.OpenText(@"C:\Users\Yuri.Pustovoy\Documents\Visual Studio 2017\Projects\AutoRepairShop\AutoRepairShop\bin\Debug\HumanLastNames.txt"))
+            {
+                DumpNames(r, LastNamesList);
             }
         }
 
-        public void DumpNames(StreamReader r)
+        public void DumpNames(StreamReader r, List<string> list)
         {
             string line;
             while ((line = r.ReadLine()) != null)
             {
-                NamesList.Add(line);
+                list.Add(line);
             }
         }
 

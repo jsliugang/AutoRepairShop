@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using AutoRepairShop.Data.Lists;
 using AutoRepairShop.Data.Models.CarTypes;
@@ -60,42 +59,38 @@ namespace AutoRepairShop.WorkFlow
 
         public static void AcceptNewCustomer(Customer customer)
         {
-            if (WorkingHours())
+            if (!WorkingHours()) return;
+            CurrentCustomer = customer;
+            CurrentCustomerBalance = new CustomerBalanceData(0, 0);
+            CustomerQueue<Customer>.Dequeue(Customers);
+            CurrentCustomer.StopWaitForServicesTimer();
+            Dss.AddCustomer(CurrentCustomer); //daily logging service
+            Lucy.Say($"Greetings {CurrentCustomer.Name}! My name is {Lucy.Name} and I will be your Repair Shop Manager today.");
+            Lucy.Say($"Please leave your {CurrentCustomer.MyCar.Name} at the parking lot.");
+            if (Lucy._isGarageEmpty)
             {
-                CurrentCustomer = customer;
-                CurrentCustomerBalance = new CustomerBalanceData(0, 0);
-                CustomerQueue<Customer>.Dequeue(Customers);
-                CurrentCustomer.StopWaitForServicesTimer();
-                Dss.AddCustomer(CurrentCustomer); //daily logging service
-                Lucy.Say($"Greetings {CurrentCustomer.Name}! My name is {Lucy.Name} and I will be your Repair Shop Manager today.");
-                Lucy.Say($"Please leave your {CurrentCustomer.MyCar.Name} at the parking lot.");
-                if (Lucy._isGarageEmpty)
-                {
-                    Lucy._isGarageEmpty = false;
-                }
-                Lucy._lrw.StoreLog($"New customer: {CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer registered");
-                Lucy.Say($"{CurrentCustomer.Name}, what shall we do with your {CurrentCustomer.MyCar.Name}?");
-                CurrentCustomer.MakeDiagnosticsOrder();
-                RepairAutomationTool.MakeRepairChoice();
-            }          
+                Lucy._isGarageEmpty = false;
+            }
+            Lucy._lrw.StoreLog($"New customer: {CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer registered");
+            Lucy.Say($"{CurrentCustomer.Name}, what shall we do with your {CurrentCustomer.MyCar.Name}?");
+            CurrentCustomer.MakeDiagnosticsOrder();
+            RepairAutomationTool.MakeRepairChoice();
         }
 
         public static void ResumeWorkingWithCustomer(Customer customer)
         {
-            if (WorkingHours())
+            if (!WorkingHours()) return;
+            CurrentCustomer = customer;
+            CustomerQueue<Customer>.Dequeue(CustomersOnHold);
+            CurrentCustomerBalance = OnHoldCustomerBalance[CurrentCustomer];
+            OnHoldCustomerBalance.Remove(CurrentCustomer);
+            CurrentCustomer.StopWaitForServicesTimer();
+            Lucy.Say($"Thank you for waiting. We are ready to complete your work orders, {CurrentCustomer.Name}!");
+            if (Lucy._isGarageEmpty)
             {
-                CurrentCustomer = customer;
-                CustomerQueue<Customer>.Dequeue(CustomersOnHold);
-                CurrentCustomerBalance = OnHoldCustomerBalance[CurrentCustomer];
-                OnHoldCustomerBalance.Remove(CurrentCustomer);
-                CurrentCustomer.StopWaitForServicesTimer();
-                Lucy.Say($"Thank you for waiting. We are ready to complete your work orders, {CurrentCustomer.Name}!");
-                if (Lucy._isGarageEmpty)
-                {
-                    Lucy._isGarageEmpty = false;
-                }
-                RepairAutomationTool.MakeRepairChoice();
+                Lucy._isGarageEmpty = false;
             }
+            RepairAutomationTool.MakeRepairChoice();
         }
 
         public static void ReleaseCustomer(Customer customer)
@@ -293,8 +288,10 @@ namespace AutoRepairShop.WorkFlow
             }
         }
 
-        public static void HandleProblematicCustomer()
+        public static void HandleProblematicCustomer(Customer customer)
         {
+            CustomerQueue<Customer>.Remove(Customers, customer);
+            CustomerQueue<Customer>.Remove(CustomersOnHold, customer);
             Thread.Sleep(5000);
         }
 

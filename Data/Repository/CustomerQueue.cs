@@ -68,6 +68,27 @@ namespace AutoRepairShop.Data.Repository
         {
             return currentList.Count == 0;
         }
+
+        public static bool Contains(List<T> currentList, T item)
+        {
+            return currentList.Contains(item);
+        }
+
+        public static void Remove(List<T> currentList, T item)
+        {
+            if (currentList.Contains(item))
+            {
+                currentList.RemoveAt(currentList.IndexOf(item));
+            }
+        }
+
+        public static void Display(List<Customer> currentList)
+        {
+            foreach (Customer item in currentList)
+            {
+                Console.Write($"Customer in line: {item.Name}, priority - {item.Priority}");
+            }
+        }
     }
 
 }
