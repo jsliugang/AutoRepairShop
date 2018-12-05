@@ -1,7 +1,6 @@
 ﻿using System;
-using System.CodeDom;
 
-namespace AutoRepairShop.Data.Models.Humans
+namespace AutoRepairShop.Data.Containers
 {
     struct CustomerBalanceData
     {

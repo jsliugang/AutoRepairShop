@@ -2,7 +2,7 @@
 {
     class EnginePart:CarPart
     {
-        public EnginePart(bool state) : base("Engine", state)
+        public EnginePart(byte durability) : base("Engine", durability)
         {
             Cost = 3000;
         }

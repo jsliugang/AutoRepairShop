@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using AutoRepairShop.Data.Models.CarParts;
+using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.Data.Models.CarTypes
 {
@@ -10,11 +12,33 @@ namespace AutoRepairShop.Data.Models.CarTypes
         public Liquids CarLiquids;
         public List<CarPart> CarContent;
         public string Name { get; set; }
+        private Timer _partLifeTimer;
+        private const int Day = 120000;
 
         protected Car()
         {
             CarContent = new List<CarPart>();
             CarLiquids = new Liquids();
+            SetPartLifeTimer();
+        }
+
+        private void SetPartLifeTimer()
+        {
+            _partLifeTimer = new Timer(Day);
+            _partLifeTimer.Elapsed += OnDecreasePartLifeEvent;
+            _partLifeTimer.AutoReset = true;
+            _partLifeTimer.Enabled = true;
+        }
+
+        private void OnDecreasePartLifeEvent(Object source, ElapsedEventArgs e)
+        {
+            foreach (CarPart carPart in CarContent)
+            {
+                if (carPart.Durability >= 5)
+                {
+                    carPart.Durability -= 5;
+                }
+            }
         }
 
         public void Drive()

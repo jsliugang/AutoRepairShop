@@ -54,23 +54,11 @@ namespace AutoRepairShop.Tools
 
         public static void MakeRepairChoice()
         {
-            foreach (CarPart carPart in ShopManager.CurrentCustomer.MyCar.CarContent)
-            {
-                if (!ShopManager.WorkingHours()) continue;
-                if (carPart.IsWorking) continue;
+            ShopManager.CurrentCustomer.MakeRepairOrder();
+            ShopManager.CurrentCustomer.ReplaceBrokenParts();
 
-                if (rand.NextDouble() > 0.5)
-                {
-                    ShopManager.CurrentCustomer.MakeRepairOrder(carPart.Name);
-                }
-                else
-                {
-                    ShopManager.CurrentCustomer.ReplaceBrokenParts(carPart.Name);
-                }
-            }
-
-            if (ShopManager.WorkingHours())
-            {
+           if (ShopManager.WorkingHours())
+           {
                 if (rand.NextDouble() > 0.5)
                 {
                     ShopManager.CurrentCustomer.PimpMyCar(ShopManager.ModificationsOffer[rand.Next(0, ShopManager.ModificationsOffer.Count)]);
@@ -82,10 +70,7 @@ namespace AutoRepairShop.Tools
                         .ReplaceLiquids(ShopManager.CurrentCustomer
                             .MyCar.CarLiquids.CarLiquids.Keys.ElementAt(randomLiquid));
                 }
-            }
-
-           
-
+           }
             ShopManager.CurrentCustomer.LeaveShop();
         }
 

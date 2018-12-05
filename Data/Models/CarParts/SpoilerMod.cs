@@ -2,7 +2,7 @@
 {
     class SpoilerMod:CarPart
     {
-        public SpoilerMod(bool state) : base("Spoiler", state)
+        public SpoilerMod(byte durability) : base("Spoiler", durability)
         {
             Cost = 230;
         }

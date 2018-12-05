@@ -17,13 +17,18 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public void ReplacePart(string partName, Car car)
         {
-            CarPart newPart = CheckPartAvailability(partName);
-            CarPart oldPart = car.CarContent.Find(x => x.Name == partName);
+            CarPart newPart;
+            do
+            {
+                newPart = CheckPartAvailability(partName);
+            } while (newPart.Durability<60);
+
+            var oldPart = car.CarContent.Find(x => x.Name == partName);
             if (newPart != null)
             {
                 Disassemble(oldPart);
                 Thread.Sleep(5000);
-                car.CarContent.Find(x => x.Name == partName).IsWorking = newPart.IsWorking;
+                oldPart = newPart;
                 Console.WriteLine($"Replacing the broken part with new one!");
                 Thread.Sleep(10000);
                 Assemble(oldPart);

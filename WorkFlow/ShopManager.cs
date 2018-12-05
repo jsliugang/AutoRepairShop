@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using AutoRepairShop.Data.Containers;
 using AutoRepairShop.Data.Lists;
+using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.CarTypes;
 using AutoRepairShop.Data.Models.Humans;
 using AutoRepairShop.Data.Repository;
@@ -25,6 +29,8 @@ namespace AutoRepairShop.WorkFlow
         private static Dictionary<Customer, CustomerBalanceData> OnHoldCustomerBalance = new Dictionary<Customer, CustomerBalanceData>();
         public static List<Customer> Customers;
         public static List<Customer> CustomersOnHold;
+        public static List<CarPart> CurrentDiagnosticsResults;
+        private static Dictionary<Customer, List<CarPart>> OnHoldCustomerDiagnosticsResults = new Dictionary<Customer, List<CarPart>>();
 
         private ShopManager()
         { 
@@ -62,6 +68,7 @@ namespace AutoRepairShop.WorkFlow
             if (!WorkingHours()) return;
             CurrentCustomer = customer;
             CurrentCustomerBalance = new CustomerBalanceData(0, 0);
+            CurrentDiagnosticsResults = new List<CarPart>();
             CustomerQueue<Customer>.Dequeue(Customers);
             CurrentCustomer.StopWaitForServicesTimer();
             Dss.AddCustomer(CurrentCustomer); //daily logging service
@@ -73,7 +80,10 @@ namespace AutoRepairShop.WorkFlow
             }
             Lucy._lrw.StoreLog($"New customer: {CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer registered");
             Lucy.Say($"{CurrentCustomer.Name}, what shall we do with your {CurrentCustomer.MyCar.Name}?");
-            CurrentCustomer.MakeDiagnosticsOrder();
+            if (WorkingHours())
+            {
+                CurrentCustomer.MakeDiagnosticsOrder();
+            }
             RepairAutomationTool.MakeRepairChoice();
         }
 
@@ -83,7 +93,9 @@ namespace AutoRepairShop.WorkFlow
             CurrentCustomer = customer;
             CustomerQueue<Customer>.Dequeue(CustomersOnHold);
             CurrentCustomerBalance = OnHoldCustomerBalance[CurrentCustomer];
+            CurrentDiagnosticsResults = OnHoldCustomerDiagnosticsResults[CurrentCustomer];
             OnHoldCustomerBalance.Remove(CurrentCustomer);
+            OnHoldCustomerDiagnosticsResults.Remove(CurrentCustomer);
             CurrentCustomer.StopWaitForServicesTimer();
             Lucy.Say($"Thank you for waiting. We are ready to complete your work orders, {CurrentCustomer.Name}!");
             if (Lucy._isGarageEmpty)
@@ -153,10 +165,11 @@ namespace AutoRepairShop.WorkFlow
             {
                 case 1: //diagnoze
                     ICanDiagnoze<RepairMan> diagnozeMan = CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
-                                                          CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2);
+                                                          CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2) ??
+                                                          CanDiagnozeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 3);
                     if (diagnozeMan != null)
                     {
-                        diagnozeMan.DiagnozeCar(customerCar);
+                        CurrentDiagnosticsResults.AddRange(diagnozeMan.DiagnozeCar(customerCar));
                         Dss.AddWorkOrder((RepairMan)diagnozeMan, "Diagnoze", ServicesCatalogue["Diagnoze"], 0);
                         CurrentCustomerBalance.CostOfServices += ServicesCatalogue["Diagnoze"];
                         PayRepairMan(CalculateSalary(ServicesCatalogue["Diagnoze"]), (RepairMan)diagnozeMan);
@@ -184,8 +197,11 @@ namespace AutoRepairShop.WorkFlow
                     break;
 
                 case 3: // mods
-                    ICanCustomize<RepairMan> customizeMan = CanCustomizeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
-                                                            CanCustomizeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2);
+                    //ICanCustomize<RepairMan> customizeMan = CanCustomizeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
+                    //                                        CanCustomizeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2) ??
+                    //                                        CanCustomizeList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 3);
+
+                    //ICanCustomize<RepairMan> customizeMan = CanCustomizeList.RepairMen.Where(CanCustomizeList.RepairMen.Key)//[RepairMan(x => x.IsBusy)]
                     if (customizeMan != null)
                     {
                         customizeMan.Modify(customerCar, part);
@@ -201,24 +217,26 @@ namespace AutoRepairShop.WorkFlow
                     break;
                 case 4: //replace
                     ICanReplace<RepairMan> replaceMan = CanReplaceList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
-                                                        CanReplaceList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2);
-                    if (replaceMan != null)
-                    {
-                        replaceMan.ReplacePart(part, customerCar);
-                        Dss.AddWorkOrder((RepairMan)replaceMan, "Replace", ServicesCatalogue["Replace"], CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost);
-                        CurrentCustomerBalance.CostOfServices += ServicesCatalogue["Replace"];
-                        CurrentCustomerBalance.CostOfParts += CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost;
-                        PayRepairMan(CalculateSalary(ServicesCatalogue["Replace"]), (RepairMan)replaceMan);
-                    }
-                    else
+                                                        CanReplaceList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2) ??
+                                                        CanReplaceList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 3);
+                    if (replaceMan == null)
                     {
                         CustomerOnHold();
+                        break;
                     }
+                    replaceMan.ReplacePart(part, customerCar);
+                    Dss.AddWorkOrder((RepairMan) replaceMan, "Replace", ServicesCatalogue["Replace"],
+                    CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost);
+                    CurrentCustomerBalance.CostOfServices += ServicesCatalogue["Replace"];
+                    CurrentCustomerBalance.CostOfParts +=
+                    CurrentCustomer.MyCar.CarContent.Find(x => x.Name == part).Cost;
+                    PayRepairMan(CalculateSalary(ServicesCatalogue["Replace"]), (RepairMan) replaceMan);
                     break;
 
                 case 5: //liquids 
                     ICanReplaceFluids<RepairMan> replaceFluidsMan = CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 1) ??
-                                                                    CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2);
+                                                                    CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 2) ??
+                                                                    CanReplaceFluidsList.RepairMen.Find(x => x.IsBusy == false && x.Priority == 3);
                     if (replaceFluidsMan != null)
                     {
                         Dss.AddWorkOrder((RepairMan)replaceFluidsMan, "ReplaceLiquid", ServicesCatalogue["ReplaceLiquid"], 0);
@@ -256,16 +274,16 @@ namespace AutoRepairShop.WorkFlow
             {
                 return true;
             }
-            DateTime NextWorkingDateStart = TimeTool.GetGameTime().AddDays(1).Subtract(TimeTool.GetGameTime().TimeOfDay);
-            NextWorkingDateStart = NextWorkingDateStart.AddHours(8).Subtract(new TimeSpan(1, 0, 0, 0, 0));
-            TimeSpan Night = NextWorkingDateStart - TimeTool.GetGameTime();
-            double NightSeconds = Night.TotalSeconds;
-            NightSeconds = Math.Abs(NightSeconds / 720);
+            DateTime nextWorkingDateStart = TimeTool.GetGameTime().AddDays(1).Subtract(TimeTool.GetGameTime().TimeOfDay);
+            nextWorkingDateStart = nextWorkingDateStart.AddHours(8).Subtract(new TimeSpan(1, 0, 0, 0, 0));
+            TimeSpan night = nextWorkingDateStart - TimeTool.GetGameTime();
+            double nightSeconds = night.TotalSeconds;
+            nightSeconds = Math.Abs(nightSeconds / 720);
             if (now.DayOfWeek == DayOfWeek.Sunday)
             {
-                NightSeconds += 120;
+                nightSeconds += 120;
             }
-            Thread.Sleep((int)NightSeconds * TimeTool.Thousand + 1000);
+            Thread.Sleep((int)nightSeconds * TimeTool.Thousand + 1000);
             return 7 < now.Hour && now.Hour < 24 && now.DayOfWeek != DayOfWeek.Sunday;
         }
 

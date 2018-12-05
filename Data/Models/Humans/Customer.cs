@@ -69,10 +69,16 @@ namespace AutoRepairShop.Data.Models.Humans
             ShopManager.ProcessOrder(1, "");
         }
 
-        public void MakeRepairOrder(string part)
+        public void MakeRepairOrder()
         {
             Say($"Please repair all the broken parts of my {MyCar.Name}.");
-            ShopManager.ProcessOrder(2, part);
+            foreach (CarPart carPart in ShopManager.CurrentDiagnosticsResults)
+            {
+                if (carPart.Durability > 0 && carPart.Durability <= 15 && ShopManager.WorkingHours())
+                {
+                    ShopManager.ProcessOrder(2, carPart.Name);
+                }
+            }
         }
 
         public void PimpMyCar(string modificationType)
@@ -81,10 +87,16 @@ namespace AutoRepairShop.Data.Models.Humans
             ShopManager.ProcessOrder(3, modificationType);
         }
 
-        public void ReplaceBrokenParts(string part)
+        public void ReplaceBrokenParts()
         {
             Say($"Replace all broken parts in {MyCar.Name}, please...");
-            ShopManager.ProcessOrder(4, part);
+            foreach (CarPart carPart in ShopManager.CurrentDiagnosticsResults)
+            {
+                if (carPart.Durability == 0 && ShopManager.WorkingHours())
+                {
+                    ShopManager.ProcessOrder(4, carPart.Name);
+                }
+            }
         }
 
         public void ReplaceLiquids(string liquid)

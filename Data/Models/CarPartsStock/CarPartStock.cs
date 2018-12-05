@@ -9,6 +9,7 @@ namespace AutoRepairShop.Data.Models.CarPartsStock
     class CarPartStock<T> : IStock<CarPart>
     {
         public List<CarPart> Stock = new List<CarPart>();
+        protected Random rand = new Random();
 
         public CarPart ProvideItem()
         {
@@ -25,6 +26,11 @@ namespace AutoRepairShop.Data.Models.CarPartsStock
         public virtual void Add(int amount)
         {
             
+        }
+
+        public byte SetRandomDurability()
+        {
+            return (byte)rand.Next(0, 101);
         }
     }
 }

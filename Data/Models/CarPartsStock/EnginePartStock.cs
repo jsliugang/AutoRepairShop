@@ -13,7 +13,7 @@ namespace AutoRepairShop.Data.Models.CarPartsStock
         {
             for (int i = 0; i < amount; i++)
             {
-                Stock.Add(new EnginePart(true));
+                Stock.Add(new EnginePart(SetRandomDurability()));
             }
         }
     }

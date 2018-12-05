@@ -7,13 +7,15 @@ namespace AutoRepairShop.Data.Models.CarParts
         public string Name { get; }
         public bool IsWorking { get; set; }
         public int Cost { get; set; }
+        public byte Durability { get; set; }
 
         public CarPart(){}
 
-        public CarPart(string name, bool state)
+        public CarPart(string name, byte durability)
         {
-            IsWorking = state;
             Name = name;
+            Durability = durability;
+            IsWorking = Durability > 0;
         }
 
         protected void BreakPart()

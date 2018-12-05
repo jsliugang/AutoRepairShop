@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,15 +62,20 @@
     <Compile Include="Data\Models\CarBuilders\StreetSweeperBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\TractorBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\WagonBuilder.cs" />
-    <Compile Include="Data\Models\Humans\CustomerBalanceData.cs" />
+    <Compile Include="Data\Containers\CustomerBalanceData.cs" />
     <Compile Include="Data\Models\Humans\ICanBase.cs" />
     <Compile Include="Data\Models\Humans\ICanCustomize.cs" />
     <Compile Include="Data\Models\Humans\ICanDiagnoze.cs" />
     <Compile Include="Data\Models\Humans\ICanRepair.cs" />
     <Compile Include="Data\Models\Humans\ICanReplace.cs" />
     <Compile Include="Data\Models\Humans\ICanReplaceFluids.cs" />
+    <Compile Include="Services\BillPaymentService.cs" />
+    <Compile Include="Services\BribePaymentService.cs" />
+    <Compile Include="Services\ContractSignatureService.cs" />
+    <Compile Include="Services\CourtService.cs" />
     <Compile Include="Services\DailyStatService.cs" />
     <Compile Include="Services\ErrorLogService.cs" />
+    <Compile Include="Services\FileFolderManagementService.cs" />
     <Compile Include="Tools\MsgDecoratorTool.cs" />
     <Compile Include="Tools\RepairAutomationTool.cs" />
     <Compile Include="WorkFlow\CarMaker.cs" />

@@ -2,7 +2,7 @@
 {
     class DecalsMod:CarPart
     {
-        public DecalsMod(bool state) : base("Decals", state)
+        public DecalsMod(byte durability) : base("Decals", durability)
         {
             Cost = 100;
         }

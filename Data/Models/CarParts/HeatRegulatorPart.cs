@@ -2,7 +2,7 @@
 {
     class HeatRegulatorPart:CarPart
     {
-        public HeatRegulatorPart(bool state) : base("HeatRegulator", state)
+        public HeatRegulatorPart(byte durability) : base("HeatRegulator", durability)
         {
             Cost = 200;
         }

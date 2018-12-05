@@ -21,14 +21,14 @@ namespace AutoRepairShop.Data.Models.CarBuilders
 
         public override void CreateCar()
         {
-            Car.CarContent.Add(new BodyPart(rand.NextDouble() > 0.5));
-            Car.CarContent.Add(new CarburetorPart(rand.NextDouble() > 0.5));
-            Car.CarContent.Add(new EnginePart(rand.NextDouble() > 0.5));
-            Car.CarContent.Add(new GearboxPart(rand.NextDouble() > 0.5));
-            Car.CarContent.Add(new HeatRegulatorPart(rand.NextDouble() > 0.5));
-            Car.CarContent.Add(new MufflerPart(rand.NextDouble() > 0.5));
-            Car.CarContent.Add(new RadiatorPart(rand.NextDouble() > 0.5));
-            Car.CarContent.Add(new WheelsPart(rand.NextDouble() > 0.5));
+            Car.CarContent.Add(new BodyPart(SetRandomDurability()));
+            Car.CarContent.Add(new CarburetorPart(SetRandomDurability()));
+            Car.CarContent.Add(new EnginePart(SetRandomDurability()));
+            Car.CarContent.Add(new GearboxPart(SetRandomDurability()));
+            Car.CarContent.Add(new HeatRegulatorPart(SetRandomDurability()));
+            Car.CarContent.Add(new MufflerPart(SetRandomDurability()));
+            Car.CarContent.Add(new RadiatorPart(SetRandomDurability()));
+            Car.CarContent.Add(new WheelsPart(SetRandomDurability()));
         }
 
         protected override void SetCarNamesList()

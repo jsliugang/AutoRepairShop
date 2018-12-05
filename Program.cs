@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using AutoRepairShop.Services;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
 
@@ -12,6 +13,7 @@ namespace AutoRepairShop
         {
             MsgDecoratorTool.PrintCustomMessage("Welcome to the Repair Shop!", ConsoleColor.Green, ConsoleColor.Black);
             SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
+            CourtService court = new CourtService();
             RepairAutomationTool repairAutomationTool = new RepairAutomationTool();
         }
 

@@ -2,7 +2,7 @@
 {
     class HornPart:CarPart
     {
-        public HornPart(bool state) : base("Horn", state)
+        public HornPart(byte durability) : base("Horn", durability)
         {
             Cost = 50;
         }

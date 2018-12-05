@@ -2,7 +2,7 @@
 {
     class CustomBonnetMod:CarPart
     {
-        public CustomBonnetMod(bool state):base("CustomBonnet", state)
+        public CustomBonnetMod(byte durability) :base("CustomBonnet", durability)
         {
             Cost = 300;
         }

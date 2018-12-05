@@ -12,5 +12,6 @@ namespace AutoRepairShop.Data.Lists
             RepairMen.Add(RmSanSanuch.SanSanuch);
             RepairMen.Add(RmKirill.Kirill);
         }
+
     }
 }

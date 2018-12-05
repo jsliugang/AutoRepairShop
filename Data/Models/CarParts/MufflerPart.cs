@@ -2,7 +2,7 @@
 {
     class MufflerPart:CarPart
     {
-        public MufflerPart(bool state) : base("Muffler", state)
+        public MufflerPart(byte durability) : base("Muffler", durability)
         {
             Cost = 100;
         }

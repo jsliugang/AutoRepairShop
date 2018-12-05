@@ -59,7 +59,7 @@ namespace AutoRepairShop.Tools
 
         private static void SetNewCustomerTimer()
         {
-            _newCustomerTimer = new Timer(ConvertToGameTime(rand.NextDouble() * rand.Next(1,10)+1) * Thousand);
+            _newCustomerTimer = new Timer(ConvertToGameTime(rand.NextDouble() * rand.Next(10,20)+1) * Thousand);
             _newCustomerTimer.Elapsed += OnNewCustomerEvent;
             _newCustomerTimer.AutoReset = true;
             _newCustomerTimer.Enabled = true;

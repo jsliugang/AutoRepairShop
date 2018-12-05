@@ -17,3 +17,14 @@ Application closed
 
 Application closed
 01/02/1990 2:46 AM
+01/02/1990 8:10 AM : New customer: Sal Armstrong, Car: Liebherr T 282, Customer registered
+01/02/1990 9:58 AM : 1/2/1990 9:58:45 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/02/1990 9:58 AM : 1/2/1990 9:58:49 AM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
+
+01/02/1990 9:58 AM : Sal Armstrong, Car: Liebherr T 282, Customer released. Amount: 100
+01/02/1990 9:58 AM : New customer: Collin Wu, Car: Komatsu 980E, Customer registered
+01/02/1990 11:47 AM : 1/2/1990 11:47:04 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+Application closed
+01/02/1990 2:11 PM

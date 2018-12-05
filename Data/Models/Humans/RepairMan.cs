@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
 using AutoRepairShop.Data.Models.CarParts;
@@ -14,6 +15,7 @@ namespace AutoRepairShop.Data.Models.Humans
         public double Salary { get; set; }
         public bool IsBusy { get; set; }
         public int Priority { get; set; }
+        protected static Random rand = new Random();
 
         protected RepairMan()
         {
@@ -28,7 +30,7 @@ namespace AutoRepairShop.Data.Models.Humans
         protected void Repair(CarPart part)
         {
             Console.WriteLine($"{Name} is repairing the {part.Name}");
-            part.IsWorking = true;
+            part.Durability = 70;
         }
 
         protected void Assemble(CarPart part)
@@ -46,15 +48,21 @@ namespace AutoRepairShop.Data.Models.Humans
             Assemble(carPart);
         }
         
-        public void DiagnozeCar(Car car)
-        {   
+        public List<CarPart> DiagnozeCar(Car car)
+        {
+            List<CarPart> diagnosticsResults = new List<CarPart>();
             foreach (CarPart part in car.CarContent)
             {
                 Thread.Sleep(1000);
                 Console.WriteLine(part.IsWorking
-                    ? $"{Name} found that {part.Name} is OK!"
+                    ? $"{Name} found that {part.Name} is OK! Durability: {part.Durability}"
                     : $"{Name} found that {part.Name} is broken!");
+                if (part.Durability<=15)
+                {
+                    diagnosticsResults.Add(part);
+                }
             }
+            return diagnosticsResults;
         }
 
         public CarPart CheckPartAvailability(string name)

@@ -2,7 +2,7 @@
 {
     class GearboxPart:CarPart
     {
-        public GearboxPart(bool state) : base("Gearbox", state)
+        public GearboxPart(byte durability) : base("Gearbox", durability)
         {
             Cost = 2500;
         }

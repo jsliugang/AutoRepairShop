@@ -2,7 +2,7 @@
 {
     class ExhaustPipeMod: CarPart
     {
-        public ExhaustPipeMod(bool state) : base("ExhaustPipe", state)
+        public ExhaustPipeMod(byte durability) : base("ExhaustPipe", durability)
         {
             Cost = 120;
         }

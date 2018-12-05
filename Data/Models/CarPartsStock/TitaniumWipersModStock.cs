@@ -13,7 +13,7 @@ namespace AutoRepairShop.Data.Models.CarPartsStock
         {
             for (int i = 0; i < amount; i++)
             {
-                Stock.Add(new TitaniumWipersMod(true));
+                Stock.Add(new TitaniumWipersMod(SetRandomDurability()));
             }
         }
     }
