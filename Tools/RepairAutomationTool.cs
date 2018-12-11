@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.Humans;
 using AutoRepairShop.Data.Repository;
+using AutoRepairShop.Services;
 using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Tools
@@ -17,7 +16,8 @@ namespace AutoRepairShop.Tools
         public RepairAutomationTool()
         {
             ShopManager.Lucy.Greet();
-            AddNewCustomers(10);
+            FileFolderManagementService.CreateFolder();
+            AddNewCustomers(100);
             TimeTool.TimeInstance.SetTimers();
             CheckQueue();
         }
@@ -43,7 +43,9 @@ namespace AutoRepairShop.Tools
             DefaultCustomerList = new List<Customer>();
             for (int i = 0; i < count; i++)
             {
-                CustomerQueue<Customer>.Enqueue(new Customer(_cm.MakeRandomCar()), DefaultCustomerList);
+                var _newCustomer = new Customer(_cm.MakeRandomCar());
+                _newCustomer.Say($"{_newCustomer.Name}: I heard this is a great place to repair my car. I might consider coming soon...");
+                CustomerQueue<Customer>.Enqueue(_newCustomer, DefaultCustomerList);
             }
         }
 
@@ -54,7 +56,7 @@ namespace AutoRepairShop.Tools
 
         public static void MakeRepairChoice()
         {
-            ShopManager.CurrentCustomer.MakeRepairOrder();
+            ShopManager.CurrentCustomer.RepairBrokenParts();
             ShopManager.CurrentCustomer.ReplaceBrokenParts();
 
            if (ShopManager.WorkingHours())
@@ -65,25 +67,12 @@ namespace AutoRepairShop.Tools
                 }
                 else
                 {
-                    int randomLiquid = rand.Next(0, ShopManager.CurrentCustomer.MyCar.CarLiquids.CarLiquids.Count);
-                    ShopManager.CurrentCustomer
-                        .ReplaceLiquids(ShopManager.CurrentCustomer
-                            .MyCar.CarLiquids.CarLiquids.Keys.ElementAt(randomLiquid));
+                    ShopManager.CurrentCustomer.ReplaceLiquids();
                 }
            }
-            ShopManager.CurrentCustomer.LeaveShop();
+           //ShopManager.CurrentCustomer.MakeDiagnosticsOrder();
+           ShopManager.CurrentCustomer.LeaveShop();
         }
-
-        public static void AddCustomer()
-        {
-            Customer newCustomer = DefaultCustomerList[rand.Next(0, DefaultCustomerList.Count)];
-            if (!CustomerQueue<Customer>.Contains(ShopManager.Customers, newCustomer) &&
-                !CustomerQueue<Customer>.Contains(ShopManager.CustomersOnHold, newCustomer))
-            {
-                newCustomer.SetWaitForServicesTimer();
-                CustomerQueue<Customer>.Enqueue(newCustomer, ShopManager.Customers);
-            }
-        }   
 
         public void PrintMessage(string message)
         {

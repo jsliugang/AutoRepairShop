@@ -1,36 +1,89 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Timers;
 using AutoRepairShop.WorkFlow;
-using AutoRepairShop.Classes.Data.Models;
 using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.CarTypes;
+using AutoRepairShop.Data.Repository;
 using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    class Customer:Human, IComparable<Customer>
+    class Customer:Human, IComparable<Customer> 
     {
         public Car MyCar { get; set; }
         public DiscountCard MyDiscounts = new DiscountCard();
-        private Timer _waitForService;
+        public Timer WaitForService;
+        private Timer _checkCar;
+        private Timer _warrantyTimer;
         public static Random rand = new Random();
+        public ServiceAgreement MyAgreement;
 
-        public Customer() //manual ctor
-        {
-            MsgDecoratorTool.PrintServiceMessage("Please set new customer's name:");
-            Name = Console.ReadLine();
-            MsgDecoratorTool.PrintServiceMessage($"Please set {Name}'s priority (1 highest to 10 lowest):");
-            Int32.TryParse(Console.ReadLine(), out int userInput);
-            MsgDecoratorTool.PrintMenuMessage($"New Customer has arrived! Name - {Name}");
-        }
-
-        public Customer(Car car) //automated ctor
+        public Customer(Car car)
         {
             MyCar = car;
-            StringBuilder sb = new StringBuilder();
-            sb.Append($"{NamesList[rand.Next(0, NamesList.Count)]} {LastNamesList[rand.Next(0, NamesList.Count)]}");
-            Name = sb.ToString();
+            Name = NamesList[rand.Next(0, NamesList.Count)];
+            LastName = LastNamesList[rand.Next(0, NamesList.Count)];
+            SetCheckCarTimer();
+            MyAgreement = new ServiceAgreement(Name);
+        }
+
+        public void SetWarrantyTimer()
+        {
+            _warrantyTimer = new Timer(TimeTool.ConvertToRealTime(240) * TimeTool.Thousand);
+            _warrantyTimer.Elapsed += OnWarrantyCaseEvent;
+            _warrantyTimer.AutoReset = false;
+            _warrantyTimer.Enabled = true;
+        }
+
+        private void OnWarrantyCaseEvent(Object source, ElapsedEventArgs e)
+        {
+            _warrantyTimer.Dispose();
+        }
+
+        private void SetCheckCarTimer()
+        {
+            _checkCar = new Timer(TimeTool.ConvertToRealTime(24) * TimeTool.Thousand);
+            _checkCar.Elapsed += OnCarCheckEvent;
+            _checkCar.AutoReset = true;
+            _checkCar.Enabled = true;
+        }
+
+        private void OnCarCheckEvent(Object source, ElapsedEventArgs e)
+        {
+            if (MyCar.CarIsWorking) return;
+            if (_warrantyTimer != null)
+            {
+                foreach (var carPart in MyAgreement.PartsToRepair)
+                {
+                    if (carPart.Durability != 0) continue;
+                    GoToCourt();
+                    _checkCar.Enabled = false;
+                }
+                foreach (var carPart in MyAgreement.PartsToReplace)
+                {
+                    if (carPart.Durability != 0) continue;
+                    GoToCourt();
+                    _checkCar.Enabled = false;
+                }
+            }
+            else
+            {
+                GoToRepairShop();
+                _checkCar.Enabled = false;
+            }
+        }
+
+        private void GoToCourt()
+        {
+            // go to court service
+        }
+
+        private void GoToRepairShop()
+        {
+            CustomerQueue<Customer>.Enqueue(this, ShopManager.Customers);
+            SetWaitForServicesTimer();
         }
 
         public override void Say(string message)
@@ -44,6 +97,7 @@ namespace AutoRepairShop.Data.Models.Humans
         {
             Say("I think that is it for today, Lucy, I have to go, see you later!");
             ShopManager.ReleaseCustomer(this);
+            SetCheckCarTimer();
         }
 
         public void ComplimentLucy()
@@ -69,15 +123,12 @@ namespace AutoRepairShop.Data.Models.Humans
             ShopManager.ProcessOrder(1, "");
         }
 
-        public void MakeRepairOrder()
+        public void RepairBrokenParts()
         {
             Say($"Please repair all the broken parts of my {MyCar.Name}.");
-            foreach (CarPart carPart in ShopManager.CurrentDiagnosticsResults)
+            foreach (CarPart carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToRepair)
             {
-                if (carPart.Durability > 0 && carPart.Durability <= 15 && ShopManager.WorkingHours())
-                {
-                    ShopManager.ProcessOrder(2, carPart.Name);
-                }
+                ShopManager.ProcessOrder(2, carPart.Name);
             }
         }
 
@@ -90,19 +141,16 @@ namespace AutoRepairShop.Data.Models.Humans
         public void ReplaceBrokenParts()
         {
             Say($"Replace all broken parts in {MyCar.Name}, please...");
-            foreach (CarPart carPart in ShopManager.CurrentDiagnosticsResults)
+            foreach (CarPart carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToReplace)
             {
-                if (carPart.Durability == 0 && ShopManager.WorkingHours())
-                {
-                    ShopManager.ProcessOrder(4, carPart.Name);
-                }
+                ShopManager.ProcessOrder(4, carPart.Name);
             }
         }
 
-        public void ReplaceLiquids(string liquid)
+        public void ReplaceLiquids()
         {
-            Say($"Replace the liquids in {MyCar.Name}, please...");
-            ShopManager.ProcessOrder(5, liquid);
+            Say($"Replace all the liquids in {MyCar.Name}, please...");
+            ShopManager.ProcessOrder(5, "");
         }
 
         public CarPart PointAtCarPart()
@@ -128,10 +176,10 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public void SetWaitForServicesTimer()
         {
-            _waitForService = new Timer(TimeTool.ConvertToGameTime(72*TimeTool.Thousand));
-            _waitForService.Elapsed += OnScandalEvent;
-            _waitForService.AutoReset = false;
-            _waitForService.Enabled = true;
+            WaitForService = new Timer(TimeTool.ConvertToRealTime(72*TimeTool.Thousand));
+            WaitForService.Elapsed += OnScandalEvent;
+            WaitForService.AutoReset = false;
+            WaitForService.Enabled = true;
         }
 
         public void OnScandalEvent(Object source, EventArgs e)
@@ -144,7 +192,7 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public void StopWaitForServicesTimer()
         {
-            _waitForService.Enabled = false;
+            WaitForService.Enabled = false;
         }
     }
 }

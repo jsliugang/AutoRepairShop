@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
@@ -10,10 +11,29 @@ namespace AutoRepairShop.Data.Models.Humans
         public List<string> LastNamesList = new List<string>();
 
         public string Name { get; set; }
+        public string LastName { get; set; }
 
         public Human()
         {
             DumpNames();
+        }
+
+        public string GetName()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Name);
+            sb.Append(" ");
+            sb.Append(LastName);
+            return sb.ToString();
+        }
+
+        public string Get_Name()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Name);
+            sb.Append("_");
+            sb.Append(LastName);
+            return sb.ToString();
         }
 
         public void Greet()

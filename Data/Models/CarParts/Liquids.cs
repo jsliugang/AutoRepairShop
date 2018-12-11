@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoRepairShop.Data.Models.CarParts
 {
     class Liquids
     {
-        public Dictionary<string, byte> CarLiquids = new Dictionary<string, byte>(); 
+        public Dictionary<string, int> CarLiquids = new Dictionary<string, int>();
 
         public Liquids()
         {
@@ -13,6 +14,11 @@ namespace AutoRepairShop.Data.Models.CarParts
             CarLiquids.Add("BrakeFluid", 50);
             CarLiquids.Add("CoolingLiquid", 50);
             CarLiquids.Add("WindshieldWasherLiquid", 50);
+        }
+
+        public void UpdateAmount(string key, int amount)
+        {
+            CarLiquids[key] = amount;
         }
     }
 }

@@ -9,8 +9,9 @@ namespace AutoRepairShop.Data.Lists
 
         static CanReplaceFluidsList()
         {
-            RepairMen.Add(RmSanSanuch.SanSanuch);
             RepairMen.Add(RmPetrovich.Petrovich);
+            RepairMen.Add(RmSanSanuch.SanSanuch);
+            RepairMen.Add(RmVano.Vano);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
+using AutoRepairShop.CourtServiceReference;
 using AutoRepairShop.Services;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
@@ -11,9 +11,24 @@ namespace AutoRepairShop
     {
         static void Main()
         {
+            //CourtClient client = new CourtClient();
+            //string i = client.MakeDecision();
+            //Console.WriteLine($"Received the following information: '{i}'");
+            //client.Close();
+            CourtClient client = new CourtClient("NetTcpBinding_ICourt");
+            Console.WriteLine($"{client.MakeDecision()}");
+            
+
+            // Use the 'client' variable to call operations on the service.
+
+            // Always close the client.
+            client.Close();
+
+            /////////////////////////////////////
             MsgDecoratorTool.PrintCustomMessage("Welcome to the Repair Shop!", ConsoleColor.Green, ConsoleColor.Black);
             SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
-            CourtService court = new CourtService();
+            WeeklyPaymentService wps = new WeeklyPaymentService();
+            MonthlyPaymentService mps = new MonthlyPaymentService();
             RepairAutomationTool repairAutomationTool = new RepairAutomationTool();
         }
 

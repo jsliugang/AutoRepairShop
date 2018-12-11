@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.CarTypes;
 using AutoRepairShop.Tools;
-using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
@@ -25,7 +24,6 @@ namespace AutoRepairShop.Data.Models.CarBuilders
                     MsgDecoratorTool.PrintServiceMessage($"{CarNames.IndexOf(carName)}. {carName}");
                 }
             }
-
         }
 
         public void RandomCarName()
@@ -206,7 +204,7 @@ namespace AutoRepairShop.Data.Models.CarBuilders
 
         public byte SetRandomDurability()
         {
-            return (byte) rand.Next(0, 101);
+            return (byte) rand.Next(0,101);
         }
     }
 }

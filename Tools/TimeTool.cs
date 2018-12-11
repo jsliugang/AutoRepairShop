@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Timers;
 using AutoRepairShop.Data.Models.Humans;
+using AutoRepairShop.Services;
 using AutoRepairShop.WorkFlow;
 using Timer = System.Timers.Timer;
 
@@ -15,7 +16,6 @@ namespace AutoRepairShop.Tools
         public const int Thousand = 1000;
         private const string DatetimeDormat = "MM/dd/yyyy h:mm tt";
         private static Timer _sickTimer;
-        private static Timer _newCustomerTimer;
         private static Timer _nextDayTimer;
         private readonly DateTime _gameStartRealTime;
         private readonly DateTime _gameStartGameTime;
@@ -52,31 +52,13 @@ namespace AutoRepairShop.Tools
         public void SetTimers()
         {
             SetSickTimer();
-            SetNewCustomerTimer();
             SetNextDayTimer(CalculateSecondsToNextDay());
             GetGameTimeToScreen();
         }
 
-        private static void SetNewCustomerTimer()
-        {
-            _newCustomerTimer = new Timer(ConvertToGameTime(rand.NextDouble() * rand.Next(10,20)+1) * Thousand);
-            _newCustomerTimer.Elapsed += OnNewCustomerEvent;
-            _newCustomerTimer.AutoReset = true;
-            _newCustomerTimer.Enabled = true;
-        }
-
-        private static void OnNewCustomerEvent(Object source, ElapsedEventArgs e)
-        {
-            int hour = GetGameTime().Hour;
-            if (7 < hour && hour < 24)
-            {
-                RepairAutomationTool.AddCustomer();
-            }
-        }
-
         private static void SetSickTimer()
         {
-            _sickTimer = new Timer(ConvertToGameTime(168)*Thousand);
+            _sickTimer = new Timer(ConvertToRealTime(168)*Thousand);
             _sickTimer.Elapsed += OnSickEvent;
             _sickTimer.AutoReset = true;
             _sickTimer.Enabled = true;
@@ -105,7 +87,8 @@ namespace AutoRepairShop.Tools
             _nextDayTimer.Elapsed += OnDayEndEvent;
             _nextDayTimer.AutoReset = false;
             _nextDayTimer.Enabled = true;
-            RepairAutomationTool.AddCustomer();
+            RepairAutomationTool.AddNewCustomers(2);
+           
         }
 
         private static void OnDayEndEvent(Object source, ElapsedEventArgs e)
@@ -114,9 +97,10 @@ namespace AutoRepairShop.Tools
             ShopManager.Dss.Clear();
             SetNextDayTimer(120);
             GetGameTimeToScreen();
+            FileFolderManagementService.CreateFolder();
         }
 
-        public static int ConvertToGameTime(double gameHours)
+        public static int ConvertToRealTime(double gameHours)
         {
             int secondsRealTime = (int)(gameHours * 3600) / 720;
             return secondsRealTime;

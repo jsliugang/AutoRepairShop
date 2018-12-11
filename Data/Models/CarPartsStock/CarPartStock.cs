@@ -30,7 +30,20 @@ namespace AutoRepairShop.Data.Models.CarPartsStock
 
         public byte SetRandomDurability()
         {
-            return (byte)rand.Next(0, 101);
+            // TEST CODE
+            //byte temp;
+            //if (rand.NextDouble() > 0.2)
+            //{
+            //    temp = (byte)rand.Next(60, 101);
+            //    Console.WriteLine($"Durability set to {temp}");
+            //}
+            //else
+            //{
+            //    temp = 0;
+            //    Console.WriteLine($"Durability set to {temp}");
+            //}
+            //return temp;
+            return rand.NextDouble() > 0.2 ? (byte)rand.Next(60, 101) : (byte)0;
         }
     }
 }

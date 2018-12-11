@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AutoRepairShop.Classes.Data.Models
+namespace AutoRepairShop.Data.Repository
 {
     class DiscountCard
     {
@@ -25,20 +25,22 @@ namespace AutoRepairShop.Classes.Data.Models
             {
                 CardName = "Bronze Card";
                 Priority = 6;
-                return 5;
+                return 0.05;
             }
             if (NumberOfVisits >= 4 && NumberOfVisits < 6)
             {
                 Priority = 3;
                 CardName = "Silver Card";
-                return 10;
+                return 0.10;
             }
             if (NumberOfVisits >= 6)
             {
                 Priority = 1;
                 CardName = "Gold Card";
-                return 15;
+                return 0.15;
             }
+            Priority = 9;
+            CardName = "Loyal Customer";
             return 0;
         }
     }

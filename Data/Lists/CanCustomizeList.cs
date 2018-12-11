@@ -9,9 +9,9 @@ namespace AutoRepairShop.Data.Lists
 
         static CanCustomizeList()
         {
-            RepairMen.Add(RmSanSanuch.SanSanuch);
             RepairMen.Add(RmKirill.Kirill);
+            RepairMen.Add(RmSanSanuch.SanSanuch);
+            RepairMen.Add(RmPetrovich.Petrovich);
         }
-
     }
 }

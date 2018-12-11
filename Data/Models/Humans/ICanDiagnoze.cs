@@ -6,6 +6,7 @@ namespace AutoRepairShop.Data.Models.Humans
 {
     interface ICanDiagnoze<T>:ICanBase where T : class
     {
-        List<CarPart> DiagnozeCar(Car car);
+        int Priority { get; }
+        void DiagnozeCar(Car car);
     }
 }

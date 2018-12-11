@@ -1,43 +1,35 @@
-﻿using System;
+﻿using AutoRepairShop.Data.Models.CarTypes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
-using AutoRepairShop.Data.Models.CarParts;
-using AutoRepairShop.Data.Models.CarTypes;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    class RmVano:RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplace<RepairMan>
+    class RmVano:RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplace<RepairMan>, ICanReplaceFluids<RepairMan>
     {
         public static readonly RmVano Vano = new RmVano();
+
+        int ICanReplace<RepairMan>.Priority { get; } = 1;
+        int ICanDiagnoze<RepairMan>.Priority { get; } = 1;
+        int ICanRepair<RepairMan>.Priority { get; } = 1;
+        int ICanReplaceFluids<RepairMan>.Priority { get; } = 3;
 
         private RmVano()
         {
             Name = "Vano";
-            Priority = 1;
         }
 
-        public void ReplacePart(string partName, Car car)
+        public override int ReplaceFluid(Car car)
         {
-            CarPart newPart;
-            do
+            Console.WriteLine($"{Name}: Replacing fluids.");
+            for (int i = 0; i < car.CarLiquids.CarLiquids.Count; i++)
             {
-                newPart = CheckPartAvailability(partName);
-            } while (newPart.Durability<60);
-
-            var oldPart = car.CarContent.Find(x => x.Name == partName);
-            if (newPart != null)
-            {
-                Disassemble(oldPart);
-                Thread.Sleep(5000);
-                oldPart = newPart;
-                Console.WriteLine($"Replacing the broken part with new one!");
-                Thread.Sleep(10000);
-                Assemble(oldPart);
+                car.CarLiquids.UpdateAmount(car.CarLiquids.CarLiquids.ElementAt(i).Key, 75);
             }
-            Console.WriteLine($"{Name}: {oldPart.Name} is not in garage, we have to request it from Stock.");
-            if (RequestPartFromStock(oldPart.Name))
-            {
-                ReplacePart(oldPart.Name, car);
-            }
-        }       
+            Thread.Sleep(15000);
+            Console.WriteLine($"{Name}: All done!");
+            return 150;
+        }
     }
 }

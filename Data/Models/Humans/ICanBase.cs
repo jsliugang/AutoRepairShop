@@ -10,6 +10,5 @@ namespace AutoRepairShop.Data.Models.Humans
     {
         string Name { get; set; }
         bool IsBusy { get; set; }
-        int Priority { get; set; }
     }
 }

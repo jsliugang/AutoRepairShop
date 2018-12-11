@@ -1,30 +1,63 @@
-01/01/1990 9:00 AM : New customer: Weston Armstrong, Car: Chevrolet Tahoe, Customer registered
-01/01/1990 10:48 AM : 1/1/1990 10:48:15 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/02/1990 9:00 AM : New customer: Isaias, Car: MX - 450, Customer registered
+01/02/1990 10:48 AM : 1/2/1990 10:48:42 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/02/1990 9:00 AM : New customer: Kris, Car: FIA GT1, Customer registered
+01/02/1990 10:48 AM : 1/2/1990 10:48:46 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/02/1990 2:04 PM : 1/2/1990 2:04:47 PM -- Work Order: Repair, work cost: 250, part cost: 0
+
+01/02/1990 5:05 PM : 1/2/1990 5:05:13 PM -- Work Order: Replace, work cost: 200, part cost: 350
+
+01/02/1990 8:05 PM : 1/2/1990 8:05:27 PM -- Work Order: Modify, work cost: 500, part cost: 100
+
+01/02/1990 9:00 AM : New customer: Rae, Car: Regular Ambulance, Customer registered
+01/02/1990 10:49 AM : 1/2/1990 10:49:08 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/02/1990 9:00 AM : New customer: Jim, Car: Ford F250, Customer registered
+01/02/1990 10:48 AM : 1/2/1990 10:48:46 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/02/1990 2:03 PM : 1/2/1990 2:03:57 PM -- Work Order: Repair, work cost: 250, part cost: 0
+
+01/02/1990 5:04 PM : 1/2/1990 5:04:06 PM -- Work Order: Replace, work cost: 200, part cost: 2500
+
+01/02/1990 8:04 PM : 1/2/1990 8:04:17 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
+
+01/02/1990 8:22 PM : Jim, Car: Ford F250, Customer released. Amount: 3200
+01/02/1990 8:22 PM : New customer: Fannie, Car: MX - 450, Customer registered
+01/02/1990 10:10 PM : 1/2/1990 10:10:14 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/03/1990 1:23 AM : 1/3/1990 1:23:52 AM -- Work Order: Repair, work cost: 250, part cost: 0
+
+01/03/1990 11:12 AM : 1/3/1990 11:11:59 AM -- Work Order: Repair, work cost: 250, part cost: 0
+
+01/03/1990 2:12 PM : 1/3/1990 2:12:03 PM -- Work Order: Repair, work cost: 250, part cost: 0
+
+01/03/1990 5:12 PM : 1/3/1990 5:12:24 PM -- Work Order: Replace, work cost: 200, part cost: 500
+
+01/03/1990 8:12 PM : 1/3/1990 8:12:44 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
+
+01/03/1990 8:30 PM : Fannie, Car: MX - 450, Customer released. Amount: 1700
+01/03/1990 8:30 PM : New customer: Alfredo, Car: Snowplug ZLST551Q, Customer registered
+01/03/1990 10:18 PM : 1/3/1990 10:18:21 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
 
 Application closed
-01/01/1990 1:19 PM
-01/01/1990 1:19 PM : New customer: Trinidad Love, Car: MAN TGX, Customer registered
-01/01/1990 3:07 PM : 1/1/1990 3:07:15 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
+01/04/1990 1:23 AM
 Application closed
-01/01/1990 4:05 PM
-01/01/1990 4:05 PM : New customer: Fannie Tate, Car: Chevrolet Tahoe, Customer registered
-01/01/1990 5:53 PM : 1/1/1990 5:53:20 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/01/1990 8:53 PM : 1/1/1990 8:53:30 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/01/1990 11:53 PM : 1/1/1990 11:53:36 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
+01/04/1990 5:32 AM
 Application closed
-01/02/1990 2:46 AM
-01/02/1990 8:10 AM : New customer: Sal Armstrong, Car: Liebherr T 282, Customer registered
-01/02/1990 9:58 AM : 1/2/1990 9:58:45 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/04/1990 7:06 AM
+01/06/1990 8:06 AM : New customer: Gloria, Car: Petrol 11 HP snowplug STG1101QE-02, Customer registered
+01/06/1990 9:54 AM : 1/6/1990 9:54:59 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
 
-01/02/1990 9:58 AM : 1/2/1990 9:58:49 AM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
+01/06/1990 1:05 PM : 1/6/1990 1:05:10 PM -- Work Order: Repair, work cost: 250, part cost: 0
 
-01/02/1990 9:58 AM : Sal Armstrong, Car: Liebherr T 282, Customer released. Amount: 100
-01/02/1990 9:58 AM : New customer: Collin Wu, Car: Komatsu 980E, Customer registered
-01/02/1990 11:47 AM : 1/2/1990 11:47:04 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/06/1990 4:05 PM : 1/6/1990 4:05:15 PM -- Work Order: Repair, work cost: 250, part cost: 0
 
-Application closed
-01/02/1990 2:11 PM
+01/06/1990 7:05 PM : 1/6/1990 7:05:33 PM -- Work Order: Replace, work cost: 200, part cost: 100
+
+01/06/1990 10:06 PM : 1/6/1990 10:05:55 PM -- Work Order: Modify, work cost: 500, part cost: 100
+
+01/06/1990 10:15 PM : Gloria, Car: Petrol 11 HP snowplug STG1101QE-02, Customer released. Amount: 1450
+01/06/1990 10:15 PM : New customer: Hugh, Car: BELAZ 75710, Customer registered
+01/07/1990 12:04 AM : 1/7/1990 12:04:03 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+

@@ -1,14 +1,17 @@
 ﻿using System;
+using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.Services
 {
-    class FileFolderManagementService
+    static class FileFolderManagementService
     {
-        public void CreateFolder()
+        public const string DatetimeFormat = "dd-MM-yyyy";
+        public static void CreateFolder()
         {
-            string folderName = @"C:\Users\Yuri.Pustovoy\Documents\Visual Studio 2017\Projects\AutoRepairShop\AutoRepairShop\bin\Debug\BossComp";
-            string pathString = System.IO.Path.Combine(folderName, "TimeStamp"); //add a timestamp
-
+            string folderName = @"D:\test";
+            string pathString = System.IO.Path.Combine(folderName,
+                $"AgreementsFor_{TimeTool.GetGameTime().ToString(DatetimeFormat)}"); //add a timestamp
+           
             System.IO.Directory.CreateDirectory(pathString);
 
             // Create a file name for the file you want to create. 

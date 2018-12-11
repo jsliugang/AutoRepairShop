@@ -75,10 +75,10 @@ namespace AutoRepairShop.Services
             Console.WriteLine($"-- Customers on Hold --");
             CustomerQueue<Customer>.Display(ShopManager.CustomersOnHold);
             Console.WriteLine($"---------------------------------------");
-            Console.WriteLine($"Kirills salary - {RmKirill.Kirill.Salary}");
-            Console.WriteLine($"Vanos salary - {RmVano.Vano.Salary}");
-            Console.WriteLine($"Petrovichs salary - {RmPetrovich.Petrovich.Salary}");
-            Console.WriteLine($"SanSanuchs salary - {RmSanSanuch.SanSanuch.Salary}");
+            foreach (var keyValue in ShopManager.Lucy.Salary)
+            {
+                Console.WriteLine($"{keyValue.Key.Name} earned {keyValue.Value}");               
+            }
             Console.WriteLine("***END OF DAILY STATISTICS***");
             Console.ForegroundColor = ConsoleColor.White;
         }
