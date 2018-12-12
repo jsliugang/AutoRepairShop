@@ -61,3 +61,14 @@ Application closed
 01/06/1990 10:15 PM : New customer: Hugh, Car: BELAZ 75710, Customer registered
 01/07/1990 12:04 AM : 1/7/1990 12:04:03 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
 
+Application closed
+01/01/1990 10:34 AM
+01/02/1990 10:34 AM : New customer: Leon, Car: Fendt 820, Customer registered
+01/02/1990 12:23 PM : 1/2/1990 12:23:13 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+
+01/02/1990 3:36 PM : 1/2/1990 3:36:05 PM -- Work Order: Replace, work cost: 200, part cost: 200
+
+01/02/1990 6:36 PM : 1/2/1990 6:36:20 PM -- Work Order: Modify, work cost: 500, part cost: 120
+
+01/02/1990 6:47 PM : Leon, Car: Fendt 820, Customer released. Amount: 1070
+01/03/1990 10:34 AM : New customer: Douglass, Car: Caterham CT03, Customer registered

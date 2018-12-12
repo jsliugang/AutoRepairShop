@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using AutoRepairShop.CourtServiceReference;
+using AutoRepairShop.Data.Repository;
 using AutoRepairShop.Services;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
@@ -11,17 +12,15 @@ namespace AutoRepairShop
     {
         static void Main()
         {
-            //CourtClient client = new CourtClient();
-            //string i = client.MakeDecision();
-            //Console.WriteLine($"Received the following information: '{i}'");
-            //client.Close();
-            CourtClient client = new CourtClient("NetTcpBinding_ICourt");
-            Console.WriteLine($"{client.MakeDecision()}");
-            
+            CourtClient client = new CourtClient("BasicHttpBinding_ICourt");
+            CourtServiceReference.CompositeType _class = new CompositeType();
+            _class.StringValue = "This is a test";
+            _class.BoolValue = true;
+            _class.ExtensionData = null;
+            Console.WriteLine($"{_class.BoolValue}, {_class.StringValue}.");
+            var pp = client.GetDataUsingDataContract(_class);
+            Console.WriteLine($"{pp.BoolValue}, {pp.StringValue}.");
 
-            // Use the 'client' variable to call operations on the service.
-
-            // Always close the client.
             client.Close();
 
             /////////////////////////////////////
