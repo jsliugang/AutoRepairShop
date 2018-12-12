@@ -163,9 +163,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Connected Services\CourtServiceReference\AutoRepairShop.CourtServiceReference.CompositeType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\CourtServiceReference\Court.wsdl" />
     <None Include="Connected Services\CourtServiceReference\item.xsd">
       <SubType>Designer</SubType>

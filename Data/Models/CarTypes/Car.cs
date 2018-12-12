@@ -9,6 +9,7 @@ namespace AutoRepairShop.Data.Models.CarTypes
 {
     abstract class Car
     {
+        public bool IsOnWarranty = false;
         public Liquids CarLiquids;
         public List<CarPart> CarContent;
         public string Name { get; set; }

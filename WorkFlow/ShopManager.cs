@@ -115,21 +115,40 @@ namespace AutoRepairShop.WorkFlow
 
         public static void ReleaseCustomer(Customer customer)
         {
-            Lucy.Say($"Ok then!");
-            CurrentCustomer.SetWarrantyTimer();
-            Lucy._isGarageEmpty = true;
-            double discount = CurrentCustomer.MyAgreement.TotalServicesCost *
-                              CurrentCustomer.MyDiscounts.GetDiscountRate();
-            double total = CurrentCustomer.MyAgreement.GetTotal() - discount;
-            Lucy.Say($"Your total for today is {total}.");
-            CurrentCustomer.MakePayment();
-            CurrentCustomer.MyDiscounts.PunchDiscountCard();
+            if (CurrentCustomer.MyCar.IsOnWarranty == false)
+            {
+                Lucy.Say($"Ok then!");
+                CurrentCustomer.SetWarrantyTimer();
+                Lucy._isGarageEmpty = true;
+                double discount = CurrentCustomer.MyAgreement.TotalServicesCost *
+                                  CurrentCustomer.MyDiscounts.GetDiscountRate();
+                double total = CurrentCustomer.MyAgreement.GetTotal() - discount;
+                Lucy.Say($"Your total for today is {total}.");
+                CurrentCustomer.MakePayment();
+                CurrentCustomer.MyDiscounts.PunchDiscountCard();
+                total -= CurrentCustomer.MyAgreement.TotalPartCost; // pay to part suppliers
+                AcceptPayment(total);
+                Dss.FinalizeCustomer(CurrentCustomer, total);
+                return;
+            }
+            
             Lucy.Say($"Have a great day, {customer.Name}");
-            Lucy._lrw.StoreLog($"{CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer released. Amount: {total}");
-            total -= CurrentCustomer.MyAgreement.TotalPartCost; // pay to part suppliers
-            Balance += total;
+            Lucy._lrw.StoreLog($"{CurrentCustomer.Name}, Car: {CurrentCustomer.MyCar.Name}, Customer released. Amount: 0");
+            Dss.FinalizeCustomer(CurrentCustomer, 0);
+
+        }
+
+        public static void PayWarrantyCompensation(double amount)
+        {
+            amount *= 4;
+            Balance -= amount;
             BalanceReadWrite.Write(Balance);
-            Dss.FinalizeCustomer(CurrentCustomer, total);
+        }
+
+        public static void AcceptPayment(double amount)
+        {
+            Balance += amount;
+            BalanceReadWrite.Write(Balance);
         }
 
         public static void CustomerOnHold()

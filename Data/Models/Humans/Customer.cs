@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
+using AutoRepairShop.CourtServiceReference;
 using AutoRepairShop.WorkFlow;
 using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.CarTypes;
@@ -77,13 +78,40 @@ namespace AutoRepairShop.Data.Models.Humans
 
         private void GoToCourt()
         {
-            // go to court service
+            CourtClient client = new CourtClient("BasicHttpBinding_ICourt");
+            ServiceContract contract = new ServiceContract();
+            contract.CustomerName = GetName();
+            contract.TotalPartCost = MyAgreement.TotalPartCost;
+            contract.TotalServicesCost = MyAgreement.TotalServicesCost;
+            contract.Total = MyAgreement.GetTotal();
+            var decision = client.MakeDecision(contract);
+            client.Close();
+
+            if (decision == -1)
+            {
+                GoToRepairShop(true);
+            }
+            if (decision == 0)
+            {
+                ShopManager.PayWarrantyCompensation(MyAgreement.TotalServicesCost - (MyDiscounts.GetDiscountRate()*MyAgreement.TotalServicesCost/100));
+            }
+            if (decision == 1)
+            {
+                ShopManager.AcceptPayment(1000);
+            }
+            RepairAutomationTool.RemoveDisappointedCustomer(this);
         }
 
         private void GoToRepairShop()
         {
             CustomerQueue<Customer>.Enqueue(this, ShopManager.Customers);
             SetWaitForServicesTimer();
+        }
+
+        private void GoToRepairShop(bool isOnWarranty)
+        {
+            MyCar.IsOnWarranty = isOnWarranty;
+            CustomerQueue<Customer>.Enqueue(this, ShopManager.Customers);
         }
 
         public override void Say(string message)

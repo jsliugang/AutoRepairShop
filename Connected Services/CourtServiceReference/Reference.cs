@@ -15,18 +15,24 @@ namespace AutoRepairShop.CourtServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/CourtService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ServiceContract", Namespace="http://schemas.datacontract.org/2004/07/CourtService")]
     [System.SerializableAttribute()]
-    public partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class ServiceContract : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool BoolValueField;
+        private string CustomerNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StringValueField;
+        private double TotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double TotalPartCostField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double TotalServicesCostField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -39,27 +45,53 @@ namespace AutoRepairShop.CourtServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool BoolValue {
+        public string CustomerName {
             get {
-                return this.BoolValueField;
+                return this.CustomerNameField;
             }
             set {
-                if ((this.BoolValueField.Equals(value) != true)) {
-                    this.BoolValueField = value;
-                    this.RaisePropertyChanged("BoolValue");
+                if ((object.ReferenceEquals(this.CustomerNameField, value) != true)) {
+                    this.CustomerNameField = value;
+                    this.RaisePropertyChanged("CustomerName");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string StringValue {
+        public double Total {
             get {
-                return this.StringValueField;
+                return this.TotalField;
             }
             set {
-                if ((object.ReferenceEquals(this.StringValueField, value) != true)) {
-                    this.StringValueField = value;
-                    this.RaisePropertyChanged("StringValue");
+                if ((this.TotalField.Equals(value) != true)) {
+                    this.TotalField = value;
+                    this.RaisePropertyChanged("Total");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double TotalPartCost {
+            get {
+                return this.TotalPartCostField;
+            }
+            set {
+                if ((this.TotalPartCostField.Equals(value) != true)) {
+                    this.TotalPartCostField = value;
+                    this.RaisePropertyChanged("TotalPartCost");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double TotalServicesCost {
+            get {
+                return this.TotalServicesCostField;
+            }
+            set {
+                if ((this.TotalServicesCostField.Equals(value) != true)) {
+                    this.TotalServicesCostField = value;
+                    this.RaisePropertyChanged("TotalServicesCost");
                 }
             }
         }
@@ -78,23 +110,11 @@ namespace AutoRepairShop.CourtServiceReference {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CourtServiceReference.ICourt")]
     public interface ICourt {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICourt/GetData", ReplyAction="http://tempuri.org/ICourt/GetDataResponse")]
-        string GetData(int value);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICourt/GetData", ReplyAction="http://tempuri.org/ICourt/GetDataResponse")]
-        System.Threading.Tasks.Task<string> GetDataAsync(int value);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICourt/MakeDecision", ReplyAction="http://tempuri.org/ICourt/MakeDecisionResponse")]
+        int MakeDecision(AutoRepairShop.CourtServiceReference.ServiceContract composite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICourt/MakeDecision", ReplyAction="http://tempuri.org/ICourt/MakeDecisionResponse")]
-        string MakeDecision();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICourt/MakeDecision", ReplyAction="http://tempuri.org/ICourt/MakeDecisionResponse")]
-        System.Threading.Tasks.Task<string> MakeDecisionAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICourt/GetDataUsingDataContract", ReplyAction="http://tempuri.org/ICourt/GetDataUsingDataContractResponse")]
-        AutoRepairShop.CourtServiceReference.CompositeType GetDataUsingDataContract(AutoRepairShop.CourtServiceReference.CompositeType composite);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICourt/GetDataUsingDataContract", ReplyAction="http://tempuri.org/ICourt/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<AutoRepairShop.CourtServiceReference.CompositeType> GetDataUsingDataContractAsync(AutoRepairShop.CourtServiceReference.CompositeType composite);
+        System.Threading.Tasks.Task<int> MakeDecisionAsync(AutoRepairShop.CourtServiceReference.ServiceContract composite);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -124,28 +144,12 @@ namespace AutoRepairShop.CourtServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public string GetData(int value) {
-            return base.Channel.GetData(value);
+        public int MakeDecision(AutoRepairShop.CourtServiceReference.ServiceContract composite) {
+            return base.Channel.MakeDecision(composite);
         }
         
-        public System.Threading.Tasks.Task<string> GetDataAsync(int value) {
-            return base.Channel.GetDataAsync(value);
-        }
-        
-        public string MakeDecision() {
-            return base.Channel.MakeDecision();
-        }
-        
-        public System.Threading.Tasks.Task<string> MakeDecisionAsync() {
-            return base.Channel.MakeDecisionAsync();
-        }
-        
-        public AutoRepairShop.CourtServiceReference.CompositeType GetDataUsingDataContract(AutoRepairShop.CourtServiceReference.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContract(composite);
-        }
-        
-        public System.Threading.Tasks.Task<AutoRepairShop.CourtServiceReference.CompositeType> GetDataUsingDataContractAsync(AutoRepairShop.CourtServiceReference.CompositeType composite) {
-            return base.Channel.GetDataUsingDataContractAsync(composite);
+        public System.Threading.Tasks.Task<int> MakeDecisionAsync(AutoRepairShop.CourtServiceReference.ServiceContract composite) {
+            return base.Channel.MakeDecisionAsync(composite);
         }
     }
 }

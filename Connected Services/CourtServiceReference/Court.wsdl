@@ -7,60 +7,22 @@
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CourtService" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ICourt_GetData_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetData" />
-  </wsdl:message>
-  <wsdl:message name="ICourt_GetData_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataResponse" />
-  </wsdl:message>
   <wsdl:message name="ICourt_MakeDecision_InputMessage">
     <wsdl:part name="parameters" element="tns:MakeDecision" />
   </wsdl:message>
   <wsdl:message name="ICourt_MakeDecision_OutputMessage">
     <wsdl:part name="parameters" element="tns:MakeDecisionResponse" />
   </wsdl:message>
-  <wsdl:message name="ICourt_GetDataUsingDataContract_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
-  </wsdl:message>
-  <wsdl:message name="ICourt_GetDataUsingDataContract_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
-  </wsdl:message>
   <wsdl:portType name="ICourt">
-    <wsdl:operation name="GetData">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICourt/GetData" message="tns:ICourt_GetData_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICourt/GetDataResponse" message="tns:ICourt_GetData_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="MakeDecision">
       <wsdl:input wsaw:Action="http://tempuri.org/ICourt/MakeDecision" message="tns:ICourt_MakeDecision_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICourt/MakeDecisionResponse" message="tns:ICourt_MakeDecision_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetDataUsingDataContract">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICourt/GetDataUsingDataContract" message="tns:ICourt_GetDataUsingDataContract_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICourt/GetDataUsingDataContractResponse" message="tns:ICourt_GetDataUsingDataContract_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICourt" type="tns:ICourt">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetData">
-      <soap:operation soapAction="http://tempuri.org/ICourt/GetData" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="MakeDecision">
       <soap:operation soapAction="http://tempuri.org/ICourt/MakeDecision" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDataUsingDataContract">
-      <soap:operation soapAction="http://tempuri.org/ICourt/GetDataUsingDataContract" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
