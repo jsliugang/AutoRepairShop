@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class CustomBonnetMod:CarPart
+    internal class CustomBonnetMod:CarPart
     {
         public CustomBonnetMod(byte durability) :base("CustomBonnet", durability)
         {

@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class HeatRegulatorPart:CarPart
+    internal class HeatRegulatorPart:CarPart
     {
         public HeatRegulatorPart(byte durability) : base("HeatRegulator", durability)
         {

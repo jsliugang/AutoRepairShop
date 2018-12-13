@@ -4,18 +4,20 @@ using AutoRepairShop.Data.Models.Humans;
 
 namespace AutoRepairShop.Data.Repository
 {
-    class CustomerQueue<T> where T : IComparable<T>
+    internal class CustomerQueue<T> where T : IComparable<T>
     {
         public static void Enqueue(T item, List<T> currentList)
         {
             currentList.Add(item);
-            int ci = currentList.Count - 1;
+            var ci = currentList.Count - 1;
             while (ci > 0)
             {
-                int pi = (ci - 1) / 2;
+                var pi = (ci - 1) / 2;
                 if (currentList[ci].CompareTo(currentList[pi]) >= 0)
                     break;
-                T tmp = currentList[ci]; currentList[ci] = currentList[pi]; currentList[pi] = tmp;
+                var tmp = currentList[ci];
+                currentList[ci] = currentList[pi];
+                currentList[pi] = tmp;
                 ci = pi;
             }
         }
@@ -23,25 +25,24 @@ namespace AutoRepairShop.Data.Repository
         public static T Dequeue(List<T> currentList)
         {
             if (currentList.Count == 0)
-            {
                 return default(T);
-            }
-            int li = currentList.Count - 1;
-            T frontItem = currentList[0];
+            var li = currentList.Count - 1;
+            var frontItem = currentList[0];
             currentList[0] = currentList[li];
             currentList.RemoveAt(li);
-
             --li;
-            int pi = 0;
+            var pi = 0;
             while (true)
             {
-                int ci = pi * 2 + 1;
+                var ci = pi * 2 + 1;
                 if (ci > li) break;
-                int rc = ci + 1;
+                var rc = ci + 1;
                 if (rc <= li && currentList[rc].CompareTo(currentList[ci]) < 0)
                     ci = rc;
                 if (currentList[pi].CompareTo(currentList[ci]) <= 0) break;
-                T tmp = currentList[pi]; currentList[pi] = currentList[ci]; currentList[ci] = tmp;
+                var tmp = currentList[pi];
+                currentList[pi] = currentList[ci];
+                currentList[ci] = tmp;
                 pi = ci;
             }
             return frontItem;
@@ -49,18 +50,12 @@ namespace AutoRepairShop.Data.Repository
 
         public static T Read(int pos, List<T> currentList)
         {
-            if (pos < currentList.Count)
-                return currentList[pos];
-            return currentList[0];
+            return pos < currentList.Count ? currentList[pos] : currentList[0];
         }
 
         public static T Peek(List<T> currentList)
         {
-            if (currentList.Count==0)
-            {
-                return default(T);
-            }
-            return currentList[0];
+            return currentList.Count == 0 ? default(T) : currentList[0];
         }
 
         public static bool Empty(List<T> currentList)
@@ -76,18 +71,13 @@ namespace AutoRepairShop.Data.Repository
         public static void Remove(List<T> currentList, T item)
         {
             if (currentList.Contains(item))
-            {
                 currentList.RemoveAt(currentList.IndexOf(item));
-            }
         }
 
         public static void Display(List<Customer> currentList)
         {
-            foreach (Customer item in currentList)
-            {
+            foreach (var item in currentList)
                 Console.Write($"Customer in line: {item.Name}, priority - {item.MyDiscounts.Priority} \n");
-            }
         }
     }
-
 }

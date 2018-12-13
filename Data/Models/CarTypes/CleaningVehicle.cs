@@ -2,7 +2,7 @@
 
 namespace AutoRepairShop.Data.Models.CarTypes
 {
-    abstract class CleaningVehicle:SpecialCar, IRadio
+    internal abstract class CleaningVehicle:SpecialCar, IRadio
     {
         public bool IsWorking { get; set; }
         public bool RadioState { get; set; }
@@ -15,14 +15,7 @@ namespace AutoRepairShop.Data.Models.CarTypes
         public void SwitchRadio()
         {
             RadioState = !RadioState;
-            if (RadioState)
-            {
-                Console.WriteLine($"Radio switched on!");
-            }
-            else
-            {
-                Console.WriteLine($"Radio switched off!");
-            }
+            Console.WriteLine(RadioState ? $"Radio switched on!" : $"Radio switched off!");
         }
     }
 }

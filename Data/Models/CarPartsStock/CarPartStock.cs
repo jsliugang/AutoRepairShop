@@ -23,9 +23,8 @@ namespace AutoRepairShop.Data.Models.CarPartsStock
             return null;
         }
 
-        public virtual void Add(int amount)
-        {
-            
+        public virtual void AddMany(int amount)
+        {           
         }
 
         public byte SetRandomDurability()

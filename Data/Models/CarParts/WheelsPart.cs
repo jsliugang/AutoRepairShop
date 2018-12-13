@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class WheelsPart:CarPart
+    internal class WheelsPart:CarPart
     {
         public WheelsPart(byte durability) : base("Wheels", durability)
         {

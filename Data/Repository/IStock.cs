@@ -4,6 +4,6 @@
         where T : class
     {
         T ProvideItem();
-        void Add(int amount);
+        void AddMany(int amount);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class SpoilerMod:CarPart
+    internal class SpoilerMod:CarPart
     {
         public SpoilerMod(byte durability) : base("Spoiler", durability)
         {

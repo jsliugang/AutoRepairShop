@@ -12,14 +12,14 @@ namespace AutoRepairShop.Tools
 {
     internal sealed class TimeTool
     {
-        public static TimeTool TimeInstance { get { return Nested.Time; } }
+        public static TimeTool TimeInstance => Nested.Time;
         public const int Thousand = 1000;
         private const string DatetimeDormat = "MM/dd/yyyy h:mm tt";
         private static Timer _sickTimer;
         private static Timer _nextDayTimer;
         private readonly DateTime _gameStartRealTime;
         private readonly DateTime _gameStartGameTime;
-        public static Random rand = new Random();
+        public static Random Rand = new Random();
 
         private TimeTool()
         {
@@ -66,16 +66,16 @@ namespace AutoRepairShop.Tools
 
         private static void OnSickEvent(Object source, ElapsedEventArgs e)
         {
-            RmKirill.Kirill.GetSickLeave(rand.NextDouble() > 0.5, RmKirill.Kirill);
-            RmVano.Vano.GetSickLeave(rand.NextDouble() > 0.5, RmVano.Vano);
-            RmPetrovich.Petrovich.GetSickLeave(rand.NextDouble() > 0.5, RmPetrovich.Petrovich);
-            RmSanSanuch.SanSanuch.GetSickLeave(rand.NextDouble() > 0.5, RmSanSanuch.SanSanuch);
+            RmKirill.Kirill.GetSickLeave(Rand.NextDouble() > 0.5, RmKirill.Kirill);
+            RmVano.Vano.GetSickLeave(Rand.NextDouble() > 0.5, RmVano.Vano);
+            RmPetrovich.Petrovich.GetSickLeave(Rand.NextDouble() > 0.5, RmPetrovich.Petrovich);
+            RmSanSanuch.SanSanuch.GetSickLeave(Rand.NextDouble() > 0.5, RmSanSanuch.SanSanuch);
         }
 
         public static double CalculateSecondsToNextDay()
         {
-            DateTime ClosingTime = GetGameTime().AddDays(1).Subtract(GetGameTime().TimeOfDay);
-            TimeSpan periodToWait = ClosingTime - GetGameTime();
+            DateTime closingTime = GetGameTime().AddDays(1).Subtract(GetGameTime().TimeOfDay);
+            TimeSpan periodToWait = closingTime - GetGameTime();
             double seconds = periodToWait.TotalSeconds;
             seconds = Math.Abs(seconds / 720);
             return seconds;
@@ -93,7 +93,7 @@ namespace AutoRepairShop.Tools
 
         private static void OnDayEndEvent(Object source, ElapsedEventArgs e)
         {
-            ShopManager.Dss.Display(); //daily stat
+            ShopManager.Dss.Display();
             ShopManager.Dss.Clear();
             SetNextDayTimer(120);
             GetGameTimeToScreen();
@@ -102,7 +102,7 @@ namespace AutoRepairShop.Tools
 
         public static int ConvertToRealTime(double gameHours)
         {
-            int secondsRealTime = (int)(gameHours * 3600) / 720;
+            var secondsRealTime = (int)(gameHours * 3600) / 720;
             return secondsRealTime;
         }
 

@@ -1,12 +1,12 @@
-﻿using AutoRepairShop.Data.Models.CarTypes;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Threading;
+using AutoRepairShop.Data.Models.CarTypes;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    class RmVano:RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplace<RepairMan>, ICanReplaceFluids<RepairMan>
+    internal class RmVano : RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplace<RepairMan>,
+        ICanReplaceFluids<RepairMan>
     {
         public static readonly RmVano Vano = new RmVano();
 
@@ -23,10 +23,8 @@ namespace AutoRepairShop.Data.Models.Humans
         public override int ReplaceFluid(Car car)
         {
             Console.WriteLine($"{Name}: Replacing fluids.");
-            for (int i = 0; i < car.CarLiquids.CarLiquids.Count; i++)
-            {
+            for (var i = 0; i < car.CarLiquids.CarLiquids.Count; i++)
                 car.CarLiquids.UpdateAmount(car.CarLiquids.CarLiquids.ElementAt(i).Key, 75);
-            }
             Thread.Sleep(15000);
             Console.WriteLine($"{Name}: All done!");
             return 150;

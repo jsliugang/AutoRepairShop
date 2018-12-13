@@ -1,34 +1,26 @@
-﻿using System;
-using AutoRepairShop.Data.Models.CarParts;
-using AutoRepairShop.Data.Models.CarTypes;
+﻿using AutoRepairShop.Data.Models.CarTypes;
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
-    class StreetSweeperBuilder:CarBuilder
+    internal class StreetSweeperBuilder:CarBuilder
     {
-        public StreetSweeperBuilder(bool random):base(random)
+        public StreetSweeperBuilder()
         {
             Car = new StreetSweeper();
-            if (random)
-            {
-                RandomCarName();
-            }
-            else
-            {
-                ProcessNamingInput();
-            }
+            RandomCarName();
         }
 
         public override void CreateCar()
         {
-            Car.CarContent.Add(new BodyPart(SetRandomDurability()));
-            Car.CarContent.Add(new CarburetorPart(SetRandomDurability()));
-            Car.CarContent.Add(new EnginePart(SetRandomDurability()));
-            Car.CarContent.Add(new GearboxPart(SetRandomDurability()));
-            Car.CarContent.Add(new HeatRegulatorPart(SetRandomDurability()));
-            Car.CarContent.Add(new MufflerPart(SetRandomDurability()));
-            Car.CarContent.Add(new RadiatorPart(SetRandomDurability()));
-            Car.CarContent.Add(new WheelsPart(SetRandomDurability()));
+            SetBody();
+            SetCarburetor();
+            SetEngine();
+            SetGearbox();
+            SetHeatRegulator();
+            SetLiquids();
+            SetMuffler();
+            SetRadiator();
+            SetWheels();
         }
         protected override void SetCarNamesList()
         {

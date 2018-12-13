@@ -2,7 +2,8 @@
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    class RmKirill:RepairMan, ICanCustomize<RepairMan>, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplace<RepairMan>
+    internal class RmKirill : RepairMan, ICanCustomize<RepairMan>, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>,
+        ICanReplace<RepairMan>
     {
         public static readonly RmKirill Kirill = new RmKirill();
         int ICanCustomize<RepairMan>.Priority { get; } = 1;
@@ -12,7 +13,8 @@ namespace AutoRepairShop.Data.Models.Humans
 
         private RmKirill()
         {
-            Name = "Kirill Artemovich";
+            Name = "Kirill";
+            LastName = "Artemovich";
         }
 
         public override void ReplacePart(string partName, Car car)

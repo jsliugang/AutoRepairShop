@@ -2,24 +2,14 @@
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
-    class DumpTruckBuilder:CarBuilder
+    internal class DumpTruckBuilder:CarBuilder
     {
-        public DumpTruckBuilder(bool random):base(random)
+        public DumpTruckBuilder()
         {
             Car = new DumpTruck();
-            if (random)
-            {
-                RandomCarName();
-            }
-            else
-            {
-                ProcessNamingInput();
-            }
+            RandomCarName();          
         }
 
-        public override void CreateCar()
-        {
-        }
         protected override void SetCarNamesList()
         {
             CarNames.Add("BELAZ 75710");

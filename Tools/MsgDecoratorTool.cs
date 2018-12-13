@@ -3,7 +3,7 @@
 
 namespace AutoRepairShop.Tools
 {
-    class MsgDecoratorTool
+    internal class MsgDecoratorTool
     {
         public static void PrintCustomMessage(string message, ConsoleColor textColor, ConsoleColor backgroundColor)
         {

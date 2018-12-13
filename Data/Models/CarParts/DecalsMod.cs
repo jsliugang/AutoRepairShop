@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class DecalsMod:CarPart
+    internal class DecalsMod:CarPart
     {
         public DecalsMod(byte durability) : base("Decals", durability)
         {

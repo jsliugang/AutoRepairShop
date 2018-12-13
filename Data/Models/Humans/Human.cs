@@ -5,22 +5,21 @@ using System.Text;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    abstract class Human
+    internal abstract class Human
     {
         public List<string> NamesList = new List<string>();
         public List<string> LastNamesList = new List<string>();
-
         public string Name { get; set; }
         public string LastName { get; set; }
 
-        public Human()
+        protected Human()
         {
             DumpNames();
         }
 
         public string GetName()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(Name);
             sb.Append(" ");
             sb.Append(LastName);
@@ -29,7 +28,7 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public string Get_Name()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(Name);
             sb.Append("_");
             sb.Append(LastName);
@@ -66,6 +65,5 @@ namespace AutoRepairShop.Data.Models.Humans
                 list.Add(line);
             }
         }
-
     }
 }

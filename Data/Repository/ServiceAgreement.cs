@@ -3,7 +3,7 @@ using AutoRepairShop.Data.Models.CarParts;
 
 namespace AutoRepairShop.Data.Repository
 {
-    class ServiceAgreement
+    internal class ServiceAgreement
     {
         public string CustomerName { get; set; }
         public List<CarPart> PartsToRepair = new List<CarPart>();

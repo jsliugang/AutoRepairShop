@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace AutoRepairShop.Data.Models.CarParts
 {
-    class Liquids
+    internal class Liquids
     {
         public Dictionary<string, int> CarLiquids = new Dictionary<string, int>();
 

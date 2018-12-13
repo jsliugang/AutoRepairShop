@@ -9,9 +9,9 @@ namespace AutoRepairShop.Tools
 {
     internal sealed class RepairAutomationTool
     {
-        public static readonly CarMaker _cm = new CarMaker();
+        public static readonly CarMaker Cm = new CarMaker();
         public static List<Customer> DefaultCustomerList;
-        public static Random rand = new Random();
+        public static Random Rand = new Random();
 
         public RepairAutomationTool()
         {
@@ -41,11 +41,11 @@ namespace AutoRepairShop.Tools
         public static void AddNewCustomers(int count)
         {
             DefaultCustomerList = new List<Customer>();
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                var _newCustomer = new Customer(_cm.MakeRandomCar());
-                _newCustomer.Say($"{_newCustomer.Name}: I heard this is a great place to repair my car. I might consider coming soon...");
-                CustomerQueue<Customer>.Enqueue(_newCustomer, DefaultCustomerList);
+                var newCustomer = new Customer(Cm.MakeCar());
+                newCustomer.Say($"{newCustomer.Name}: I heard this is a great place to repair my car. I might consider coming soon...");
+                CustomerQueue<Customer>.Enqueue(newCustomer, DefaultCustomerList);
             }
         }
 
@@ -61,16 +61,15 @@ namespace AutoRepairShop.Tools
 
            if (ShopManager.WorkingHours())
            {
-                if (rand.NextDouble() > 0.5)
+                if (Rand.NextDouble() > 0.5)
                 {
-                    ShopManager.CurrentCustomer.PimpMyCar(ShopManager.ModificationsOffer[rand.Next(0, ShopManager.ModificationsOffer.Count)]);
+                    ShopManager.CurrentCustomer.PimpMyCar(ShopManager.ModificationsOffer[Rand.Next(0, ShopManager.ModificationsOffer.Count)]);
                 }
                 else
                 {
                     ShopManager.CurrentCustomer.ReplaceLiquids();
                 }
            }
-           //ShopManager.CurrentCustomer.MakeDiagnosticsOrder();
            ShopManager.CurrentCustomer.LeaveShop();
         }
 

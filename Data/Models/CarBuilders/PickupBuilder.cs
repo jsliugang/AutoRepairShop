@@ -2,19 +2,12 @@
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
-    class PickupBuilder:CarBuilder
+    internal class PickupBuilder:CarBuilder
     {
-        public PickupBuilder(bool random):base(random)
+        public PickupBuilder()
         {
             Car = new Pickup();
-            if (random)
-            {
-                RandomCarName();
-            }
-            else
-            {
-                ProcessNamingInput();
-            }
+            RandomCarName();
         }
 
         protected override void SetCarNamesList()

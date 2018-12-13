@@ -7,14 +7,14 @@ using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.Data.Models.CarTypes
 {
-    abstract class Car
+    internal abstract class Car
     {
-        public bool IsOnWarranty = false;
         public Liquids CarLiquids;
         public List<CarPart> CarContent;
+        public bool IsOnWarranty = false;
         public string Name { get; set; }
-        private Timer _partLifeTimer;
         public bool CarIsWorking { get; set; }
+        private Timer _partLifeTimer;
 
         protected Car()
         {
@@ -42,7 +42,7 @@ namespace AutoRepairShop.Data.Models.CarTypes
 
         public void Drive()
         {
-            EnginePart engineLink = CarContent.First(m => m.Name == "Engine") as EnginePart;
+            var engineLink = CarContent.First(m => m.Name == "Engine") as EnginePart;
             if (ComputerCheck() && engineLink.CheckFuel(CarLiquids))
             {
                 Console.WriteLine("Wroom-wroom,what is the destination?");
@@ -71,8 +71,8 @@ namespace AutoRepairShop.Data.Models.CarTypes
 
         public bool WasteSomeLiquids()
         {
-            bool timeToRepair = false;
-            for (int i = 0; i < CarLiquids.CarLiquids.Count; i++)
+            var isTimeToRepair = false;
+            for (var i = 0; i < CarLiquids.CarLiquids.Count; i++)
             {
                 if (CarLiquids.CarLiquids.ElementAt(i).Value > 5)
                 {
@@ -81,15 +81,15 @@ namespace AutoRepairShop.Data.Models.CarTypes
                 else
                 {
                     CarLiquids.UpdateAmount(CarLiquids.CarLiquids.ElementAt(i).Key, 0);
-                    timeToRepair = true;
+                    isTimeToRepair = true;
                 }
             }
-            return timeToRepair;
+            return isTimeToRepair;
         }
 
         public bool DecreaseCarLifetime()
         {
-            bool timeToRepair = false;
+            var isTimeToRepair = false;
             foreach (var carPart in CarContent)
             {
                 if (carPart.Durability > 5)
@@ -99,10 +99,10 @@ namespace AutoRepairShop.Data.Models.CarTypes
                 else
                 {
                     carPart.Durability = 0;
-                    timeToRepair = true;
+                    isTimeToRepair = true;
                 }
             }
-            return timeToRepair;
+            return isTimeToRepair;
         }
     }
 }

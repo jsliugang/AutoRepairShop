@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class EnginePart:CarPart
+    internal class EnginePart:CarPart
     {
         public EnginePart(byte durability) : base("Engine", durability)
         {
@@ -11,8 +11,7 @@
         {
             int fuelLevel;
             carLiquids.CarLiquids.TryGetValue("Fuel", out fuelLevel);
-
-            return fuelLevel >= 1;
+            return fuelLevel > 0;
         }
     }
 }

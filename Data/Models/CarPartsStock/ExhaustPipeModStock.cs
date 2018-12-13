@@ -2,16 +2,16 @@
 
 namespace AutoRepairShop.Data.Models.CarPartsStock
 {
-    class ExhaustPipeModStock : CarPartStock<ExhaustPipeMod>
+    internal class ExhaustPipeModStock : CarPartStock<ExhaustPipeMod>
     {
         public ExhaustPipeModStock()
         {
-            Add(5);
+            AddMany(5);
         }
 
-        public override void Add(int amount)
+        public override void AddMany(int amount)
         {
-            for (int i = 0; i < amount; i++)
+            for (var i = 0; i < amount; i++)
             {
                 Stock.Add(new ExhaustPipeMod(SetRandomDurability()));
             }

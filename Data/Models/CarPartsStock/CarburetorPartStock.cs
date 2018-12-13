@@ -2,16 +2,16 @@
 
 namespace AutoRepairShop.Data.Models.CarPartsStock
 {
-    class CarburetorPartStock : CarPartStock<CarburetorPart>
+    internal class CarburetorPartStock : CarPartStock<CarburetorPart>
     {
         public CarburetorPartStock()
         {
-            Add(3);
+            AddMany(3);
         }
 
-        public override void Add(int amount)
+        public override void AddMany(int amount)
         {
-            for (int i = 0; i < amount; i++)
+            for (var i = 0; i < amount; i++)
             {
                 Stock.Add(new CarburetorPart(SetRandomDurability()));
             }

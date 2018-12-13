@@ -13,20 +13,20 @@ namespace AutoRepairShop.WorkFlow
 {
     internal sealed class ShopManager : Human
     {
-        private bool _isGarageEmpty = true;
+
         public static double Balance { get; set; }
         public static StockManager StMan = new StockManager();
         public static GarageStockManager GarStMan = new GarageStockManager();
-        private readonly FileLoggerService _lrw = new FileLoggerService();
         public static readonly Dictionary<string, double> ServicesCatalogue = new Dictionary<string, double>();
         public static List<string> ModificationsOffer = new List<string>();
         public static Customer CurrentCustomer;
         public static DailyStatService Dss = new DailyStatService();
         public static List<Customer> Customers;
         public static List<Customer> CustomersOnHold;
-        Random rand = new Random();
         public Dictionary<RepairMan, double> Salary = new Dictionary<RepairMan, double>();
-        ContractSignatureService _css = new ContractSignatureService();
+        readonly ContractSignatureService _css = new ContractSignatureService();
+        private bool _isGarageEmpty = true;
+        private readonly FileLoggerService _lrw = new FileLoggerService();
 
         private ShopManager()
         { 
@@ -84,7 +84,6 @@ namespace AutoRepairShop.WorkFlow
             }
             Lucy._css.AppendContractText();
             RepairAutomationTool.MakeRepairChoice();
-
         }
 
         public double ApproximateCost()
@@ -177,10 +176,10 @@ namespace AutoRepairShop.WorkFlow
             {
                 salary *= 2;
             }
-            var SalaryObject = Lucy.Salary.First(x => x.Key.Name == rm.Name).Key;
-            Lucy.Salary[SalaryObject] += salary;
-            //Balance -= salary;
-            //rm.GetSalary(salary);
+            var salaryReceiver = Lucy.Salary.First(x => x.Key.Name == rm.Name).Key;
+            Lucy.Salary[salaryReceiver] += salary;
+            Balance -= salary;
+            rm.GetSalary(salary);
         }
 
         public static void ProcessOrder(int choice, string part)

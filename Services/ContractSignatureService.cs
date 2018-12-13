@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using AutoRepairShop.Data.Models.Humans;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
 using Microsoft.Office.Interop.Word;
 
 namespace AutoRepairShop.Services
 {
-    class ContractSignatureService
+    internal class ContractSignatureService
     {
         public void AppendContractText()
         {
@@ -32,12 +30,10 @@ namespace AutoRepairShop.Services
             }
 
             Bookmark services = doc.Bookmarks["Work"];
-
-            Table oTable;
             Range tableRange = services.Range;
-            int tableLength = ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count +
+            var tableLength = ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count +
                               ShopManager.CurrentCustomer.MyAgreement.PartsToReplace.Count + 3;
-            oTable = doc.Tables.Add(tableRange, tableLength, 4);
+            var oTable = doc.Tables.Add(tableRange, tableLength, 4);
             oTable.Range.ParagraphFormat.SpaceAfter = 1;
             int r, c;
             StringBuilder sb = new StringBuilder();
@@ -49,7 +45,7 @@ namespace AutoRepairShop.Services
             oTable.Cell(2, 4).Range.Text = ShopManager.ServicesCatalogue["Diagnoze"].ToString();
             if (ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count != 0)
             {
-                int part = 0;
+                var part = 0;
                 for (r = 3; r <= ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count + 2; r++)
                 {
                     for (c = 1; c <= 4; c++)
@@ -89,7 +85,7 @@ namespace AutoRepairShop.Services
 
             if (ShopManager.CurrentCustomer.MyAgreement.PartsToReplace.Count != 0)
             {
-                int part = 0;
+                var part = 0;
                 for (r = ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count + 3; r <= ShopManager.CurrentCustomer.MyAgreement.PartsToReplace.Count + 2 + ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count; r++)
                 {
                     for (c = 1; c <= 4; c++)
@@ -130,9 +126,8 @@ namespace AutoRepairShop.Services
                 }
             }         
             oTable.Cell(tableLength, 3).Range.Text = "TOTAL";
-            double total;
-            total = ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count *
-                    ShopManager.ServicesCatalogue["Repair"];
+            var total = ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count *
+                           ShopManager.ServicesCatalogue["Repair"];
             foreach (var carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToReplace)
             {
                 total += carPart.Cost;
@@ -155,7 +150,7 @@ namespace AutoRepairShop.Services
             Application app = new Application();
             Document doc = app.Documents.Open(path);
             Table servicesTable = app.ActiveDocument.Tables[2];
-            int selectedRow = servicesTable.Rows.Count;
+            var selectedRow = servicesTable.Rows.Count;
             app.Visible = true;
             servicesTable.Cell(selectedRow, 1).Range.Text = service;
             servicesTable.Cell(selectedRow, 2).Range.Text = part;

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Timers;
 using AutoRepairShop.CourtServiceReference;
 using AutoRepairShop.WorkFlow;
@@ -11,21 +9,21 @@ using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    class Customer:Human, IComparable<Customer> 
+    internal class Customer:Human, IComparable<Customer> 
     {
         public Car MyCar { get; set; }
         public DiscountCard MyDiscounts = new DiscountCard();
         public Timer WaitForService;
+        public static Random Rand = new Random();
+        public ServiceAgreement MyAgreement;
         private Timer _checkCar;
         private Timer _warrantyTimer;
-        public static Random rand = new Random();
-        public ServiceAgreement MyAgreement;
 
         public Customer(Car car)
         {
             MyCar = car;
-            Name = NamesList[rand.Next(0, NamesList.Count)];
-            LastName = LastNamesList[rand.Next(0, NamesList.Count)];
+            Name = NamesList[Rand.Next(0, NamesList.Count)];
+            LastName = LastNamesList[Rand.Next(0, NamesList.Count)];
             SetCheckCarTimer();
             MyAgreement = new ServiceAgreement(Name);
         }
@@ -154,7 +152,7 @@ namespace AutoRepairShop.Data.Models.Humans
         public void RepairBrokenParts()
         {
             Say($"Please repair all the broken parts of my {MyCar.Name}.");
-            foreach (CarPart carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToRepair)
+            foreach (var carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToRepair)
             {
                 ShopManager.ProcessOrder(2, carPart.Name);
             }
@@ -169,7 +167,7 @@ namespace AutoRepairShop.Data.Models.Humans
         public void ReplaceBrokenParts()
         {
             Say($"Replace all broken parts in {MyCar.Name}, please...");
-            foreach (CarPart carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToReplace)
+            foreach (var carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToReplace)
             {
                 ShopManager.ProcessOrder(4, carPart.Name);
             }
@@ -179,20 +177,6 @@ namespace AutoRepairShop.Data.Models.Humans
         {
             Say($"Replace all the liquids in {MyCar.Name}, please...");
             ShopManager.ProcessOrder(5, "");
-        }
-
-        public CarPart PointAtCarPart()
-        {
-            Console.WriteLine($"{MyCar.Name} contains the following parts");
-            for (int i=0; i<MyCar.CarContent.Count; i++)
-            {
-                if (!MyCar.CarContent[i].IsWorking)
-                {
-                    Console.WriteLine($"{i}. Repair {MyCar.CarContent[i].Name}!");
-                    return MyCar.CarContent[i];
-                }
-            }
-            return MyCar.CarContent[0]; //replace - if no parts are broken
         }
 
         public int CompareTo(Customer other)

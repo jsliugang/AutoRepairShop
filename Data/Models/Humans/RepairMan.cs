@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Timers;
 using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.CarTypes;
 using AutoRepairShop.Tools;
@@ -11,11 +9,11 @@ using Timer = System.Timers.Timer;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    abstract class RepairMan : Human
+    internal abstract class RepairMan : Human
     {
         public double Salary { get; set; }
         public bool IsBusy { get; set; }
-        protected static Random rand = new Random();
+        protected static Random Rand = new Random();
 
         protected RepairMan()
         {
@@ -40,46 +38,40 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public void MakeRepairs(string partName)
         {
-            CarPart carPart = ShopManager.CurrentCustomer.MyCar.CarContent.Find(x => x.Name == partName);
+            var carPart = ShopManager.CurrentCustomer.MyCar.CarContent.Find(x => x.Name == partName);
             Disassemble(carPart);
             Thread.Sleep(10000);
             Repair(carPart);
             Thread.Sleep(5000);
             Assemble(carPart);
         }
-        
+
         public void DiagnozeCar(Car car)
         {
-            foreach (CarPart part in car.CarContent)
+            foreach (var part in car.CarContent)
             {
                 Thread.Sleep(1000);
                 Console.WriteLine(part.IsWorking
                     ? $"{Name} found that {part.Name} is OK! Durability: {part.Durability}"
                     : $"{Name} found that {part.Name} is broken!");
-                if (part.Durability==0)
-                {
+                if (part.Durability == 0)
                     ShopManager.CurrentCustomer.MyAgreement.PartsToReplace.Add(part);
-                }
-                if (part.Durability <= 15 && part.Durability >0)
-                {
+                if (part.Durability <= 15 && part.Durability > 0)
                     ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Add(part);
-                }
             }
         }
 
         public virtual int ReplaceFluid(Car car)
         {
             Console.WriteLine($"{Name}: Replacing fluids.");
-            for (int i=0; i<car.CarLiquids.CarLiquids.Count; i++)
-            {
+            for (var i = 0; i < car.CarLiquids.CarLiquids.Count; i++)
                 car.CarLiquids.UpdateAmount(car.CarLiquids.CarLiquids.ElementAt(i).Key, 100);
-            }
             Thread.Sleep(15000);
             Console.WriteLine($"{Name}: All done!");
             return 150; //fixed price to replace all liquids
         }
 
-        public CarPart GetNewWorkingPart (string partName)
+        public CarPart GetNewWorkingPart(string partName)
         {
             CarPart newPart;
             while (true)
@@ -88,9 +80,7 @@ namespace AutoRepairShop.Data.Models.Humans
                 if (newPart != null)
                 {
                     if (newPart.Durability > 60)
-                    {
                         break;
-                    }
                     Console.WriteLine($"{Name}: The new {newPart.Name} has defects, I will look for another one.");
                     continue;
                 }
@@ -125,11 +115,9 @@ namespace AutoRepairShop.Data.Models.Humans
 
         public CarPart CheckPartAvailability(string name)
         {
-            CarPart newPart = ShopManager.GarStMan.RetrieveNewCarPart(name);
+            var newPart = ShopManager.GarStMan.RetrieveNewCarPart(name);
             if (newPart != null)
-            {
                 return newPart;
-            }
             Console.WriteLine($"{name} is out of stock!");
             return null;
         }
@@ -150,13 +138,13 @@ namespace AutoRepairShop.Data.Models.Humans
                 return;
             IsBusy = true;
             Console.WriteLine($"Oh noes!, {Name} got sick! Got to drink some vodka to feel better!");
-            Timer sickLeaveTimer = new Timer(TimeTool.ConvertToRealTime(120) * TimeTool.Thousand);
-            sickLeaveTimer.Elapsed += (source, e) => OnHealthy(source, e, rm);
+            var sickLeaveTimer = new Timer(TimeTool.ConvertToRealTime(120) * TimeTool.Thousand);
+            sickLeaveTimer.Elapsed += (source, e) => OnHealthy(rm);
             sickLeaveTimer.AutoReset = false;
             sickLeaveTimer.Enabled = true;
         }
 
-        private static void OnHealthy(Object source, ElapsedEventArgs e, RepairMan rm)
+        private static void OnHealthy(RepairMan rm)
         {
             rm.IsBusy = false;
         }

@@ -9,10 +9,10 @@ using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Services
 {
-    class DailyStatService
+    internal class DailyStatService
     {
         public List<string> DailyStats = new List<string>();
-        private FileLoggerService _fls = new FileLoggerService();
+        private readonly FileLoggerService _fls = new FileLoggerService();
 
         public void AddCustomer(Customer customer)
         {
@@ -20,7 +20,7 @@ namespace AutoRepairShop.Services
             sb.AppendLine($"New Customer: {customer.Name}, priority: {customer.MyDiscounts.Priority}");
             sb.AppendLine($"-- Car: {customer.MyCar.Name}, Accepted on: {TimeTool.GetGameTime()}");
             sb.AppendLine($"Broken parts:");
-            foreach (CarPart carPart in customer.MyCar.CarContent)
+            foreach (var carPart in customer.MyCar.CarContent)
             {
                 if (!carPart.IsWorking)
                 {
@@ -33,7 +33,7 @@ namespace AutoRepairShop.Services
 
         public void AddWorkOrder(RepairMan rm, string order, double workCost, double partCost)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.AppendLine($"{TimeTool.GetGameTime()} -- Work Order: {order}, work cost: {workCost}, part cost: {partCost}");
             _fls.StoreLog(sb.ToString());
             DailyStats.Add(sb.ToString());
@@ -41,13 +41,13 @@ namespace AutoRepairShop.Services
 
         public void FinalizeCustomer(Customer customer, double totalCost)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.AppendLine($"Finilized Customer: {customer.Name}, priority: {customer.MyDiscounts.Priority}");
             sb.AppendLine($"-- Car: {customer.MyCar.Name}, Released on: {TimeTool.GetGameTime()}");
             sb.AppendLine($"Car parts:");
             foreach (CarPart carPart in customer.MyCar.CarContent)
             {
-                string works = carPart.IsWorking ? "is working" : "is not working";
+                var works = carPart.IsWorking ? "is working" : "is not working";
                 sb.AppendLine($"{carPart.Name} - {works}");
             }
             sb.AppendLine($"The total is {totalCost}");
@@ -65,7 +65,7 @@ namespace AutoRepairShop.Services
         {
             Console.ForegroundColor=ConsoleColor.Yellow;
             Console.WriteLine("***DAILY STATISTICS***");
-            foreach (string line in DailyStats)
+            foreach (var line in DailyStats)
             {
                 Console.WriteLine($"{line}");
             }

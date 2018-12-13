@@ -2,7 +2,8 @@
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    class RmPetrovich:RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplaceFluids<RepairMan>, ICanCustomize<RepairMan>
+    internal class RmPetrovich : RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>,
+        ICanReplaceFluids<RepairMan>, ICanCustomize<RepairMan>
     {
         public static readonly RmPetrovich Petrovich = new RmPetrovich();
         int ICanDiagnoze<RepairMan>.Priority { get; } = 1;

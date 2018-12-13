@@ -5,7 +5,7 @@ using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Services
 {
-    class WeeklyPaymentService
+    internal class WeeklyPaymentService
     {
         private static Timer _utilitiesTimer;
         private static double _lastWeekBalance;
@@ -17,7 +17,7 @@ namespace AutoRepairShop.Services
             SetUtilitiesPaymentTimer();
         }
 
-        private void SetUtilitiesPaymentTimer()
+        private static void SetUtilitiesPaymentTimer()
         {
             _utilitiesTimer = new Timer(TimeTool.ConvertToRealTime(168) * TimeTool.Thousand);
             _utilitiesTimer.Elapsed += OnWeeklyPaymentEvent;

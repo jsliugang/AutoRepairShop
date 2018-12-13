@@ -2,19 +2,12 @@
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
-    class RacecarBuilder:CarBuilder
+    internal class RacecarBuilder:CarBuilder
     {
-        public RacecarBuilder(bool random):base(random)
+        public RacecarBuilder()
         {
             Car = new Racecar();
-            if (random)
-            {
-                RandomCarName();
-            }
-            else
-            {
-                ProcessNamingInput();
-            }
+            RandomCarName();
         }
 
         protected override void SetCarNamesList()

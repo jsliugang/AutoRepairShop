@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class SpinnersMod:CarPart
+    internal class SpinnersMod:CarPart
     {
         public SpinnersMod(byte durability) : base("Spinners", durability)
         {

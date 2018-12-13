@@ -2,7 +2,7 @@
 
 namespace AutoRepairShop.Data.Models.CarTypes
 {
-    abstract class TruckCar:Car, IRadio
+    internal abstract class TruckCar:Car, IRadio
     {
         public bool IsWorking { get; set; }
         public bool RadioState { get; set; }

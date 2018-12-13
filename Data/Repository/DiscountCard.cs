@@ -2,7 +2,7 @@
 
 namespace AutoRepairShop.Data.Repository
 {
-    class DiscountCard
+    internal class DiscountCard
     {
         public int NumberOfVisits { get; set; }
         public int Priority { get; set; }
@@ -12,11 +12,11 @@ namespace AutoRepairShop.Data.Repository
         {
             GetDiscountRate();
         }
+
         public void PunchDiscountCard()
         {
             NumberOfVisits++;
             Console.WriteLine($"Your current discount rate is {GetDiscountRate()}% - {CardName}");
-
         }
 
         public double GetDiscountRate()

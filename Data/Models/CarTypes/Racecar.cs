@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarTypes
 {
-    class Racecar:SpecialCar
+    internal class Racecar:SpecialCar
     {
     }
 }

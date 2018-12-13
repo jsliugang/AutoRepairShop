@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarTypes
 {
-    class Wagon:PassengerCar
+    internal class Wagon:PassengerCar
     {
     }
 }
