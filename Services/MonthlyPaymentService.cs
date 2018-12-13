@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Timers;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Services
 {
-    internal class MonthlyPaymentService
+    class MonthlyPaymentService
     {
         private static Timer _paymentTimer;
         private static double _lastMonthBalance;
@@ -44,6 +46,7 @@ namespace AutoRepairShop.Services
                 ShopManager.Lucy.Salary[repairMan] = 0;
                 BalanceReadWrite.Write(ShopManager.Balance);
             }
+            ShopManager.Lucy.Salary.Keys.ToList().ForEach(x => ShopManager.Lucy.Salary[x] = 0);
             ShopManager.Lucy.GetSalary();
         }
     }

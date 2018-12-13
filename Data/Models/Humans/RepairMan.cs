@@ -98,6 +98,7 @@ namespace AutoRepairShop.Data.Models.Humans
             Disassemble(oldPart);
             Thread.Sleep(5000);
             oldPart = newPart;
+            ShopManager.CurrentCustomer.MyAgreement.PartsToReplace.Find(x => x.Name == partName).Durability = newPart.Durability;
             Console.WriteLine($"Replacing the broken part with new one!");
             Thread.Sleep(10000);
             Assemble(oldPart);

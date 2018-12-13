@@ -128,6 +128,15 @@ namespace AutoRepairShop.WorkFlow
                 total -= CurrentCustomer.MyAgreement.TotalPartCost; // pay to part suppliers
                 AcceptPayment(total);
                 Dss.FinalizeCustomer(CurrentCustomer, total);
+                Console.WriteLine($"List of parts:");
+                foreach (var carPart in CurrentCustomer.MyAgreement.PartsToRepair)
+                {
+                    Console.WriteLine($"{carPart.Name}: {carPart.Durability}");
+                }
+                foreach (var carPart in CurrentCustomer.MyAgreement.PartsToReplace)
+                {
+                    Console.WriteLine($"{carPart.Name}: {carPart.Durability}");
+                }
                 return;
             }
             
