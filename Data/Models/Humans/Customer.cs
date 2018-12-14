@@ -102,14 +102,14 @@ namespace AutoRepairShop.Data.Models.Humans
 
         private void GoToRepairShop()
         {
-            CustomerQueue<Customer>.Enqueue(this, ShopManager.Customers);
+            CustomerQueue<Customer>.Enqueue(this, ShopManager.NewCustomers);
             SetWaitForServicesTimer();
         }
 
         private void GoToRepairShop(bool isOnWarranty)
         {
             MyCar.IsOnWarranty = isOnWarranty;
-            CustomerQueue<Customer>.Enqueue(this, ShopManager.Customers);
+            CustomerQueue<Customer>.Enqueue(this, ShopManager.NewCustomers);
         }
 
         public override void Say(string message)

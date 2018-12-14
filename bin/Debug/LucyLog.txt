@@ -230,3 +230,9 @@
 
 01/07/1990 1:29 AM : 1/7/1990 1:29:31 AM -- Work Order: Repair, work cost: 250, part cost: 0
 
+Application closed
+01/01/1990 10:36 AM
+Application closed
+01/01/1990 12:30 PM
+Application closed
+01/01/1990 1:11 PM

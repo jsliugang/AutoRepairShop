@@ -69,8 +69,12 @@ namespace AutoRepairShop.Services
             {
                 Console.WriteLine($"{line}");
             }
-            Console.WriteLine($"-- Customers in Line --");
-            CustomerQueue<Customer>.Display(ShopManager.Customers);
+            Console.WriteLine($"-- Customers in Lines --");
+            CustomerQueue<Customer>.Display(ShopManager.CustomerQueue1);
+            Console.WriteLine($"---------------------------------------");
+            CustomerQueue<Customer>.Display(ShopManager.CustomerQueue2);
+            Console.WriteLine($"---------------------------------------");
+            CustomerQueue<Customer>.Display(ShopManager.CustomerQueue3);
             Console.WriteLine($"---------------------------------------");
             Console.WriteLine($"-- Customers on Hold --");
             CustomerQueue<Customer>.Display(ShopManager.CustomersOnHold);

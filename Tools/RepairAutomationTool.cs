@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using AutoRepairShop.Data.Models.Humans;
 using AutoRepairShop.Data.Repository;
-using AutoRepairShop.Services;
 using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Tools
@@ -15,27 +14,8 @@ namespace AutoRepairShop.Tools
 
         public RepairAutomationTool()
         {
-            ShopManager.Lucy.Greet();
-            FileFolderManagementService.CreateFolder();
-            AddNewCustomers(100);
-            TimeTool.TimeInstance.SetTimers();
-            CheckQueue();
-        }
-
-        public static void CheckQueue()
-        {
-            while (true)
-            {
-                if (ShopManager.CustomersOnHold.Count != 0)
-                {
-                    ShopManager.ResumeWorkingWithCustomer(CustomerQueue<Customer>.Peek(ShopManager.CustomersOnHold));
-                }
-                if (ShopManager.Customers.Count == 0)
-                {
-                    continue;
-                }
-                ShopManager.AcceptNewCustomer(CustomerQueue<Customer>.Peek(ShopManager.Customers));
-            }
+            AddNewCustomers(10);
+            ShopManager.CheckQueue();
         }
 
         public static void AddNewCustomers(int count)
@@ -44,7 +24,7 @@ namespace AutoRepairShop.Tools
             for (var i = 0; i < count; i++)
             {
                 var newCustomer = new Customer(Cm.MakeCar());
-                newCustomer.Say($"{newCustomer.Name}: I heard this is a great place to repair my car. I might consider coming soon...");
+                //newCustomer.Say($"{newCustomer.Name}: I heard this is a great place to repair my car. I might consider coming soon...");
                 CustomerQueue<Customer>.Enqueue(newCustomer, DefaultCustomerList);
             }
         }

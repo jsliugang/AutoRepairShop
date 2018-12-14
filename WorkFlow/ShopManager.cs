@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using AutoRepairShop.Data.Lists;
 using AutoRepairShop.Data.Models.CarTypes;
@@ -21,12 +22,16 @@ namespace AutoRepairShop.WorkFlow
         public static List<string> ModificationsOffer = new List<string>();
         public static Customer CurrentCustomer;
         public static DailyStatService Dss = new DailyStatService();
-        public static List<Customer> Customers;
+        public static List<Customer> NewCustomers = new List<Customer>();
         public static List<Customer> CustomersOnHold;
         public Dictionary<RepairMan, double> Salary = new Dictionary<RepairMan, double>();
-        readonly ContractSignatureService _css = new ContractSignatureService();
+        private readonly ContractSignatureService _css = new ContractSignatureService();
         private bool _isGarageEmpty = true;
         private readonly FileLoggerService _lrw = new FileLoggerService();
+
+        public static List<Customer> CustomerQueue1;
+        public static List<Customer> CustomerQueue2;
+        public static List<Customer> CustomerQueue3;
 
         private ShopManager()
         { 
@@ -45,15 +50,16 @@ namespace AutoRepairShop.WorkFlow
             ModificationsOffer.Add("Spoiler");
             ModificationsOffer.Add("SportSuspension");
             ModificationsOffer.Add("TitaniumWipers");
-            Customers = new List<Customer>();
             CustomersOnHold = new List<Customer>();
             Salary.Add(RmKirill.Kirill, 0);
             Salary.Add(RmPetrovich.Petrovich, 0);
             Salary.Add(RmVano.Vano, 0);
             Salary.Add(RmSanSanuch.SanSanuch, 0);
+            TimeTool.TimeInstance.SetTimers();
+            FileFolderManagementService.CreateFolder();
         }
 
-        public static ShopManager Lucy => Nested.lucy;
+        public static ShopManager Lucy;
 
         private class Nested
         {
@@ -63,11 +69,38 @@ namespace AutoRepairShop.WorkFlow
             internal static readonly ShopManager lucy = new ShopManager();
         }
 
+        static ShopManager()
+        {
+            RuntimeHelpers.RunClassConstructor(typeof(Nested).TypeHandle);
+            Lucy = Nested.lucy;
+        }
+
+        public static void CheckQueue()
+        {
+            Lucy.Greet();
+            CustomerQueue1 = new List<Customer>();
+            CustomerQueue2 = new List<Customer>();
+            CustomerQueue3 = new List<Customer>();
+
+            while (true) // to be removed: customers will be coming to shop by themselves and will be processed into one of the queues by Lucy on Accept new customer
+            {
+                if (CustomersOnHold.Count != 0)
+                {
+                    ResumeWorkingWithCustomer(CustomerQueue<Customer>.Peek(CustomersOnHold));
+                }
+                if (NewCustomers.Count == 0)
+                {
+                    continue;
+                }
+                AcceptNewCustomer(CustomerQueue<Customer>.Peek(NewCustomers));
+            }
+        }
+
         public static void AcceptNewCustomer(Customer customer)
         {
             if (!WorkingHours()) return;
             CurrentCustomer = customer;
-            CustomerQueue<Customer>.Dequeue(Customers);
+            CustomerQueue<Customer>.Dequeue(NewCustomers);
             CurrentCustomer.StopWaitForServicesTimer();
             Dss.AddCustomer(CurrentCustomer); //daily logging service
             Lucy.Say($"Greetings {CurrentCustomer.Name}! My name is {Lucy.Name} and I will be your Repair Shop Manager today.");
@@ -338,7 +371,7 @@ namespace AutoRepairShop.WorkFlow
 
         public static void HandleProblematicCustomer(Customer customer)
         {
-            CustomerQueue<Customer>.Remove(Customers, customer);
+            CustomerQueue<Customer>.Remove(NewCustomers, customer);
             CustomerQueue<Customer>.Remove(CustomersOnHold, customer);
             Thread.Sleep(5000);
         }
