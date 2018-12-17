@@ -15,7 +15,7 @@ namespace AutoRepairShop.Tools
         public RepairAutomationTool()
         {
             AddNewCustomers(10);
-            ShopManager.CheckQueue();
+            ShopManager.Lucy.Greet();
         }
 
         public static void AddNewCustomers(int count)
@@ -32,30 +32,6 @@ namespace AutoRepairShop.Tools
         public static void RemoveDisappointedCustomer(Customer customer)
         {
             CustomerQueue<Customer>.Remove(DefaultCustomerList, customer);
-        }
-
-        public static void MakeRepairChoice()
-        {
-            ShopManager.CurrentCustomer.RepairBrokenParts();
-            ShopManager.CurrentCustomer.ReplaceBrokenParts();
-
-           if (ShopManager.WorkingHours())
-           {
-                if (Rand.NextDouble() > 0.5)
-                {
-                    ShopManager.CurrentCustomer.PimpMyCar(ShopManager.ModificationsOffer[Rand.Next(0, ShopManager.ModificationsOffer.Count)]);
-                }
-                else
-                {
-                    ShopManager.CurrentCustomer.ReplaceLiquids();
-                }
-           }
-           ShopManager.CurrentCustomer.LeaveShop();
-        }
-
-        public void PrintMessage(string message)
-        {
-            Console.WriteLine(message);
         }
     }
 }

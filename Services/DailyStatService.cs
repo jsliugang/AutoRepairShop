@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.Humans;
@@ -9,6 +10,7 @@ using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Services
 {
+    [Synchronization]
     internal class DailyStatService
     {
         public List<string> DailyStats = new List<string>();
@@ -70,12 +72,11 @@ namespace AutoRepairShop.Services
                 Console.WriteLine($"{line}");
             }
             Console.WriteLine($"-- Customers in Lines --");
-            CustomerQueue<Customer>.Display(ShopManager.CustomerQueue1);
-            Console.WriteLine($"---------------------------------------");
-            CustomerQueue<Customer>.Display(ShopManager.CustomerQueue2);
-            Console.WriteLine($"---------------------------------------");
-            CustomerQueue<Customer>.Display(ShopManager.CustomerQueue3);
-            Console.WriteLine($"---------------------------------------");
+            foreach (var garage in ShopManager.GarageList)
+            {
+                CustomerQueue<Customer>.Display(garage.CustomersQueue);
+                Console.WriteLine($"---------------------------------------");
+            }
             Console.WriteLine($"-- Customers on Hold --");
             CustomerQueue<Customer>.Display(ShopManager.CustomersOnHold);
             Console.WriteLine($"---------------------------------------");

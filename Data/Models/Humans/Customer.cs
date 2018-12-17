@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using AutoRepairShop.CourtServiceReference;
 using AutoRepairShop.WorkFlow;
-using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.CarTypes;
 using AutoRepairShop.Data.Repository;
 using AutoRepairShop.Tools;
+using Timer = System.Timers.Timer;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
@@ -34,10 +36,12 @@ namespace AutoRepairShop.Data.Models.Humans
             _warrantyTimer.Elapsed += OnWarrantyCaseEvent;
             _warrantyTimer.AutoReset = false;
             _warrantyTimer.Enabled = true;
+            MyCar.IsOnWarranty = true;
         }
 
         private void OnWarrantyCaseEvent(Object source, ElapsedEventArgs e)
         {
+            MyCar.IsOnWarranty = false;
             _warrantyTimer.Dispose();
         }
 
@@ -87,7 +91,7 @@ namespace AutoRepairShop.Data.Models.Humans
 
             if (decision == -1)
             {
-                GoToRepairShop(true);
+                GoToRepairShop();
             }
             if (decision == 0)
             {
@@ -100,16 +104,22 @@ namespace AutoRepairShop.Data.Models.Humans
             RepairAutomationTool.RemoveDisappointedCustomer(this);
         }
 
-        private void GoToRepairShop()
+        private async void GoToRepairShop()
         {
-            CustomerQueue<Customer>.Enqueue(this, ShopManager.NewCustomers);
-            SetWaitForServicesTimer();
-        }
-
-        private void GoToRepairShop(bool isOnWarranty)
-        {
-            MyCar.IsOnWarranty = isOnWarranty;
-            CustomerQueue<Customer>.Enqueue(this, ShopManager.NewCustomers);
+            while (true)
+            {
+                bool result = await ShopManager.AcceptNewCustomerAsync(this);
+                if (result)
+                {
+                    SetWaitForServicesTimer();
+                }
+                else
+                {
+                    Thread.Sleep(TimeTool.ConvertToRealTime(2) * TimeTool.Thousand); //postpone for 2 game hours
+                    continue;
+                }
+                break;
+            }
         }
 
         public override void Say(string message)
@@ -146,37 +156,37 @@ namespace AutoRepairShop.Data.Models.Humans
         public void MakeDiagnosticsOrder()
         {
             Say($"Please diagnoze my {MyCar.Name}, I need to know what is broken");
-            ShopManager.ProcessOrder(1, "");
+            ShopManager.ProcessOrder(1, "", this);
         }
 
         public void RepairBrokenParts()
         {
             Say($"Please repair all the broken parts of my {MyCar.Name}.");
-            foreach (var carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToRepair)
+            foreach (var carPart in MyAgreement.PartsToRepair)
             {
-                ShopManager.ProcessOrder(2, carPart.Name);
+                ShopManager.ProcessOrder(2, carPart.Name, this);
             }
         }
 
         public void PimpMyCar(string modificationType)
         {
             Say($"Xzibit, pimp my {MyCar.Name}!!");
-            ShopManager.ProcessOrder(3, modificationType);
+            ShopManager.ProcessOrder(3, modificationType, this);
         }
 
         public void ReplaceBrokenParts()
         {
             Say($"Replace all broken parts in {MyCar.Name}, please...");
-            foreach (var carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToReplace)
+            foreach (var carPart in MyAgreement.PartsToReplace)
             {
-                ShopManager.ProcessOrder(4, carPart.Name);
+                ShopManager.ProcessOrder(4, carPart.Name, this);
             }
         }
 
         public void ReplaceLiquids()
         {
             Say($"Replace all the liquids in {MyCar.Name}, please...");
-            ShopManager.ProcessOrder(5, "");
+            ShopManager.ProcessOrder(5, "", this);
         }
 
         public int CompareTo(Customer other)
@@ -198,7 +208,7 @@ namespace AutoRepairShop.Data.Models.Humans
         {
             Say($"{Name}: THIS IS NOT GOING ANYWHERE!!!! I have been waiting for 3 days already!");
             Say($"{Name} slams the door and leaves the Auto Repair Shop");
-            ShopManager.HandleProblematicCustomer(this);
+            //ShopManager.HandleProblematicCustomer(this);
             RepairAutomationTool.RemoveDisappointedCustomer(this);
         }
 

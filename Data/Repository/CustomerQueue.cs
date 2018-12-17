@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AutoRepairShop.Data.Models.CarTypes;
 using AutoRepairShop.Data.Models.Humans;
-using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Data.Repository
 {
@@ -26,7 +24,6 @@ namespace AutoRepairShop.Data.Repository
                     ci = pi;
                 }
             }
-            CustomerQueue<Customer>.OnNewCustomer(item);
         }
 
         public static T Dequeue(List<T> currentList)
@@ -97,11 +94,6 @@ namespace AutoRepairShop.Data.Repository
                 foreach (var item in currentList)
                     Console.Write($"Customer in line: {item.Name}, priority - {item.MyDiscounts.Priority} \n");
             }
-        }
-
-        protected static void OnNewCustomer(Customer customer)
-        {
-            ShopManager.AcceptNewCustomer(customer);
         }
     }
 }

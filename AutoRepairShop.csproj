@@ -69,6 +69,7 @@
     <Compile Include="Data\Models\CarBuilders\StreetSweeperBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\TractorBuilder.cs" />
     <Compile Include="Data\Models\CarBuilders\WagonBuilder.cs" />
+    <Compile Include="Data\Models\Garage.cs" />
     <Compile Include="Data\Models\Humans\ICanBase.cs" />
     <Compile Include="Data\Models\Humans\ICanCustomize.cs" />
     <Compile Include="Data\Models\Humans\ICanDiagnoze.cs" />

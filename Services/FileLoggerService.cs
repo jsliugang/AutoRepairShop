@@ -1,25 +1,38 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Runtime.Remoting.Contexts;
 using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.Services
 {
+    [Synchronization]
     internal class FileLoggerService
     {
+        private object threadlock;
+
+        public FileLoggerService()
+        {
+            threadlock = new object();
+        }
+
         public void StoreLog(string logMessage)
         {
-            using (StreamWriter w = File.AppendText("LucyLog.txt"))
+            lock (threadlock)
             {
-                if (logMessage != null)
+                using (StreamWriter w = File.AppendText("LucyLog.txt"))
                 {
-                    Log(logMessage, w);
-                }
-                else
-                {
-                    Console.WriteLine($"LOG ERROR: No log message provided");
+                    if (logMessage != null)
+                    {
+                        Log(logMessage, w);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"LOG ERROR: No log message provided");
+                    }
                 }
             }
+            
         }
 
         public void StoreTime()

@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 using AutoRepairShop.Services;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
+using Microsoft.Office.Interop.Word;
+using Task = System.Threading.Tasks.Task;
 
 namespace AutoRepairShop
 {
@@ -10,11 +12,21 @@ namespace AutoRepairShop
     {
         static void Main()
         {
-            MsgDecoratorTool.PrintCustomMessage("Welcome to the Repair Shop!", ConsoleColor.Green, ConsoleColor.Black);
-            SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
-            WeeklyPaymentService wps = new WeeklyPaymentService();
-            MonthlyPaymentService mps = new MonthlyPaymentService();
-            RepairAutomationTool repairAutomationTool = new RepairAutomationTool();
+            MainAsync().GetAwaiter().GetResult();
+            Console.ReadLine();
+        }
+
+        static async Task MainAsync()
+        {
+            await Task.Run(() =>
+            {
+                MsgDecoratorTool.PrintCustomMessage("Welcome to the Repair Shop!", ConsoleColor.Green,
+                    ConsoleColor.Black);
+                SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
+                WeeklyPaymentService wps = new WeeklyPaymentService();
+                MonthlyPaymentService mps = new MonthlyPaymentService();
+                RepairAutomationTool repairAutomationTool = new RepairAutomationTool();
+            });
         }
 
         private static bool ConsoleCtrlCheck(CtrlTypes ctrlType)

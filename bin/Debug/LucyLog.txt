@@ -236,3 +236,36 @@ Application closed
 01/01/1990 12:30 PM
 Application closed
 01/01/1990 1:11 PM
+Application closed
+01/01/1990 1:11 PM
+01/03/1990 1:11 PM : New customer: Lorilee, Car: Caterpillar 797F, Customer registered
+01/03/1990 9:00 AM : New customer: Gloria, Car: Kassbohrer, Customer registered
+01/03/1990 9:00 AM : New customer: Ria, Car: Petrol 11 HP snowplug STG1101QE-02, Customer registered
+01/02/1990 9:00 AM : New customer: Weston, Car: Kassbohrer, Customer registered
+01/03/1990 9:00 AM : New customer: Hermine, Car: Emergency 911 Ambulance, Customer registered
+01/03/1990 9:00 AM : New customer: Vertie, Car: Volvo FL 7, Customer registered
+01/03/1990 9:02 AM : New customer: Reed, Car: Kassbohrer, Customer registered
+01/02/1990 9:00 AM : New customer: Orville, Car: Ursus 11054, Customer registered
+01/02/1990 9:00 AM : New customer: Deon, Car: Rolfo, Customer registered
+01/02/1990 9:00 AM : New customer: Forest, Car: Snowplug ZLST551Q, Customer registered
+01/02/1990 9:00 AM : New customer: Lavern, Car: DAF LF 55, Customer registered
+01/02/1990 9:00 AM : New customer: Collin, Car: Caterpillar 797F, Customer registered
+01/02/1990 9:00 AM : New customer: Davis, Car: Nissan Navara, Customer registered
+01/02/1990 9:00 AM : New customer: Deon, Car: Terex 33-19 Titan, Customer registered
+01/03/1990 9:00 AM : New customer: Shayne, Car: Volvo FL 7, Customer registered
+01/03/1990 9:01 AM : New customer: Alfredo, Car: Buggy, Customer registered
+Application closed
+01/04/1990 8:22 AM
+01/05/1990 8:22 AM : New customer: Weston, Car: Fendt 820, Customer registered
+01/05/1990 8:22 AM : New customer: Edgar, Car: Terex 33-19 Titan, Customer registered
+01/06/1990 8:22 AM : New customer: Louis, Car: Jeep Wrangler, Customer registered
+01/06/1990 8:23 AM : New customer: Aretha, Car: Snowplug ZLST551Q, Customer registered
+01/06/1990 8:23 AM : New customer: Erich, Car: Jeep Grand Cherokee, Customer registered
+01/06/1990 8:23 AM : New customer: Anderson, Car: DAF XF 95 FAR, Customer registered
+01/06/1990 8:23 AM : New customer: Shayne, Car: MX - 450, Customer registered
+01/06/1990 8:23 AM : New customer: Lavern, Car: MAN TGS 6x6, Customer registered
+01/11/1990 8:22 AM : New customer: Hermine, Car: Emergency 911 Ambulance, Customer registered
+01/11/1990 8:23 AM : New customer: Hugh, Car: Rolfo, Customer registered
+01/11/1990 8:23 AM : New customer: Mariann, Car: Buggy, Customer registered
+Application closed
+01/12/1990 3:46 AM
