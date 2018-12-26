@@ -24,7 +24,7 @@ namespace AutoRepairShop.Services
             sb.AppendLine($"Broken parts:");
             foreach (var carPart in customer.MyCar.CarContent)
             {
-                if (!carPart.IsWorking)
+                if (carPart.Durability<1)
                 {
                     sb.Append($"{carPart.Name}, ");
                 }
@@ -36,7 +36,7 @@ namespace AutoRepairShop.Services
         public void AddWorkOrder(RepairMan rm, string order, double workCost, double partCost)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"{TimeTool.GetGameTime()} -- Work Order: {order}, work cost: {workCost}, part cost: {partCost}");
+            sb.AppendLine($"{TimeTool.GetGameTime()} -- RM: {rm.Name}, Work Order: {order}, work cost: {workCost}, part cost: {partCost}");
             _fls.StoreLog(sb.ToString());
             DailyStats.Add(sb.ToString());
         }
@@ -49,7 +49,7 @@ namespace AutoRepairShop.Services
             sb.AppendLine($"Car parts:");
             foreach (CarPart carPart in customer.MyCar.CarContent)
             {
-                var works = carPart.IsWorking ? "is working" : "is not working";
+                var works = carPart.Durability>0 ? "is working" : "is not working";
                 sb.AppendLine($"{carPart.Name} - {works}");
             }
             sb.AppendLine($"The total is {totalCost}");
@@ -63,29 +63,30 @@ namespace AutoRepairShop.Services
             DailyStats.Clear();
         }
 
-        public void Display()
-        {
-            Console.ForegroundColor=ConsoleColor.Yellow;
-            Console.WriteLine("***DAILY STATISTICS***");
-            foreach (var line in DailyStats)
-            {
-                Console.WriteLine($"{line}");
-            }
-            Console.WriteLine($"-- Customers in Lines --");
-            foreach (var garage in ShopManager.GarageList)
-            {
-                CustomerQueue<Customer>.Display(garage.CustomersQueue);
-                Console.WriteLine($"---------------------------------------");
-            }
-            Console.WriteLine($"-- Customers on Hold --");
-            CustomerQueue<Customer>.Display(ShopManager.CustomersOnHold);
-            Console.WriteLine($"---------------------------------------");
-            foreach (var keyValue in ShopManager.Lucy.Salary)
-            {
-                Console.WriteLine($"{keyValue.Key.Name} earned {keyValue.Value}");               
-            }
-            Console.WriteLine("***END OF DAILY STATISTICS***");
-            Console.ForegroundColor = ConsoleColor.White;
-        }
+    //    public void Display()
+    //    {
+    //        lock (DailyStats) lock (ShopManager.GarageList)
+    //        {
+    //            Console.ForegroundColor = ConsoleColor.Yellow;
+    //            Console.WriteLine("***DAILY STATISTICS***");
+    //            foreach (var line in DailyStats)
+    //            {
+    //                Console.WriteLine($"{line}");
+    //            }
+    //            Console.WriteLine($"-- Customers in Lines --");
+    //            foreach (var garage in ShopManager.GarageList)
+    //            {
+    //                CustomerQueue<Customer>.Display(garage.CustomersQueue);
+    //                Console.WriteLine($"---------------------------------------");
+    //            }
+    //            Console.WriteLine($"---------------------------------------");
+    //            foreach (var keyValue in ShopManager.Lucy.Salary)
+    //            {
+    //                Console.WriteLine($"{keyValue.Key.Name} earned {keyValue.Value}");
+    //            }
+    //            Console.WriteLine("***END OF DAILY STATISTICS***");
+    //            Console.ForegroundColor = ConsoleColor.White;
+    //        }
+    //    }
     }
 }

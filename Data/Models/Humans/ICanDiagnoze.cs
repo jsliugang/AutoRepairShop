@@ -1,10 +1,10 @@
-﻿using AutoRepairShop.Data.Models.CarTypes;
+﻿using System;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
     internal interface ICanDiagnoze<T>:ICanBase where T : class
     {
         int Priority { get; }
-        void DiagnozeCar(Car car);
+        void DiagnozeCar(Customer customer, ConsoleColor clr);
     }
 }

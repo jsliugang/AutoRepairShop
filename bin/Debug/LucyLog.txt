@@ -1,271 +1,53 @@
-01/02/1990 9:00 AM : New customer: Lavern, Car: Ursus 11054, Customer registered
-01/02/1990 10:48 AM : 1/2/1990 10:48:41 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/02/1990 11:03 AM : New customer: Wilburn, Car: Snowplug ZLST551Q, Customer registered
+01/02/1990 11:04 AM : New customer: Gloria, Car: Ursus 11054, Customer registered
+01/02/1990 11:04 AM : New customer: Linsey, Car: Jeep Wrangler, Customer registered
+01/02/1990 12:40 PM : 1/2/1990 12:40:32 PM -- RM: Vano, Work Order: Diagnoze, work cost: 50, part cost: 0
 
-01/02/1990 2:04 PM : 1/2/1990 2:04:49 PM -- Work Order: Replace, work cost: 200, part cost: 100
+01/02/1990 12:52 PM : 1/2/1990 12:52:32 PM -- RM: Kirill, Work Order: Diagnoze, work cost: 50, part cost: 0
 
-01/02/1990 5:05 PM : 1/2/1990 5:05:00 PM -- Work Order: Modify, work cost: 500, part cost: 1230
+01/02/1990 12:52 PM : 1/2/1990 12:52:36 PM -- RM: Petrovich, Work Order: Diagnoze, work cost: 50, part cost: 0
 
-01/02/1990 5:21 PM : New customer: Lavern, Car: Toyota Tacoma, Customer registered
-01/02/1990 7:09 PM : 1/2/1990 7:09:33 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/02/1990 9:01 AM : New customer: Douglass, Car: Regular Ambulance, Customer registered
+01/02/1990 10:49 AM : 1/2/1990 10:49:28 AM -- RM: Kirill, Work Order: Diagnoze, work cost: 50, part cost: 0
 
-01/02/1990 10:23 PM : 1/2/1990 10:23:42 PM -- Work Order: Repair, work cost: 250, part cost: 0
+01/02/1990 2:17 PM : 1/2/1990 2:17:14 PM -- RM: Kirill, Work Order: Repair, work cost: 250, part cost: 0
 
-01/03/1990 1:23 AM : 1/3/1990 1:23:58 AM -- Work Order: Repair, work cost: 250, part cost: 0
+01/02/1990 5:17 PM : 1/2/1990 5:17:20 PM -- RM: Vano, Work Order: Replace, work cost: 200, part cost: 100
 
-01/03/1990 11:12 AM : 1/3/1990 11:12:07 AM -- Work Order: Repair, work cost: 250, part cost: 0
+01/02/1990 8:17 PM : 1/2/1990 8:17:40 PM -- RM: Vano, Work Order: Replace, work cost: 200, part cost: 350
 
-01/03/1990 2:12 PM : 1/3/1990 2:12:21 PM -- Work Order: Replace, work cost: 200, part cost: 3000
+01/02/1990 11:18 PM : 1/2/1990 11:17:50 PM -- RM: Kirill, Work Order: Modify, work cost: 500, part cost: 1230
 
-01/03/1990 5:12 PM : 1/3/1990 5:12:42 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
+01/03/1990 9:01 AM : New customer: Weston, Car: Suzuki Jimny, Customer registered
+01/03/1990 9:01 AM : New customer: Floria, Car: BELAZ 75710, Customer registered
+01/03/1990 9:01 AM : New customer: Leon, Car: Dulevo sweeper, Customer registered
+01/03/1990 9:01 AM : New customer: Weston, Car: Dulevo sweeper, Customer registered
+01/03/1990 9:01 AM : New customer: Sal, Car: UAZ Patriot, Customer registered
+01/03/1990 9:01 AM : New customer: Wilburn, Car: Jeep Grand Cherokee, Customer registered
+01/03/1990 9:01 AM : New customer: Jim, Car: Regular Ambulance, Customer registered
+01/03/1990 10:38 AM : 1/3/1990 10:38:04 AM -- RM: Petrovich, Work Order: Diagnoze, work cost: 50, part cost: 0
 
-01/03/1990 5:28 PM : New customer: Jim, Car: Buggy, Customer registered
-01/03/1990 7:16 PM : 1/3/1990 7:16:21 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/03/1990 10:49 AM : 1/3/1990 10:49:40 AM -- RM: Kirill, Work Order: Diagnoze, work cost: 50, part cost: 0
 
-01/03/1990 10:31 PM : 1/3/1990 10:31:28 PM -- Work Order: Repair, work cost: 250, part cost: 0
+01/03/1990 10:50 AM : 1/3/1990 10:50:08 AM -- RM: Vano, Work Order: Diagnoze, work cost: 50, part cost: 0
 
-01/04/1990 1:31 AM : 1/4/1990 1:31:46 AM -- Work Order: Replace, work cost: 200, part cost: 200
+01/03/1990 2:05 PM : 1/3/1990 2:05:32 PM -- RM: Kirill, Work Order: Repair, work cost: 250, part cost: 0
 
-01/04/1990 8:08 AM : New customer: Johnathon, Car: Toyota Tacoma, Customer registered
-01/04/1990 9:57 AM : 1/4/1990 9:57:09 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/03/1990 2:34 PM : 1/3/1990 2:34:23 PM -- RM: Vano, Work Order: Replace, work cost: 200, part cost: 1000
 
-01/04/1990 1:11 PM : 1/4/1990 1:11:05 PM -- Work Order: Replace, work cost: 200, part cost: 50
+01/03/1990 2:42 PM : 1/3/1990 2:42:07 PM -- RM: Petrovich, Work Order: Repair, work cost: 250, part cost: 0
 
-01/04/1990 4:11 PM : 1/4/1990 4:11:10 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
+01/03/1990 5:05 PM : 1/3/1990 5:05:36 PM -- RM: Mihaluch, Work Order: Replace, work cost: 200, part cost: 3000
 
-01/04/1990 4:26 PM : New customer: Efrain, Car: Lohr, Customer registered
-01/04/1990 6:15 PM : 1/4/1990 6:15:00 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/03/1990 5:34 PM : 1/3/1990 5:34:40 PM -- RM: Vano, Work Order: Replace, work cost: 200, part cost: 50
 
-01/04/1990 9:29 PM : 1/4/1990 9:29:49 PM -- Work Order: Repair, work cost: 250, part cost: 0
+01/03/1990 5:42 PM : 1/3/1990 5:42:30 PM -- RM: Kirill, Work Order: Repair, work cost: 250, part cost: 0
 
-01/05/1990 12:29 AM : 1/5/1990 12:29:56 AM -- Work Order: Replace, work cost: 200, part cost: 100
+01/03/1990 8:05 PM : 1/3/1990 8:05:42 PM -- RM: Petrovich, Work Order: ReplaceLiquid, work cost: 50, part cost: 0
 
-01/05/1990 8:06 AM : New customer: Anderson, Car: Emergency 911 Ambulance, Customer registered
-01/05/1990 9:55 AM : 1/5/1990 9:55:00 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
+01/03/1990 8:35 PM : 1/3/1990 8:34:49 PM -- RM: Serega, Work Order: ReplaceLiquid, work cost: 50, part cost: 0
 
-01/05/1990 1:09 PM : 1/5/1990 1:09:50 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/05/1990 4:09 PM : 1/5/1990 4:09:59 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/05/1990 7:10 PM : 1/5/1990 7:10:20 PM -- Work Order: Replace, work cost: 200, part cost: 1000
-
-01/05/1990 10:10 PM : 1/5/1990 10:10:36 PM -- Work Order: Replace, work cost: 200, part cost: 200
-
-01/06/1990 1:11 AM : 1/6/1990 1:10:53 AM -- Work Order: Replace, work cost: 200, part cost: 50
-
-01/06/1990 11:11 AM : 1/6/1990 11:11:14 AM -- Work Order: Replace, work cost: 200, part cost: 500
-
-01/06/1990 2:11 PM : 1/6/1990 2:11:26 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
-
-01/06/1990 2:27 PM : New customer: Louis, Car: FIA GT1, Customer registered
-01/06/1990 4:15 PM : 1/6/1990 4:15:21 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/06/1990 7:29 PM : 1/6/1990 7:29:05 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/06/1990 10:29 PM : 1/6/1990 10:29:23 PM -- Work Order: Replace, work cost: 200, part cost: 3000
-
-01/07/1990 1:30 AM : 1/7/1990 1:29:44 AM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
-
-01/08/1990 8:10 AM : New customer: Kristofer, Car: Snowplug ZLST551Q, Customer registered
-01/08/1990 9:46 AM : 1/8/1990 9:46:48 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/08/1990 1:02 PM : 1/8/1990 1:02:13 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/08/1990 4:02 PM : 1/8/1990 4:02:28 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/08/1990 7:03 PM : 1/8/1990 7:03:02 PM -- Work Order: Replace, work cost: 200, part cost: 1000
-
-01/08/1990 10:03 PM : 1/8/1990 10:03:26 PM -- Work Order: Replace, work cost: 200, part cost: 350
-
-01/09/1990 1:03 AM : 1/9/1990 1:03:38 AM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
-
-01/09/1990 8:09 AM : New customer: Tory, Car: MX - 450, Customer registered
-01/09/1990 9:45 AM : 1/9/1990 9:45:52 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/09/1990 1:00 PM : 1/9/1990 1:00:51 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/09/1990 4:01 PM : 1/9/1990 4:00:56 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/09/1990 7:01 PM : 1/9/1990 7:01:11 PM -- Work Order: Replace, work cost: 200, part cost: 2500
-
-01/09/1990 10:01 PM : 1/9/1990 10:01:16 PM -- Work Order: Replace, work cost: 200, part cost: 200
-
-01/10/1990 1:01 AM : 1/10/1990 1:01:40 AM -- Work Order: Modify, work cost: 500, part cost: 1000
-
-01/10/1990 8:07 AM : New customer: Darius, Car: Audi R18, Customer registered
-01/10/1990 9:55 AM : 1/10/1990 9:55:32 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/10/1990 1:10 PM : 1/10/1990 1:10:10 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/10/1990 4:10 PM : 1/10/1990 4:10:44 PM -- Work Order: Replace, work cost: 200, part cost: 50
-
-01/10/1990 7:11 PM : 1/10/1990 7:10:57 PM -- Work Order: Modify, work cost: 500, part cost: 120
-
-01/10/1990 7:28 PM : New customer: Lavern, Car: MX - 450, Customer registered
-01/10/1990 9:04 PM : 1/10/1990 9:04:23 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/11/1990 12:19 AM : 1/11/1990 12:19:15 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/11/1990 11:07 AM : 1/11/1990 11:07:20 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/11/1990 2:07 PM : 1/11/1990 2:07:39 PM -- Work Order: Replace, work cost: 200, part cost: 100
-
-01/11/1990 5:07 PM : 1/11/1990 5:07:52 PM -- Work Order: Replace, work cost: 200, part cost: 200
-
-01/11/1990 8:08 PM : 1/11/1990 8:08:08 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
-
-01/11/1990 8:25 PM : New customer: Alfredo, Car: MTZ 122, Customer registered
-01/11/1990 10:13 PM : 1/11/1990 10:13:34 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/12/1990 1:28 AM : 1/12/1990 1:28:42 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/12/1990 11:04 AM : 1/12/1990 11:04:51 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/12/1990 2:05 PM : 1/12/1990 2:05:07 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/12/1990 5:05 PM : 1/12/1990 5:05:18 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/12/1990 8:05 PM : 1/12/1990 8:05:42 PM -- Work Order: Replace, work cost: 200, part cost: 350
-
-01/12/1990 11:06 PM : 1/12/1990 11:06:03 PM -- Work Order: Replace, work cost: 200, part cost: 500
-
-01/13/1990 2:06 AM : 1/13/1990 2:06:08 AM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
-
-01/13/1990 8:11 AM : New customer: Albert, Car: Kassbohrer, Customer registered
-01/13/1990 10:00 AM : 1/13/1990 10:00:00 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/13/1990 1:15 PM : 1/13/1990 1:15:20 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/13/1990 6:15 PM : 1/13/1990 6:15:35 PM -- Work Order: Replace, work cost: 200, part cost: 200
-
-01/13/1990 9:16 PM : 1/13/1990 9:15:52 PM -- Work Order: Replace, work cost: 200, part cost: 50
-
-01/14/1990 12:16 AM : 1/14/1990 12:16:08 AM -- Work Order: Modify, work cost: 500, part cost: 500
-
-01/15/1990 8:08 AM : New customer: Forrest, Car: Terex 33-19 Titan, Customer registered
-01/15/1990 9:56 AM : 1/15/1990 9:56:28 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/15/1990 1:12 PM : 1/15/1990 1:12:25 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/15/1990 4:12 PM : 1/15/1990 4:12:32 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/15/1990 7:12 PM : 1/15/1990 7:12:34 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/15/1990 10:13 PM : 1/15/1990 10:12:55 PM -- Work Order: Replace, work cost: 200, part cost: 100
-
-01/16/1990 1:13 AM : 1/16/1990 1:13:13 AM -- Work Order: Replace, work cost: 200, part cost: 3000
-
-01/16/1990 1:01 PM : 1/16/1990 1:01:36 PM -- Work Order: Replace, work cost: 200, part cost: 50
-
-01/16/1990 4:02 PM : 1/16/1990 4:02:00 PM -- Work Order: Modify, work cost: 500, part cost: 300
-
-01/16/1990 4:19 PM : New customer: Horacio, Car: Fendt 820, Customer registered
-01/16/1990 6:07 PM : 1/16/1990 6:07:18 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/16/1990 9:22 PM : 1/16/1990 9:22:43 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/02/1990 9:00 AM : New customer: Forest, Car: Ford F250, Customer registered
-01/02/1990 10:49 AM : 1/2/1990 10:49:03 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/02/1990 2:08 PM : 1/2/1990 2:08:44 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/02/1990 5:08 PM : 1/2/1990 5:08:49 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/02/1990 8:09 PM : 1/2/1990 8:08:59 PM -- Work Order: Replace, work cost: 200, part cost: 2500
-
-01/02/1990 11:09 PM : 1/2/1990 11:09:05 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
-
-01/02/1990 11:28 PM : New customer: Brenton, Car: Regular Ambulance, Customer registered
-01/03/1990 1:16 AM : 1/3/1990 1:16:42 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/03/1990 11:08 AM : 1/3/1990 11:07:58 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/03/1990 2:08 PM : 1/3/1990 2:08:08 PM -- Work Order: Replace, work cost: 200, part cost: 350
-
-01/03/1990 5:08 PM : 1/3/1990 5:08:15 PM -- Work Order: Modify, work cost: 500, part cost: 300
-
-01/03/1990 5:27 PM : New customer: Kris, Car: MX - 450, Customer registered
-01/03/1990 7:03 PM : 1/3/1990 7:03:11 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/03/1990 10:18 PM : 1/3/1990 10:17:57 PM -- Work Order: Replace, work cost: 200, part cost: 100
-
-01/04/1990 1:18 AM : 1/4/1990 1:18:04 AM -- Work Order: Replace, work cost: 200, part cost: 500
-
-01/04/1990 8:06 AM : New customer: Brenton, Car: Chevrolet Tahoe, Customer registered
-01/04/1990 9:54 AM : 1/4/1990 9:54:33 AM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/04/1990 1:12 PM : 1/4/1990 1:12:24 PM -- Work Order: Replace, work cost: 200, part cost: 100
-
-01/04/1990 4:12 PM : 1/4/1990 4:12:30 PM -- Work Order: Replace, work cost: 200, part cost: 100
-
-01/04/1990 7:12 PM : 1/4/1990 7:12:35 PM -- Work Order: Modify, work cost: 500, part cost: 100
-
-01/04/1990 7:28 PM : New customer: Rae, Car: FIA GT1, Customer registered
-01/04/1990 9:17 PM : 1/4/1990 9:16:51 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/05/1990 12:31 AM : 1/5/1990 12:31:30 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/05/1990 11:08 AM : 1/5/1990 11:07:46 AM -- Work Order: Replace, work cost: 200, part cost: 3000
-
-01/05/1990 2:08 PM : 1/5/1990 2:08:23 PM -- Work Order: Replace, work cost: 200, part cost: 2500
-
-01/05/1990 5:08 PM : 1/5/1990 5:08:44 PM -- Work Order: ReplaceLiquid, work cost: 50, part cost: 0
-
-01/05/1990 5:27 PM : New customer: Forrest, Car: MAN TGS 6x6, Customer registered
-01/05/1990 7:15 PM : 1/5/1990 7:15:52 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/05/1990 10:31 PM : 1/5/1990 10:31:14 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/06/1990 1:31 AM : 1/6/1990 1:31:21 AM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/06/1990 11:07 AM : 1/6/1990 11:07:37 AM -- Work Order: Replace, work cost: 200, part cost: 100
-
-01/06/1990 2:08 PM : 1/6/1990 2:07:50 PM -- Work Order: Modify, work cost: 500, part cost: 500
-
-01/06/1990 2:25 PM : New customer: Rosario, Car: Caterpillar 797F, Customer registered
-01/06/1990 4:14 PM : 1/6/1990 4:14:08 PM -- Work Order: Diagnoze, work cost: 50, part cost: 0
-
-01/06/1990 7:29 PM : 1/6/1990 7:29:15 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/06/1990 10:29 PM : 1/6/1990 10:29:24 PM -- Work Order: Repair, work cost: 250, part cost: 0
-
-01/07/1990 1:29 AM : 1/7/1990 1:29:31 AM -- Work Order: Repair, work cost: 250, part cost: 0
+01/03/1990 9:09 PM : 1/3/1990 9:09:03 PM -- RM: Vano, Work Order: Replace, work cost: 200, part cost: 350
 
 Application closed
-01/01/1990 10:36 AM
-Application closed
-01/01/1990 12:30 PM
-Application closed
-01/01/1990 1:11 PM
-Application closed
-01/01/1990 1:11 PM
-01/03/1990 1:11 PM : New customer: Lorilee, Car: Caterpillar 797F, Customer registered
-01/03/1990 9:00 AM : New customer: Gloria, Car: Kassbohrer, Customer registered
-01/03/1990 9:00 AM : New customer: Ria, Car: Petrol 11 HP snowplug STG1101QE-02, Customer registered
-01/02/1990 9:00 AM : New customer: Weston, Car: Kassbohrer, Customer registered
-01/03/1990 9:00 AM : New customer: Hermine, Car: Emergency 911 Ambulance, Customer registered
-01/03/1990 9:00 AM : New customer: Vertie, Car: Volvo FL 7, Customer registered
-01/03/1990 9:02 AM : New customer: Reed, Car: Kassbohrer, Customer registered
-01/02/1990 9:00 AM : New customer: Orville, Car: Ursus 11054, Customer registered
-01/02/1990 9:00 AM : New customer: Deon, Car: Rolfo, Customer registered
-01/02/1990 9:00 AM : New customer: Forest, Car: Snowplug ZLST551Q, Customer registered
-01/02/1990 9:00 AM : New customer: Lavern, Car: DAF LF 55, Customer registered
-01/02/1990 9:00 AM : New customer: Collin, Car: Caterpillar 797F, Customer registered
-01/02/1990 9:00 AM : New customer: Davis, Car: Nissan Navara, Customer registered
-01/02/1990 9:00 AM : New customer: Deon, Car: Terex 33-19 Titan, Customer registered
-01/03/1990 9:00 AM : New customer: Shayne, Car: Volvo FL 7, Customer registered
-01/03/1990 9:01 AM : New customer: Alfredo, Car: Buggy, Customer registered
-Application closed
-01/04/1990 8:22 AM
-01/05/1990 8:22 AM : New customer: Weston, Car: Fendt 820, Customer registered
-01/05/1990 8:22 AM : New customer: Edgar, Car: Terex 33-19 Titan, Customer registered
-01/06/1990 8:22 AM : New customer: Louis, Car: Jeep Wrangler, Customer registered
-01/06/1990 8:23 AM : New customer: Aretha, Car: Snowplug ZLST551Q, Customer registered
-01/06/1990 8:23 AM : New customer: Erich, Car: Jeep Grand Cherokee, Customer registered
-01/06/1990 8:23 AM : New customer: Anderson, Car: DAF XF 95 FAR, Customer registered
-01/06/1990 8:23 AM : New customer: Shayne, Car: MX - 450, Customer registered
-01/06/1990 8:23 AM : New customer: Lavern, Car: MAN TGS 6x6, Customer registered
-01/11/1990 8:22 AM : New customer: Hermine, Car: Emergency 911 Ambulance, Customer registered
-01/11/1990 8:23 AM : New customer: Hugh, Car: Rolfo, Customer registered
-01/11/1990 8:23 AM : New customer: Mariann, Car: Buggy, Customer registered
-Application closed
-01/12/1990 3:46 AM
+01/03/1990 11:55 PM

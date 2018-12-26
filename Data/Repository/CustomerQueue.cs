@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using AutoRepairShop.Data.Models.Humans;
 
 namespace AutoRepairShop.Data.Repository
 {
     internal class CustomerQueue<T> where T : IComparable<T>
     {
-
-        public static void Enqueue(Customer item, List<Customer> currentList)
+        public static void Enqueue(Customer item, ObservableCollection<Customer> currentList)
         {
             lock (currentList)
             {
@@ -26,7 +26,7 @@ namespace AutoRepairShop.Data.Repository
             }
         }
 
-        public static T Dequeue(List<T> currentList)
+        public static T Dequeue(ObservableCollection<T> currentList)
         {
             lock (currentList)
             {
@@ -55,17 +55,17 @@ namespace AutoRepairShop.Data.Repository
             }           
         }
 
-        public static T Read(int pos, List<T> currentList)
+        public static T Read(int pos, ObservableCollection<T> currentList)
         {
             return pos < currentList.Count ? currentList[pos] : currentList[0];
         }
 
-        public static T Peek(List<T> currentList)
+        public static T Peek(ObservableCollection<T> currentList)
         {
             return currentList.Count == 0 ? default(T) : currentList[0];
         }
 
-        public static bool Empty(List<T> currentList)
+        public static bool Empty(ObservableCollection<T> currentList)
         {
             lock (currentList)
             {
@@ -73,12 +73,12 @@ namespace AutoRepairShop.Data.Repository
             }
         }
 
-        public static bool Contains(List<T> currentList, T item)
+        public static bool Contains(ObservableCollection<T> currentList, T item)
         {
             return currentList.Contains(item);
         }
 
-        public static void Remove(List<T> currentList, T item)
+        public static void Remove(ObservableCollection<T> currentList, T item)
         {
             lock (currentList)
             {
@@ -87,7 +87,7 @@ namespace AutoRepairShop.Data.Repository
             }
         }
 
-        public static void Display(List<Customer> currentList)
+        public static void Display(ObservableCollection<Customer> currentList)
         {
             lock (currentList)
             {

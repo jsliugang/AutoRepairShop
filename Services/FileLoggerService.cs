@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Runtime.Remoting.Contexts;
 using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.Services
 {
-    [Synchronization]
     internal class FileLoggerService
     {
-        private object threadlock;
-
-        public FileLoggerService()
-        {
-            threadlock = new object();
-        }
+        private static readonly object _threadlock = new object();
 
         public void StoreLog(string logMessage)
         {
-            lock (threadlock)
+            lock (_threadlock)
             {
                 using (StreamWriter w = File.AppendText("LucyLog.txt"))
                 {
@@ -37,18 +30,24 @@ namespace AutoRepairShop.Services
 
         public void StoreTime()
         {
-            using (StreamWriter w = File.AppendText("LucyLog.txt"))
+            lock (_threadlock)
             {
-                w.WriteLine($"Application closed");
-                w.WriteLine($"\r{MsgDecoratorTool.PassMeTime().ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture)}");
+                using (StreamWriter w = File.AppendText("LucyLog.txt"))
+                {
+                    w.WriteLine($"Application closed");
+                    w.WriteLine($"\r{MsgDecoratorTool.PassMeTime().ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentUICulture)}");
+                }
             }
         }
 
         public void DumpLog()
         {
-            using (StreamReader r = File.OpenText("LucyLog.txt"))
+            lock (_threadlock)
             {
-                DumpLog(r);
+                using (StreamReader r = File.OpenText("LucyLog.txt"))
+                {
+                    DumpLog(r);
+                }
             }
         }
 

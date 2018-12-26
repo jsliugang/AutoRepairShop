@@ -3,19 +3,18 @@ using AutoRepairShop.Data.Models.CarTypes;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    internal class RmKirill : RepairMan, ICanCustomize<RepairMan>, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>,
-        ICanReplace<RepairMan>
+    internal class RmSerega : RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>,
+        ICanReplaceFluids<RepairMan>, ICanReplace<RepairMan>
     {
-        public static readonly RmKirill Kirill = new RmKirill();
-        int ICanCustomize<RepairMan>.Priority { get; } = 1;
+        public static readonly RmSerega Serega = new RmSerega();
         int ICanDiagnoze<RepairMan>.Priority { get; } = 1;
         int ICanRepair<RepairMan>.Priority { get; } = 1;
         int ICanReplace<RepairMan>.Priority { get; } = 3;
+        int ICanReplaceFluids<RepairMan>.Priority { get; } = 1;
 
-        private RmKirill()
+        private RmSerega()
         {
-            Name = "Kirill";
-            LastName = "Artemovich";
+            Name = "Serega";
         }
 
         public override void ReplacePart(string partName, Car car, ConsoleColor clr)

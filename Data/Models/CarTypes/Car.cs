@@ -66,7 +66,7 @@ namespace AutoRepairShop.Data.Models.CarTypes
 
         public bool ComputerCheck()
         {
-            return CarContent.All(x => x.IsWorking) && CarLiquids.CarLiquids.All(y => y.Value > 0);
+            return CarContent.All(x => x.Durability>0) && CarLiquids.CarLiquids.All(y => y.Value > 0);
         }
 
         public bool WasteSomeLiquids()

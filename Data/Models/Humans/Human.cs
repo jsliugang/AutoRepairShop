@@ -12,6 +12,7 @@ namespace AutoRepairShop.Data.Models.Humans
         public string Name { get; set; }
         public string LastName { get; set; }
 
+
         protected Human()
         {
             DumpNames();

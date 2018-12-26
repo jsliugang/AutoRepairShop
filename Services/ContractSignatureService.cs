@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using AutoRepairShop.Data.Models;
+using AutoRepairShop.Data.Models.CarParts;
+using AutoRepairShop.Data.Models.Humans;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
 using Microsoft.Office.Interop.Word;
@@ -9,17 +12,64 @@ namespace AutoRepairShop.Services
 {
     internal class ContractSignatureService
     {
-        public void AppendContractText()
-        {
-            Application app = new Application();
-            Document doc = app.Documents.Open(Path.Combine(@"C:\Users\Yuri.Pustovoy\Documents\Visual Studio 2017\Projects\AutoRepairShop\AutoRepairShop\bin\Debug\AutoRepairContract.docx"));
+        List<List<string>> servicesList = new List<List<string>>();
 
+        private static object _threadLock = new object();
+
+        private void BuildData(Customer customer)
+        {
+            servicesList.Add(new List<string>() { "Service", "Part", "Part Cost", "Service Cost" });
+            servicesList.Add(new List<string>() { "Diagnostics", "-", "0", Garage.ServicesCatalogue["Diagnoze"].ToString() });
+            foreach (var t in customer.MyAgreement.PartsToRepair)
+            {
+                servicesList.Add(new List<string>() { "Repair", t.Name, "0", Garage.ServicesCatalogue["Repair"].ToString() });
+            }
+            foreach (var t in customer.MyAgreement.PartsToReplace)
+            {
+                servicesList.Add(new List<string>() { "Replace", t.Name, t.Cost.ToString(), Garage.ServicesCatalogue["Replace"].ToString() });
+            }
+            servicesList.Add(new List<string>() { "", "", "TOTAL:", GetTotal(customer).ToString() });
+        }
+
+        public double GetTotal(Customer customer)
+        {
+            var total = customer.MyAgreement.PartsToRepair.Count *
+                        Garage.ServicesCatalogue["Repair"];
+            foreach (var carPart in customer.MyAgreement.PartsToReplace)
+            {
+                total += carPart.Cost;
+                total += Garage.ServicesCatalogue["Replace"];
+            }
+            total += Garage.ServicesCatalogue["Diagnoze"];
+            return total;
+        }
+
+        public void AppendContractText(Customer customer)
+        {
+            Application app;
+            Document doc;
+            string docPath;
+            lock (_threadLock)
+            {
+                BuildData(customer);
+                app = new Application();
+                doc = app.Documents.Open(Path.Combine(@"C:\Users\Yuri.Pustovoy\Documents\Visual Studio 2017\Projects\AutoRepairShop\AutoRepairShop\bin\Debug\AutoRepairContract.docx"));
+                docPath = Path.Combine(
+                    @"D:\test",
+                    $"AgreementsFor_{TimeTool.GetGameTime().ToString(FileFolderManagementService.DatetimeFormat)}",
+                    $"AutoRepairAgreement_{customer.Get_Name()}_{TimeTool.GetGameTime().ToString(FileFolderManagementService.DatetimeFormat)}.docx");
+                customer.MyAgreement.DocPath = docPath;
+                doc.SaveAs(docPath);
+                app.Quit();
+            }
+            app = new Application();
+            doc = app.Documents.Open(customer.MyAgreement.DocPath);
             Dictionary<string, string> bookmarks =
                 new Dictionary<string, string>
-                { {"Amount", ShopManager.Lucy.ApproximateCost().ToString()},
+                { {"Amount", ShopManager.Lucy.ApproximateCost(customer).ToString()},
                     { "Date", TimeTool.GetGameTime().Date.ToString()},
-                    { "Name", ShopManager.CurrentCustomer.Name},
-                    { "Owner", ShopManager.CurrentCustomer.Name} };
+                    { "Name", customer.Name},
+                    { "Owner", customer.Name} };
 
             foreach (var bookmark in bookmarks)
             {
@@ -31,135 +81,52 @@ namespace AutoRepairShop.Services
 
             Bookmark services = doc.Bookmarks["Work"];
             Range tableRange = services.Range;
-            var tableLength = ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count +
-                              ShopManager.CurrentCustomer.MyAgreement.PartsToReplace.Count + 3;
+            var tableLength = customer.MyAgreement.PartsToRepair.Count +
+                              customer.MyAgreement.PartsToReplace.Count + 3;
             var oTable = doc.Tables.Add(tableRange, tableLength, 4);
             oTable.Range.ParagraphFormat.SpaceAfter = 1;
-            int r, c;
-            StringBuilder sb = new StringBuilder();
-            oTable.Cell(1, 1).Range.Text = "Service";
-            oTable.Cell(1, 2).Range.Text = "Part";
-            oTable.Cell(1, 3).Range.Text = "Part Cost";
-            oTable.Cell(1, 4).Range.Text = "Service Cost";
-            oTable.Cell(2, 1).Range.Text = "Diagnostics";
-            oTable.Cell(2, 4).Range.Text = ShopManager.ServicesCatalogue["Diagnoze"].ToString();
-            if (ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count != 0)
-            {
-                var part = 0;
-                for (r = 3; r <= ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count + 2; r++)
-                {
-                    for (c = 1; c <= 4; c++)
-                    {
-                        switch (c)
-                        {
-                            case 1:
-                            {
-                                sb.Append($"Repair");
-                                oTable.Cell(r, c).Range.Text = sb.ToString();
-                                sb.Clear();
-                                    break;
-                            }
-                            case 2:
-                            {                             
-                                sb.Append($"{ShopManager.CurrentCustomer.MyAgreement.PartsToRepair[part].Name}");
-                                part++;
-                                oTable.Cell(r, c).Range.Text = sb.ToString();
-                                sb.Clear();
-                                    break;
-                            }
-                            case 3:
-                            {
-                                break;
-                            }
-                            case 4:
-                            {
-                                sb.Append($"{ShopManager.ServicesCatalogue["Repair"]}");
-                                oTable.Cell(r, c).Range.Text = sb.ToString();
-                                sb.Clear();
-                                    break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (ShopManager.CurrentCustomer.MyAgreement.PartsToReplace.Count != 0)
-            {
-                var part = 0;
-                for (r = ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count + 3; r <= ShopManager.CurrentCustomer.MyAgreement.PartsToReplace.Count + 2 + ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count; r++)
-                {
-                    for (c = 1; c <= 4; c++)
-                    {
-                        switch (c)
-                        {
-                            case 1:
-                            {
-                                sb.Append("Replace");
-                                oTable.Cell(r, c).Range.Text = sb.ToString();
-                                sb.Clear();
-                                    break;
-                            }
-                            case 2:
-                            {
-                                sb.Append($"{ShopManager.CurrentCustomer.MyAgreement.PartsToReplace[part].Name}");
-                                oTable.Cell(r, c).Range.Text = sb.ToString();
-                                sb.Clear();
-                                    break;
-                            }
-                            case 3:
-                            {
-                                sb.Append($"{ShopManager.CurrentCustomer.MyAgreement.PartsToReplace[part].Cost}");
-                                oTable.Cell(r, c).Range.Text = sb.ToString();
-                                sb.Clear();
-                                part++;
-                                    break;
-                            }
-                            case 4:
-                            {
-                                sb.Append($"{ShopManager.ServicesCatalogue["Replace"]}");
-                                oTable.Cell(r, c).Range.Text = sb.ToString();
-                                sb.Clear();
-                                    break;
-                            }
-                        }
-                    }
-                }
-            }         
-            oTable.Cell(tableLength, 3).Range.Text = "TOTAL";
-            var total = ShopManager.CurrentCustomer.MyAgreement.PartsToRepair.Count *
-                           ShopManager.ServicesCatalogue["Repair"];
-            foreach (var carPart in ShopManager.CurrentCustomer.MyAgreement.PartsToReplace)
-            {
-                total += carPart.Cost;
-                total += ShopManager.ServicesCatalogue["Replace"];
-            }
-            oTable.Cell(tableLength, 4).Range.Text = total.ToString();
-            oTable.Rows[tableLength].Range.Font.Bold = 1;
-            oTable.Rows[1].Range.Font.Bold = 1;
-            string docPath = Path.Combine(
-                @"D:\test",
-                $"AgreementsFor_{TimeTool.GetGameTime().ToString(FileFolderManagementService.DatetimeFormat)}",
-                $"AutoRepairAgreement_{ShopManager.CurrentCustomer.Get_Name()}_{TimeTool.GetGameTime().ToString(FileFolderManagementService.DatetimeFormat)}.docx");
-            ShopManager.CurrentCustomer.MyAgreement.DocPath = docPath;
-            doc.SaveAs(docPath);
+           
+            EditTable(oTable, tableLength, 4, servicesList);
+         
+            doc.SaveAs(customer.MyAgreement.DocPath);
             app.Quit();
         }
 
-        public void AddMoreServices(string service, string part, string partCost, string serviceCost, string path)
+        public void EditTable(Table oTable, int columnLength, int rowLength, List<List<string>> data)
+        {
+            for (int i = 0; i < columnLength; i++)
+            {
+                EditRow(oTable, i+1, rowLength, data[i]);
+            }
+        }
+
+        public void EditRow(Table oTable, int row, int rowLength, List<string> text) 
+        {
+            for (int i = 0; i < rowLength; i++)
+            {
+                EditCell(oTable, row, i+1, text[i]);
+            }
+
+        }
+
+        public void EditCell(Table oTable, int row, int column, string text)
+        {
+            oTable.Cell(row, column).Range.Text = text;
+        }
+
+        public void AddMoreServices(string service, string part, string partCost, string serviceCost, string path, Customer customer)
         {
             Application app = new Application();
             Document doc = app.Documents.Open(path);
             Table servicesTable = app.ActiveDocument.Tables[2];
             var selectedRow = servicesTable.Rows.Count;
             app.Visible = true;
-            servicesTable.Cell(selectedRow, 1).Range.Text = service;
-            servicesTable.Cell(selectedRow, 2).Range.Text = part;
-            servicesTable.Cell(selectedRow, 3).Range.Text = partCost;
-            servicesTable.Cell(selectedRow, 4).Range.Text = serviceCost;
+            List<string> additionalService = new List<string>() {service, part, partCost, serviceCost};
+            EditRow(servicesTable, selectedRow, 4, additionalService);
             servicesTable.Rows.Add();
             selectedRow = servicesTable.Rows.Count;
-            servicesTable.Cell(selectedRow, 3).Range.Text = "TOTAL";
-            servicesTable.Cell(selectedRow, 4).Range.Text = (ShopManager.CurrentCustomer.MyAgreement.TotalPartCost+ ShopManager.CurrentCustomer.MyAgreement.TotalServicesCost).ToString();
+            EditCell(servicesTable, selectedRow, 3, "TOTAL");
+            EditCell(servicesTable, selectedRow, 4, customer.MyAgreement.GetTotal().ToString());
             doc.SaveAs(path);
             app.Quit();
         }

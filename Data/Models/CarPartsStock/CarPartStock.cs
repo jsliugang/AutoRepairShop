@@ -6,10 +6,10 @@ using AutoRepairShop.Data.Repository;
 
 namespace AutoRepairShop.Data.Models.CarPartsStock
 {
-    class CarPartStock<T> : IStock<CarPart>
+    internal class CarPartStock<T> : IStock<CarPart>
     {
         public List<CarPart> Stock = new List<CarPart>();
-        protected Random rand = new Random();
+        protected Random Rand = new Random();
 
         public CarPart ProvideItem()
         {
@@ -29,20 +29,7 @@ namespace AutoRepairShop.Data.Models.CarPartsStock
 
         public byte SetRandomDurability()
         {
-            // TEST CODE
-            //byte temp;
-            //if (rand.NextDouble() > 0.2)
-            //{
-            //    temp = (byte)rand.Next(60, 101);
-            //    Console.WriteLine($"Durability set to {temp}");
-            //}
-            //else
-            //{
-            //    temp = 0;
-            //    Console.WriteLine($"Durability set to {temp}");
-            //}
-            //return temp;
-            return rand.NextDouble() > 0.2 ? (byte)rand.Next(60, 101) : (byte)0;
+            return Rand.NextDouble() > 0.2 ? (byte)Rand.Next(60, 101) : (byte)0;
         }
     }
 }

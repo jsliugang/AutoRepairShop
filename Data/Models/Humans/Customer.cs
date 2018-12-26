@@ -7,6 +7,7 @@ using AutoRepairShop.WorkFlow;
 using AutoRepairShop.Data.Models.CarTypes;
 using AutoRepairShop.Data.Repository;
 using AutoRepairShop.Tools;
+using Microsoft.Office.Interop.Word;
 using Timer = System.Timers.Timer;
 
 namespace AutoRepairShop.Data.Models.Humans
@@ -101,7 +102,7 @@ namespace AutoRepairShop.Data.Models.Humans
             {
                 ShopManager.AcceptPayment(1000);
             }
-            RepairAutomationTool.RemoveDisappointedCustomer(this);
+            ShopManager.RemoveDisappointedCustomer(this);
         }
 
         private async void GoToRepairShop()
@@ -129,17 +130,14 @@ namespace AutoRepairShop.Data.Models.Humans
             Console.ResetColor();
         }
 
-        public void LeaveShop()
+        public async Task<bool> LeaveShopAsync()
         {
-            Say("I think that is it for today, Lucy, I have to go, see you later!");
-            ShopManager.ReleaseCustomer(this);
+            Say("I think that is it for today, Lucy! What is my total?");
+            bool result = await ShopManager.ReleaseCustomerAsync(this);
+            if (!result) return false;
             SetCheckCarTimer();
-        }
-
-        public void ComplimentLucy()
-        {
-            Say("You look great today, Lucy!");
-            ShopManager.Thank();
+            Say($"{Name}: Bye bye, Lucy...");
+            return true;
         }
    
         public void MakePayment()
@@ -153,52 +151,15 @@ namespace AutoRepairShop.Data.Models.Humans
             MyCar = car;
         }
 
-        public void MakeDiagnosticsOrder()
-        {
-            Say($"Please diagnoze my {MyCar.Name}, I need to know what is broken");
-            ShopManager.ProcessOrder(1, "", this);
-        }
-
-        public void RepairBrokenParts()
-        {
-            Say($"Please repair all the broken parts of my {MyCar.Name}.");
-            foreach (var carPart in MyAgreement.PartsToRepair)
-            {
-                ShopManager.ProcessOrder(2, carPart.Name, this);
-            }
-        }
-
-        public void PimpMyCar(string modificationType)
-        {
-            Say($"Xzibit, pimp my {MyCar.Name}!!");
-            ShopManager.ProcessOrder(3, modificationType, this);
-        }
-
-        public void ReplaceBrokenParts()
-        {
-            Say($"Replace all broken parts in {MyCar.Name}, please...");
-            foreach (var carPart in MyAgreement.PartsToReplace)
-            {
-                ShopManager.ProcessOrder(4, carPart.Name, this);
-            }
-        }
-
-        public void ReplaceLiquids()
-        {
-            Say($"Replace all the liquids in {MyCar.Name}, please...");
-            ShopManager.ProcessOrder(5, "", this);
-        }
-
         public int CompareTo(Customer other)
         {
             if (MyDiscounts.Priority < other.MyDiscounts.Priority) return -1;
-            if (MyDiscounts.Priority > other.MyDiscounts.Priority) return 1;
-            return 0;
+            return MyDiscounts.Priority > other.MyDiscounts.Priority ? 1 : 0;
         }
 
         public void SetWaitForServicesTimer()
         {
-            WaitForService = new Timer(TimeTool.ConvertToRealTime(72*TimeTool.Thousand));
+            WaitForService = new Timer(TimeTool.ConvertToRealTime(72)*TimeTool.Thousand);
             WaitForService.Elapsed += OnScandalEvent;
             WaitForService.AutoReset = false;
             WaitForService.Enabled = true;
@@ -208,8 +169,7 @@ namespace AutoRepairShop.Data.Models.Humans
         {
             Say($"{Name}: THIS IS NOT GOING ANYWHERE!!!! I have been waiting for 3 days already!");
             Say($"{Name} slams the door and leaves the Auto Repair Shop");
-            //ShopManager.HandleProblematicCustomer(this);
-            RepairAutomationTool.RemoveDisappointedCustomer(this);
+            ShopManager.RemoveDisappointedCustomer(this);
         }
 
         public void StopWaitForServicesTimer()

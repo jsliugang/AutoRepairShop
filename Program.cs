@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 using AutoRepairShop.Services;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
-using Microsoft.Office.Interop.Word;
 using Task = System.Threading.Tasks.Task;
 
 namespace AutoRepairShop
@@ -25,7 +24,7 @@ namespace AutoRepairShop
                 SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
                 WeeklyPaymentService wps = new WeeklyPaymentService();
                 MonthlyPaymentService mps = new MonthlyPaymentService();
-                RepairAutomationTool repairAutomationTool = new RepairAutomationTool();
+                ShopManager.Lucy.Greet();
             });
         }
 

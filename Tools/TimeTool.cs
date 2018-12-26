@@ -20,6 +20,7 @@ namespace AutoRepairShop.Tools
         private readonly DateTime _gameStartRealTime;
         private readonly DateTime _gameStartGameTime;
         public static Random Rand = new Random();
+        private static object _threadLock = new object();
 
         private TimeTool()
         {
@@ -87,13 +88,13 @@ namespace AutoRepairShop.Tools
             _nextDayTimer.Elapsed += OnDayEndEvent;
             _nextDayTimer.AutoReset = false;
             _nextDayTimer.Enabled = true;
-            RepairAutomationTool.AddNewCustomers(2);
+            ShopManager.AddNewCustomers(2);
            
         }
 
         private static void OnDayEndEvent(Object source, ElapsedEventArgs e)
         {
-            ShopManager.Dss.Display();
+            //ShopManager.Dss.Display();
             ShopManager.Dss.Clear();
             SetNextDayTimer(120);
             GetGameTimeToScreen();
@@ -102,8 +103,11 @@ namespace AutoRepairShop.Tools
 
         public static int ConvertToRealTime(double gameHours)
         {
-            var secondsRealTime = (int)(gameHours * 3600) / 720;
-            return secondsRealTime;
+            lock (_threadLock)
+            {
+                var secondsRealTime = (int)(gameHours * 3600) / 720;
+                return secondsRealTime;
+            }
         }
 
         public static void GetGameTimeToScreen()

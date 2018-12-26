@@ -6,19 +6,17 @@ using AutoRepairShop.Tools;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    internal class RmVano : RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplace<RepairMan>,
-        ICanReplaceFluids<RepairMan>
+    internal class RmLeha: RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanCustomize<RepairMan>, ICanReplaceFluids<RepairMan>
     {
-        public static readonly RmVano Vano = new RmVano();
-
-        int ICanReplace<RepairMan>.Priority { get; } = 1;
+        public static readonly RmLeha Leha = new RmLeha();
+        int ICanCustomize<RepairMan>.Priority { get; } = 1;
         int ICanDiagnoze<RepairMan>.Priority { get; } = 1;
         int ICanRepair<RepairMan>.Priority { get; } = 1;
         int ICanReplaceFluids<RepairMan>.Priority { get; } = 3;
 
-        private RmVano()
+        private RmLeha()
         {
-            Name = "Vano";
+            Name = "Leha";
         }
 
         public override int ReplaceFluid(Car car, ConsoleColor clr)

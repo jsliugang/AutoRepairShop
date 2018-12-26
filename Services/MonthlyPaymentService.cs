@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using System.Timers;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
@@ -23,6 +23,7 @@ namespace AutoRepairShop.Services
         {
             _paymentTimer = new Timer(TimeTool.ConvertToRealTime(672) * TimeTool.Thousand);
             _paymentTimer.Elapsed += OnMonthlyPaymentEvent;
+            _paymentTimer.Elapsed += OnMonthlyPartsRequestAsync;
             _paymentTimer.AutoReset = true;
             _paymentTimer.Enabled = true;
         }
@@ -35,6 +36,16 @@ namespace AutoRepairShop.Services
             Console.WriteLine("Bribes have been paid in full!");
             _lastMonthBalance = ShopManager.Balance;
             PaySalary();
+        }
+
+        private static async void OnMonthlyPartsRequestAsync(Object source, ElapsedEventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                ShopManager.RequestParts();
+                //lock and clear parts used list
+                // TODO: make payment
+            });
         }
 
         private static void PaySalary()
