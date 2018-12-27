@@ -1,10 +1,9 @@
 ﻿namespace AutoRepairShop.Data.Models.CarTypes
 {
-    interface ICentralLock
+    internal interface ICentralLock
     {
         bool IsWorking { get; set; }
         bool CarIsLocked { get; set; }
-
         void CarLock();
     }
 }

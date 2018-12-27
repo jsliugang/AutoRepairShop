@@ -2,24 +2,14 @@
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
-    class TractorBuilder:CarBuilder
+    internal class TractorBuilder:CarBuilder
     {
-        public TractorBuilder(bool random):base(random)
+        public TractorBuilder()
         {
             Car = new Tractor();
-            if (random)
-            {
-                RandomCarName();
-            }
-            else
-            {
-                ProcessNamingInput();
-            }
+            RandomCarName();
         }
 
-        public override void CreateCar()
-        {
-        }
         protected override void SetCarNamesList()
         {
             CarNames.Add("Ursus 11054");

@@ -1,8 +1,8 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class SpinnersMod:CarPart
+    internal class SpinnersMod:CarPart
     {
-        public SpinnersMod(bool state) : base("Spinners", state)
+        public SpinnersMod(byte durability) : base("Spinners", durability)
         {
             Cost = 500;
         }

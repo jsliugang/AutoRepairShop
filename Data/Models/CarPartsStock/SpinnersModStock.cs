@@ -2,18 +2,18 @@
 
 namespace AutoRepairShop.Data.Models.CarPartsStock
 {
-    class SpinnersModStock: CarPartStock<SpinnersMod>
+    internal class SpinnersModStock: CarPartStock<SpinnersMod>
     {
         public SpinnersModStock()
         {
-            Add(5);
+            AddMany(5);
         }
 
-        public override void Add(int amount)
+        public override void AddMany(int amount)
         {
-            for (int i = 0; i < amount; i++)
+            for (var i = 0; i < amount; i++)
             {
-                Stock.Add(new SpinnersMod(true));
+                Stock.Add(new SpinnersMod(SetRandomDurability()));
             }
         }
     }

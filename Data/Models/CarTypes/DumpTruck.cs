@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarTypes
 {
-    class DumpTruck:TruckCar
+    internal class DumpTruck:TruckCar
     {
     }
 }

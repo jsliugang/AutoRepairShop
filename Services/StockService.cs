@@ -2,7 +2,7 @@
 
 namespace AutoRepairShop.Services
 {
-    class StockManager:GarageStockManager
+    internal class StockManager:GarageStockManager
     {
         public bool Read(string partName)
         {

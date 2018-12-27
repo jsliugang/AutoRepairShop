@@ -1,8 +1,8 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class CarburetorPart:CarPart
+    internal class CarburetorPart:CarPart
     {
-        public CarburetorPart(bool state) : base("Carburetor", state)
+        public CarburetorPart(byte durability) : base("Carburetor", durability)
         {
             Cost = 100;
         }

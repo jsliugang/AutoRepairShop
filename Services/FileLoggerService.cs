@@ -2,11 +2,10 @@
 using System.Globalization;
 using System.IO;
 using AutoRepairShop.Tools;
-using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Services
 {
-    class LoggerService
+    internal class FileLoggerService
     {
         public void StoreLog(string logMessage)
         {
@@ -34,7 +33,6 @@ namespace AutoRepairShop.Services
 
         public void DumpLog()
         {
-            string currentTime = ShopManager.WhatTimeIsItNow().ToString();
             using (StreamReader r = File.OpenText("LucyLog.txt"))
             {
                 DumpLog(r);

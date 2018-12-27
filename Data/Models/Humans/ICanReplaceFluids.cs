@@ -2,8 +2,9 @@
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    interface ICanReplaceFluids<T> : ICanBase where T : class
+    internal interface ICanReplaceFluids<T> : ICanBase where T : class
     {
-        int ReplaceFluid(Car car, string liquid);
+        int Priority { get; }
+        int ReplaceFluid(Car car);
     }
 }

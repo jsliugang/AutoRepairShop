@@ -1,20 +1,24 @@
 ﻿using System;
-using System.Linq;
-using AutoRepairShop.Data.Models.CarParts;
+using System.Collections.Generic;
 using AutoRepairShop.Data.Models.Humans;
 using AutoRepairShop.Data.Repository;
+using AutoRepairShop.Services;
 using AutoRepairShop.WorkFlow;
 
 namespace AutoRepairShop.Tools
 {
     internal sealed class RepairAutomationTool
     {
-        public static readonly CarMaker _cm = new CarMaker();
+        public static readonly CarMaker Cm = new CarMaker();
+        public static List<Customer> DefaultCustomerList;
+        public static Random Rand = new Random();
 
         public RepairAutomationTool()
         {
-            TimeTool.TimeInstance.GetGameTimeToScreen();
             ShopManager.Lucy.Greet();
+            FileFolderManagementService.CreateFolder();
+            AddNewCustomers(100);
+            TimeTool.TimeInstance.SetTimers();
             CheckQueue();
         }
 
@@ -22,61 +26,52 @@ namespace AutoRepairShop.Tools
         {
             while (true)
             {
-                int i = CustomerQueue<Customer>.Length;
-                if (i==0) continue;
-                ShopManager.AcceptNewCustomer(CustomerQueue<Customer>.Pop());
+                if (ShopManager.CustomersOnHold.Count != 0)
+                {
+                    ShopManager.ResumeWorkingWithCustomer(CustomerQueue<Customer>.Peek(ShopManager.CustomersOnHold));
+                }
+                if (ShopManager.Customers.Count == 0)
+                {
+                    continue;
+                }
+                ShopManager.AcceptNewCustomer(CustomerQueue<Customer>.Peek(ShopManager.Customers));
             }
+        }
+
+        public static void AddNewCustomers(int count)
+        {
+            DefaultCustomerList = new List<Customer>();
+            for (var i = 0; i < count; i++)
+            {
+                var newCustomer = new Customer(Cm.MakeCar());
+                newCustomer.Say($"{newCustomer.Name}: I heard this is a great place to repair my car. I might consider coming soon...");
+                CustomerQueue<Customer>.Enqueue(newCustomer, DefaultCustomerList);
+            }
+        }
+
+        public static void RemoveDisappointedCustomer(Customer customer)
+        {
+            CustomerQueue<Customer>.Remove(DefaultCustomerList, customer);
         }
 
         public static void MakeRepairChoice()
         {
-            Random rand = new Random();
-            ShopManager.CurrentCustomer.MakeDiagnosticsOrder();
-            foreach (CarPart carPart in ShopManager.CurrentCustomer.MyCar.CarContent)
-            {
-                if (!ShopManager.WorkingHours())
-                {
-                    TimeTool.TimeInstance.SetNextDayTimer();
-                }
-                if (carPart.IsWorking) continue;
+            ShopManager.CurrentCustomer.RepairBrokenParts();
+            ShopManager.CurrentCustomer.ReplaceBrokenParts();
 
-                if (rand.NextDouble() > 0.5)
+           if (ShopManager.WorkingHours())
+           {
+                if (Rand.NextDouble() > 0.5)
                 {
-                    ShopManager.CurrentCustomer.MakeRepairOrder(carPart.Name);
+                    ShopManager.CurrentCustomer.PimpMyCar(ShopManager.ModificationsOffer[Rand.Next(0, ShopManager.ModificationsOffer.Count)]);
                 }
                 else
                 {
-                    ShopManager.CurrentCustomer.ReplaceBrokenParts(carPart.Name);
+                    ShopManager.CurrentCustomer.ReplaceLiquids();
                 }
-            }
-
-            if (!ShopManager.WorkingHours())
-            {
-                TimeTool.TimeInstance.SetNextDayTimer();
-            }
-
-            if (rand.NextDouble() > 0.5)
-            {
-                ShopManager.CurrentCustomer.PimpMyCar(ShopManager.ModificationsOffer[rand.Next(0, ShopManager.ModificationsOffer.Count)]);
-            }
-            else
-            {
-                int randomLiquid = rand.Next(0, ShopManager.CurrentCustomer.MyCar.CarLiquids.CarLiquids.Count);
-                ShopManager.CurrentCustomer
-                    .ReplaceLiquids(ShopManager.CurrentCustomer
-                        .MyCar.CarLiquids.CarLiquids.Keys.ElementAt(randomLiquid));
-            }
-
-            ShopManager.CurrentCustomer.LeaveShop();
+           }
+           ShopManager.CurrentCustomer.LeaveShop();
         }
-
-        public static void AddCustomer()
-        {
-            if (ShopManager.WorkingHours())
-                CustomerQueue<Customer>.Enqueue(new Customer(_cm.MakeRandomCar()));
-            else
-                ShopManager.ShopIsClosed();
-        }   
 
         public void PrintMessage(string message)
         {

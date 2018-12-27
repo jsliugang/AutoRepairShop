@@ -2,18 +2,18 @@
 
 namespace AutoRepairShop.Data.Models.CarPartsStock
 {
-    class RadiatorPartStock: CarPartStock<RadiatorPart>
+    internal class RadiatorPartStock: CarPartStock<RadiatorPart>
     {
         public RadiatorPartStock()
         {
-            Add(5);
+            AddMany(5);
         }
 
-        public override void Add(int amount)
+        public override void AddMany(int amount)
         {
-            for (int i = 0; i < amount; i++)
+            for (var i = 0; i < amount; i++)
             {
-                Stock.Add(new RadiatorPart(true));
+                Stock.Add(new RadiatorPart(SetRandomDurability()));
             }
         }
     }

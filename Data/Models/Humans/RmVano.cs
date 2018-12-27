@@ -1,39 +1,33 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
-using AutoRepairShop.Data.Models.CarParts;
 using AutoRepairShop.Data.Models.CarTypes;
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    class RmVano:RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplace<RepairMan>
+    internal class RmVano : RepairMan, ICanDiagnoze<RepairMan>, ICanRepair<RepairMan>, ICanReplace<RepairMan>,
+        ICanReplaceFluids<RepairMan>
     {
         public static readonly RmVano Vano = new RmVano();
+
+        int ICanReplace<RepairMan>.Priority { get; } = 1;
+        int ICanDiagnoze<RepairMan>.Priority { get; } = 1;
+        int ICanRepair<RepairMan>.Priority { get; } = 1;
+        int ICanReplaceFluids<RepairMan>.Priority { get; } = 3;
 
         private RmVano()
         {
             Name = "Vano";
         }
 
-        public int ReplacePart(string partName, Car car)
+        public override int ReplaceFluid(Car car)
         {
-            CarPart newPart = CheckPartAvailability(partName);
-            CarPart oldPart = car.CarContent.Find(x => x.Name == partName);
-            if (newPart != null)
-            {
-                Disassemble(oldPart);
-                Thread.Sleep(5000);
-                car.CarContent.Find(x => x.Name == partName).IsWorking = newPart.IsWorking;
-                Console.WriteLine($"Replacing the broken part with new one!");
-                Thread.Sleep(10000);
-                Assemble(oldPart);
-                return oldPart.Cost;
-            }
-            Console.WriteLine($"{Name}: {oldPart.Name} is not in garage, we have to request it from Stock.");
-            if (RequestPartFromStock(oldPart.Name))
-            {
-                return ReplacePart(oldPart.Name, car);
-            }
-            return 0;
-        }       
+            Console.WriteLine($"{Name}: Replacing fluids.");
+            for (var i = 0; i < car.CarLiquids.CarLiquids.Count; i++)
+                car.CarLiquids.UpdateAmount(car.CarLiquids.CarLiquids.ElementAt(i).Key, 75);
+            Thread.Sleep(15000);
+            Console.WriteLine($"{Name}: All done!");
+            return 150;
+        }
     }
 }

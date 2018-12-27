@@ -2,18 +2,18 @@
 
 namespace AutoRepairShop.Data.Models.CarPartsStock
 {
-    class SpoilerModStock: CarPartStock<SpoilerMod>
+    internal class SpoilerModStock: CarPartStock<SpoilerMod>
     {
         public SpoilerModStock()
         {
-            Add(5);
+            AddMany(5);
         }
 
-        public override void Add(int amount)
+        public override void AddMany(int amount)
         {
-            for (int i = 0; i < amount; i++)
+            for (var i = 0; i < amount; i++)
             {
-                Stock.Add(new SpoilerMod(true));
+                Stock.Add(new SpoilerMod(SetRandomDurability()));
             }
         }
     }

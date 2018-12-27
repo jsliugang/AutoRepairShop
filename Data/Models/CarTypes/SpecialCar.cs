@@ -1,7 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarTypes
 {
-    abstract class SpecialCar:Car
+    internal abstract class SpecialCar:Car
     {
-
     }
 }

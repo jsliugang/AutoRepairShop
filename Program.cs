@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
+using AutoRepairShop.Services;
 using AutoRepairShop.Tools;
 using AutoRepairShop.WorkFlow;
 
@@ -12,6 +12,8 @@ namespace AutoRepairShop
         {
             MsgDecoratorTool.PrintCustomMessage("Welcome to the Repair Shop!", ConsoleColor.Green, ConsoleColor.Black);
             SetConsoleCtrlHandler(ConsoleCtrlCheck, true);
+            WeeklyPaymentService wps = new WeeklyPaymentService();
+            MonthlyPaymentService mps = new MonthlyPaymentService();
             RepairAutomationTool repairAutomationTool = new RepairAutomationTool();
         }
 

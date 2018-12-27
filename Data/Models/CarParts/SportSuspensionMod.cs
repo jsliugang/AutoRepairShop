@@ -1,8 +1,8 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class SportSuspensionMod:CarPart
+    internal class SportSuspensionMod:CarPart
     {
-        public SportSuspensionMod(bool state) : base("SportSuspension", state)
+        public SportSuspensionMod(byte durability) : base("SportSuspension", durability)
         {
             Cost = 1230;
         }

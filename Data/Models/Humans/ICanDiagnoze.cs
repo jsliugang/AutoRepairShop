@@ -2,8 +2,9 @@
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    interface ICanDiagnoze<T>:ICanBase where T : class
+    internal interface ICanDiagnoze<T>:ICanBase where T : class
     {
+        int Priority { get; }
         void DiagnozeCar(Car car);
     }
 }

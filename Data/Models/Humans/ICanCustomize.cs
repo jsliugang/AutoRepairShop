@@ -2,9 +2,9 @@
 
 namespace AutoRepairShop.Data.Models.Humans
 {
-    interface ICanCustomize<T>: ICanBase where T:class 
+    internal interface ICanCustomize<T>: ICanBase where T:class 
     {
-        int Modify(Car car, string modificationType);
-        int PerformModification(string partName, Car car);
+        int Priority { get; }
+        void Modify(string modificationType, Car car);
     }
 }

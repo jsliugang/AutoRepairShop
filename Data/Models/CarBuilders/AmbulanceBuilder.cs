@@ -2,22 +2,13 @@
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
-    class AmbulanceBuilder:CarBuilder
+    internal class AmbulanceBuilder:CarBuilder
     {
-
-        public AmbulanceBuilder(bool random):base(random)
+        public AmbulanceBuilder()
         {
             Car = new Ambulance();
-            if (random)
-            {
-                RandomCarName();
-            }
-            else
-            {
-                ProcessNamingInput();
-            }
+            RandomCarName();
         }
-
         protected override void SetCarNamesList()
         {
             CarNames.Add("Emergency 911 Ambulance");

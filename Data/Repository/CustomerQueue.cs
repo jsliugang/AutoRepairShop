@@ -1,76 +1,99 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Schema;
 using AutoRepairShop.Data.Models.Humans;
 
 namespace AutoRepairShop.Data.Repository
 {
-    class CustomerQueue<T> where T : IComparable<T>
+    internal class CustomerQueue<T> where T : IComparable<T>
     {
-        private static List<T> _customers;
-        public static int Length => _customers.Count;
-    
-        
-
-        static CustomerQueue()
+        public static void Enqueue(T item, List<T> currentList)
         {
-            _customers = new List<T>();
+            lock (currentList)
+            {
+                currentList.Add(item);
+                var ci = currentList.Count - 1;
+                while (ci > 0)
+                {
+                    var pi = (ci - 1) / 2;
+                    if (currentList[ci].CompareTo(currentList[pi]) >= 0)
+                        break;
+                    var tmp = currentList[ci];
+                    currentList[ci] = currentList[pi];
+                    currentList[pi] = tmp;
+                    ci = pi;
+                }
+            }           
         }
 
-        public static void Enqueue(T item)
+        public static T Dequeue(List<T> currentList)
         {
-            _customers.Add(item);
-            int ci = _customers.Count - 1;
-            while (ci > 0)
+            lock (currentList)
             {
-                int pi = (ci - 1) / 2;
-                if (_customers[ci].CompareTo(_customers[pi]) >= 0)
-                    break;
-                T tmp = _customers[ci]; _customers[ci] = _customers[pi]; _customers[pi] = tmp;
-                ci = pi;
+                if (currentList.Count == 0)
+                    return default(T);
+                var li = currentList.Count - 1;
+                var frontItem = currentList[0];
+                currentList[0] = currentList[li];
+                currentList.RemoveAt(li);
+                --li;
+                var pi = 0;
+                while (true)
+                {
+                    var ci = pi * 2 + 1;
+                    if (ci > li) break;
+                    var rc = ci + 1;
+                    if (rc <= li && currentList[rc].CompareTo(currentList[ci]) < 0)
+                        ci = rc;
+                    if (currentList[pi].CompareTo(currentList[ci]) <= 0) break;
+                    var tmp = currentList[pi];
+                    currentList[pi] = currentList[ci];
+                    currentList[ci] = tmp;
+                    pi = ci;
+                }
+                return frontItem;
+            }           
+        }
+
+        public static T Read(int pos, List<T> currentList)
+        {
+            return pos < currentList.Count ? currentList[pos] : currentList[0];
+        }
+
+        public static T Peek(List<T> currentList)
+        {
+            return currentList.Count == 0 ? default(T) : currentList[0];
+        }
+
+        public static bool Empty(List<T> currentList)
+        {
+            lock (currentList)
+            {
+                return currentList.Count == 0;
             }
         }
 
-        public static T Dequeue()
+        public static bool Contains(List<T> currentList, T item)
         {
-            // Assumes pq isn't empty
-            int li = _customers.Count - 1;
-            T frontItem = _customers[0];
-            _customers[0] = _customers[li];
-            _customers.RemoveAt(li);
+            return currentList.Contains(item);
+        }
 
-            --li;
-            int pi = 0;
-            while (true)
+        public static void Remove(List<T> currentList, T item)
+        {
+            lock (currentList)
             {
-                int ci = pi * 2 + 1;
-                if (ci > li) break;
-                int rc = ci + 1;
-                if (rc <= li && _customers[rc].CompareTo(_customers[ci]) < 0)
-                    ci = rc;
-                if (_customers[pi].CompareTo(_customers[ci]) <= 0) break;
-                T tmp = _customers[pi]; _customers[pi] = _customers[ci]; _customers[ci] = tmp;
-                pi = ci;
+                if (currentList.Contains(item))
+                    currentList.RemoveAt(currentList.IndexOf(item));
             }
-            return frontItem;
         }
 
-        public static T Read(int pos)
+        public static void Display(List<Customer> currentList)
         {
-            if (pos < _customers.Count)
-                return _customers[pos];
-            return _customers[0];
-        }
+            lock (currentList)
+            {
+                foreach (var item in currentList)
+                    Console.Write($"Customer in line: {item.Name}, priority - {item.MyDiscounts.Priority} \n");
+            }
 
-        public static T Pop()
-        {
-            return _customers[0];
-        }
-
-        public static bool Empty()
-        {
-            return _customers.Count == 0;
         }
     }
-
 }

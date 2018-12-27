@@ -2,24 +2,14 @@
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
-    class WagonBuilder:CarBuilder
+    internal class WagonBuilder:CarBuilder
     {
-        public WagonBuilder(bool random):base(random)
+        public WagonBuilder()
         {
             Car = new Wagon();
-            if (random)
-            {
-                RandomCarName();
-            }
-            else
-            {
-                ProcessNamingInput();
-            }
+            RandomCarName();
         }
 
-        public override void CreateCar()
-        {
-        }
         protected override void SetCarNamesList()
         {
             CarNames.Add("Lada Granta");

@@ -4,7 +4,7 @@ using AutoRepairShop.Data.Models.CarPartsStock;
 
 namespace AutoRepairShop.Data.Repository
 {
-    class GarageStockManager
+    internal class GarageStockManager
     {
         protected Dictionary<string, IStock<CarPart>> StockManagers = new Dictionary<string, IStock<CarPart>>();
 
@@ -28,6 +28,7 @@ namespace AutoRepairShop.Data.Repository
             StockManagers.Add("TitaniumWipers", new TitaniumWipersModStock());
             StockManagers.Add("Wheels", new WheelsPartStock());
         }
+
         public CarPart RetrieveNewCarPart(string type)
         {
             return StockManagers[type].ProvideItem();
@@ -35,7 +36,7 @@ namespace AutoRepairShop.Data.Repository
 
         public void AddPartFromStock(string type)
         {
-            StockManagers[type].Add(1);
+            StockManagers[type].AddMany(1);
         }
     }
 }

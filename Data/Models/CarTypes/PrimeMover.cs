@@ -1,6 +1,6 @@
 ﻿namespace AutoRepairShop.Data.Models.CarTypes
 {
-    class PrimeMover:TruckCar
+    internal class PrimeMover:TruckCar
     {
     }
 }

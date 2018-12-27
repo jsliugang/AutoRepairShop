@@ -1,18 +1,17 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class EnginePart:CarPart
+    internal class EnginePart:CarPart
     {
-        public EnginePart(bool state) : base("Engine", state)
+        public EnginePart(byte durability) : base("Engine", durability)
         {
             Cost = 3000;
         }
 
         public bool CheckFuel(Liquids carLiquids)
         {
-            byte fuelLevel;
+            int fuelLevel;
             carLiquids.CarLiquids.TryGetValue("Fuel", out fuelLevel);
-
-            return fuelLevel >= 1;
+            return fuelLevel > 0;
         }
     }
 }

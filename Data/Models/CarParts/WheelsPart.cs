@@ -1,8 +1,8 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class WheelsPart:CarPart
+    internal class WheelsPart:CarPart
     {
-        public WheelsPart(bool state) : base("Wheels", state)
+        public WheelsPart(byte durability) : base("Wheels", durability)
         {
             Cost = 500;
         }

@@ -32,8 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\CourtServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Data\Lists\CanCustomizeList.cs" />
     <Compile Include="Data\Lists\CanDiagnozeList.cs" />
     <Compile Include="Data\Lists\CanRepairList.cs" />
@@ -65,7 +75,13 @@
     <Compile Include="Data\Models\Humans\ICanRepair.cs" />
     <Compile Include="Data\Models\Humans\ICanReplace.cs" />
     <Compile Include="Data\Models\Humans\ICanReplaceFluids.cs" />
+    <Compile Include="Data\Repository\ServiceAgreement.cs" />
+    <Compile Include="Services\MonthlyPaymentService.cs" />
+    <Compile Include="Services\WeeklyPaymentService.cs" />
+    <Compile Include="Services\ContractSignatureService.cs" />
+    <Compile Include="Services\DailyStatService.cs" />
     <Compile Include="Services\ErrorLogService.cs" />
+    <Compile Include="Services\FileFolderManagementService.cs" />
     <Compile Include="Tools\MsgDecoratorTool.cs" />
     <Compile Include="Tools\RepairAutomationTool.cs" />
     <Compile Include="WorkFlow\CarMaker.cs" />
@@ -111,7 +127,7 @@
     <Compile Include="Data\Models\CarPartsStock\CustomBonnetModStock.cs" />
     <Compile Include="Data\Repository\CustomerQueue.cs" />
     <Compile Include="Data\Models\CarPartsStock\DecalsModStock.cs" />
-    <Compile Include="Data\Models\DiscountCard.cs" />
+    <Compile Include="Data\Repository\DiscountCard.cs" />
     <Compile Include="Data\Models\CarPartsStock\EnginePartStock.cs" />
     <Compile Include="Data\Models\CarPartsStock\ExhaustPipeModStock.cs" />
     <Compile Include="Data\Models\CarPartsStock\GearboxPartStock.cs" />
@@ -135,7 +151,7 @@
     <Compile Include="Data\Models\Humans\RmPetrovich.cs" />
     <Compile Include="Data\Models\Humans\RmVano.cs" />
     <Compile Include="WorkFlow\ShopManager.cs" />
-    <Compile Include="Services\LoggerService.cs" />
+    <Compile Include="Services\FileLoggerService.cs" />
     <Compile Include="Data\Repository\GarageStockManager.cs" />
     <Compile Include="Services\StockService.cs" />
     <Compile Include="Tools\TimeTool.cs" />
@@ -147,7 +163,37 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Connected Services\CourtServiceReference\Court.wsdl" />
+    <None Include="Connected Services\CourtServiceReference\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CourtServiceReference\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CourtServiceReference\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\CourtServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CourtServiceReference\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CourtServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CourtServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CourtServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

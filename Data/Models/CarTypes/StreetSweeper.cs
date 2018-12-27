@@ -2,7 +2,7 @@
 
 namespace AutoRepairShop.Data.Models.CarTypes
 {
-    class StreetSweeper:CleaningVehicle
+    internal class StreetSweeper:CleaningVehicle
     {
         public void CleanStreet()
         {

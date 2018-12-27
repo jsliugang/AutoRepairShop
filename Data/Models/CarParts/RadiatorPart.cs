@@ -1,10 +1,10 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class RadiatorPart:CarPart
+    internal class RadiatorPart:CarPart
     {
-        public RadiatorPart(bool state) : base("Radiator", state)
+        public RadiatorPart(byte durability) : base("Radiator", durability)
         {
-            Cost = 3500;
+            Cost = 350;
         }
     }
 }

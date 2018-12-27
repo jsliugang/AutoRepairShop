@@ -1,8 +1,8 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class TitaniumWipersMod:CarPart
+    internal class TitaniumWipersMod:CarPart
     {
-        public TitaniumWipersMod(bool state) : base("TitaniumWipers", state)
+        public TitaniumWipersMod(byte durability) : base("TitaniumWipers", durability)
         {
             Cost = 85;
         }

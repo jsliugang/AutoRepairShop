@@ -1,8 +1,8 @@
 ﻿namespace AutoRepairShop.Data.Models.CarParts
 {
-    class MufflerPart:CarPart
+    internal class MufflerPart:CarPart
     {
-        public MufflerPart(bool state) : base("Muffler", state)
+        public MufflerPart(byte durability) : base("Muffler", durability)
         {
             Cost = 100;
         }

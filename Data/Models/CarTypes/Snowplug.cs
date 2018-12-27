@@ -2,7 +2,7 @@
 
 namespace AutoRepairShop.Data.Models.CarTypes
 {
-    class Snowplug:CleaningVehicle
+    internal class Snowplug:CleaningVehicle
     {
         public void CleanSnow()
         {

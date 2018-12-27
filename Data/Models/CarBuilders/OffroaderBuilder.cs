@@ -2,24 +2,14 @@
 
 namespace AutoRepairShop.Data.Models.CarBuilders
 {
-    class OffroaderBuilder:CarBuilder
+    internal class OffroaderBuilder:CarBuilder
     {
-        public OffroaderBuilder(bool random):base(random)
+        public OffroaderBuilder()
         {
             Car = new Offroader();
-            if (random)
-            {
-                RandomCarName();
-            }
-            else
-            {
-                ProcessNamingInput();
-            }
+            RandomCarName();
         }
 
-        public override void CreateCar()
-        {
-        }
         protected override void SetCarNamesList()
         {
             CarNames.Add("UAZ Patriot");
